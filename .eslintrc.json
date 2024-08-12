@@ -1,13 +1,24 @@
 {
   "root": true,
-  "env": { "browser": true, "es2021": true, "node": true },
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
   "extends": [
     "next/core-web-vitals",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:storybook/recommended"
   ],
-  "ignorePatterns": ["dist", "vite.config.ts", "*.cjs", "*.mjs", "*.js"],
+  "ignorePatterns": [
+    "dist",
+    "vite.config.ts",
+    "*.cjs",
+    "*.mjs",
+    "*.js"
+  ],
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "react-refresh",
@@ -23,9 +34,14 @@
   },
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx"],
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
       "parserOptions": {
-        "project": ["./tsconfig.json"]
+        "project": [
+          "./tsconfig.json"
+        ]
       }
     }
   ],
@@ -35,31 +51,55 @@
       "error",
       {
         "selector": "interface",
-        "format": ["PascalCase"]
+        "format": [
+          "PascalCase"
+        ]
       },
       {
         "selector": "typeAlias",
-        "format": ["PascalCase"]
+        "format": [
+          "PascalCase"
+        ]
       },
       {
         "selector": "variable",
-        "format": ["PascalCase", "camelCase", "UPPER_CASE"]
+        "format": [
+          "PascalCase",
+          "camelCase",
+          "UPPER_CASE"
+        ]
       },
       {
         "selector": "variable",
-        "types": ["function"],
-        "format": ["PascalCase", "camelCase"]
+        "types": [
+          "function"
+        ],
+        "format": [
+          "PascalCase",
+          "camelCase"
+        ]
       },
       {
         "selector": "variable",
-        "types": ["boolean"],
-        "format": ["PascalCase"],
-        "prefix": ["is", "has"]
+        "types": [
+          "boolean"
+        ],
+        "format": [
+          "PascalCase"
+        ],
+        "prefix": [
+          "is",
+          "has"
+        ]
       }
     ],
     "padding-line-between-statements": [
       "error",
-      { "blankLine": "always", "prev": "const", "next": "return" }
+      {
+        "blankLine": "always",
+        "prev": "const",
+        "next": "return"
+      }
     ]
   }
 }
