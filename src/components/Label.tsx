@@ -21,8 +21,10 @@ export default function Label({
 }: TLabelProps) {
   return (
     <>
-      <span
-        className={`rounded-full px-3 py-3 text-center text-xl font-medium outline outline-1`}
+      <div
+        className={
+          "rounded-full px-3 py-3 text-center text-xl font-medium outline outline-1"
+        }
         style={{
           backgroundColor: LabelColor[variant].bg,
           color: LabelColor[variant].text,
@@ -31,7 +33,7 @@ export default function Label({
         {...rest}
       >
         {children}
-      </span>
+      </div>
     </>
   );
 }
