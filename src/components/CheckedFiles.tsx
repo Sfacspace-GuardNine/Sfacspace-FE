@@ -9,7 +9,7 @@ export default function CheckedFiles({ files }: TCheckedFiles) {
     <>
       <ul
         className={
-          "divide-y divide-[#BCBCBC] rounded-lg outline outline-1 outline-[#bcbcbc]"
+          "w-[590px] divide-y divide-[#BCBCBC] rounded-lg outline outline-1 outline-[#bcbcbc]"
         }
       >
         {files.map((file, index) => (

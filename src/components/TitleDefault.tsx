@@ -8,14 +8,19 @@ type TTitleDefaultProps = {
   link: string;
 };
 
-export default function TitleDefault({ children, link }: TTitleDefaultProps) {
+export default function TitleDefault({
+  children,
+  link,
+  ...rest
+}: TTitleDefaultProps) {
   return (
     <>
       <Link href={`${link}`}>
         <div
           className={
-            "flex items-center gap-6 rounded-full p-5 text-4xl font-normal text-primary-500 outline outline-4"
+            "flex w-fit items-center gap-6 rounded-full p-5 text-4xl font-normal text-primary-500 outline outline-4"
           }
+          {...rest}
         >
           <Image
             src={"./images/arrow_left.svg"}

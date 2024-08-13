@@ -16,7 +16,7 @@ export default function Infobox({
     <>
       <div
         className={
-          "flex gap-5 rounded-lg p-5 text-xl font-medium text-[#3f3f3f] outline outline-1 outline-[#C3C3C3]"
+          "flex w-fit gap-5 rounded-lg p-5 text-xl font-medium text-[#3f3f3f] outline outline-1 outline-[#C3C3C3]"
         }
         {...rest}
       >

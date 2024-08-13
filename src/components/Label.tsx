@@ -23,7 +23,7 @@ export default function Label({
     <>
       <div
         className={
-          "rounded-full px-3 py-3 text-center text-xl font-medium outline outline-1"
+          "w-fit rounded-full px-3 py-3 text-center text-xl font-medium outline outline-1"
         }
         style={{
           backgroundColor: LabelColor[variant].bg,
