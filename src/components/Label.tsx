@@ -14,23 +14,18 @@ const LabelColor = {
   yellow: { bg: "#FFFBE4", text: "#FF8A00" },
 } as const;
 
-export default function Label({
-  children,
-  variant = "purple",
-  ...rest
-}: TLabelProps) {
+export default function Label({ children, variant = "purple" }: TLabelProps) {
   return (
     <>
       <div
         className={
-          "w-fit rounded-full px-3 py-3 text-center text-xl font-medium outline outline-1"
+          "w-fit rounded-full px-3 py-2 text-center text-xl font-medium outline outline-1"
         }
         style={{
           backgroundColor: LabelColor[variant].bg,
           color: LabelColor[variant].text,
           outlineColor: LabelColor[variant].text,
         }}
-        {...rest}
       >
         {children}
       </div>
