@@ -1,3 +1,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --neutral-100: #000000;
+    --neutral-90: #1a1a1a;
+    --neutral-80: #333333;
+    --neutral-70: #4d4d4d;
+    --neutral-60: #666666;
+    --neutral-50: #808080;
+    --neutral-40: #999999;
+    --neutral-30: #b3b3b3;
+    --neutral-20: #cccccc;
+    --neutral-10: #e6e6e6;
+    --neutral-5: #f2f2f2;
+    --neutral-white: #ffffff;
+
+    --primary-500: #5c00e6;
+    --primary-400: #734dff;
+    --primary-300: #9966ff;
+    --primary-200: #bf80ff;
+    --primary-100: #d9b3ff;
+    --primary-50: #ecd9ff;
+
+    --strokeLine-blue: #66b3ff;
+    --strokeLine-main10: #e6e6e6;
+    --strokeLine-main5: #f2f2f2;
+
+    --background-purpleLight: #f2e6ff;
+    --background-purpleDark: #d9b3ff;
+    --background-redLight: #ffcccc;
+    --background-grayLight: #f2f2f2;
+    --background-grayDark: #cccccc;
+
+    --system-warning: #ff9933;
+    --system-assist: #66b3ff;
+    --system-suggest: #ffcc33;
+    --system-success: #66ff66;
+  }
+}
