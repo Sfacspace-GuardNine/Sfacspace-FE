@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-type TProps = {
+type TLabelProps = {
   children: ReactNode;
   variant: keyof typeof LabelColor;
 };
@@ -14,7 +14,11 @@ const LabelColor = {
   yellow: { bg: "#FFFBE4", text: "#FF8A00" },
 } as const;
 
-export default function Label({ children, variant }: TProps) {
+export default function Label({
+  children,
+  variant = "purple",
+  ...rest
+}: TLabelProps) {
   return (
     <>
       <span
@@ -24,6 +28,7 @@ export default function Label({ children, variant }: TProps) {
           color: LabelColor[variant].text,
           outlineColor: LabelColor[variant].text,
         }}
+        {...rest}
       >
         {children}
       </span>
