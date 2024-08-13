@@ -4,39 +4,39 @@
 
 @layer base {
   :root {
-    --neutral-100: #000000;
-    --neutral-90: #1a1a1a;
+    --neutral-100: #030303;
+    --neutral-90: #1A1A1A;
     --neutral-80: #333333;
-    --neutral-70: #4d4d4d;
+    --neutral-70: #4D4D4D;
     --neutral-60: #666666;
     --neutral-50: #808080;
     --neutral-40: #999999;
-    --neutral-30: #b3b3b3;
+    --neutral-30: #B3B3B3;
     --neutral-20: #cccccc;
-    --neutral-10: #e6e6e6;
-    --neutral-5: #f2f2f2;
+    --neutral-10: #E6E6E6;
+    --neutral-5: #F3F3F3;
     --neutral-white: #ffffff;
 
-    --primary-500: #5c00e6;
-    --primary-400: #734dff;
-    --primary-300: #9966ff;
-    --primary-200: #bf80ff;
-    --primary-100: #d9b3ff;
-    --primary-50: #ecd9ff;
+    --primary-500: #6100FF;
+    --primary-400: #883EFF;
+    --primary-300: #A66FFF;
+    --primary-200: #C9A8FF;
+    --primary-100: #E0CEFF;
+    --primary-50: #F2EBFF;
 
-    --strokeLine-blue: #66b3ff;
-    --strokeLine-main10: #e6e6e6;
-    --strokeLine-main5: #f2f2f2;
+    --strokeLine-blue: #99BDFF;
+    --strokeLine-main10: #E6E6E6;
+    --strokeLine-main5: #F3F3F3;
 
-    --background-purpleLight: #f2e6ff;
-    --background-purpleDark: #d9b3ff;
-    --background-redLight: #ffcccc;
-    --background-grayLight: #f2f2f2;
-    --background-grayDark: #cccccc;
+    --background-purpleLight: #FAF8FF;
+    --background-purpleDark: #E3E1E7;
+    --background-redLight: #FFEFEF;
+    --background-grayLight: #F1F1F1;
+    --background-grayDark: #C2C2C2;
 
-    --system-warning: #ff9933;
-    --system-assist: #66b3ff;
-    --system-suggest: #ffcc33;
-    --system-success: #66ff66;
+    --system-warning: #FF6D6D;
+    --system-assist: #6DB0FF;
+    --system-suggest: #FFD542;
+    --system-success: #00C308;
   }
 }
