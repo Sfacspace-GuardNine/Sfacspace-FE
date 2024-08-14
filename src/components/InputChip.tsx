@@ -25,7 +25,7 @@ const progressClasses = {
   "3": "bg-opacity-[.16]",
 };
 
-export const InputChip = ({
+export default function InputChip({
   text,
   hasIcon = true,
   percentage,
@@ -34,7 +34,7 @@ export const InputChip = ({
   variant = "dark",
   progress = "3",
   ...props
-}: TInputChipProps) => {
+}: TInputChipProps) {
   return (
     <div
       className={cn(
@@ -66,4 +66,4 @@ export const InputChip = ({
       )}
     </div>
   );
-};
+}
