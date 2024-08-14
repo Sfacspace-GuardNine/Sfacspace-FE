@@ -37,7 +37,7 @@ function InfoBoxDetail({ variant = "primary", text }: TInfoBoxProps) {
         : "border-primary-500 text-primary-500",
   );
 
-  const isSingleLine = text.length === 1;
+  const isSingleLine = text.length === 1; // 두 줄이상일 경우 list마크를 넣기 위함
 
   return (
     <div className={boxClass}>
