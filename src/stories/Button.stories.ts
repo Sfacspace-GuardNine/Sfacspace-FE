@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import Button from "@/components/Button";
+import { Button } from "@/components/Button";
 
 const meta: Meta<typeof Button> = {
   title: "components/Button",
@@ -14,24 +14,47 @@ type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {
   args: {
-    children: "기본",
-    disabled: false,
-    variant: "primary",
+    children: "Default Button",
+  },
+  argTypes: {
+    disabled: {
+      control: "boolean",
+    },
   },
 };
 
-export const DefaultDisabled: Story = {
+export const Filled: Story = {
   args: {
-    children: "기본 비활성화",
-    disabled: true,
-    variant: "primary",
+    variant: "fill",
+    children: "Fill Button",
+  },
+  argTypes: {
+    disabled: {
+      control: "boolean",
+    },
   },
 };
 
-export const Secondary: Story = {
+export const OutLined: Story = {
   args: {
-    children: "보조 버튼",
-    disabled: false,
-    variant: "secondary",
+    variant: "outline",
+    children: "Outline Button",
+  },
+  argTypes: {
+    disabled: {
+      control: "boolean",
+    },
+  },
+};
+
+export const Tonal: Story = {
+  args: {
+    variant: "tonal",
+    children: "Tonal Button",
+  },
+  argTypes: {
+    disabled: {
+      control: "boolean",
+    },
   },
 };
