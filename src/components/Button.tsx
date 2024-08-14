@@ -8,7 +8,7 @@ type TButtonProps = {
   shape?: "square" | "round";
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const variantClasses = {
+const variantClasses = {
   fill: cn(
     "bg-primary-500 text-white",
     "enabled:hover:drop-shadow-lg disabled:bg-transparent disabled:text-[#969696]",
@@ -44,14 +44,14 @@ const shapeClasses = {
   round: "rounded-full",
 };
 
-export const Button = ({
+export default function Button({
   size = "md",
   shape = "square",
   variant = "fill",
   className,
   children,
   ...props
-}: TButtonProps) => {
+}: TButtonProps) {
   return (
     <button
       className={cn(
@@ -65,4 +65,4 @@ export const Button = ({
       {children}
     </button>
   );
-};
+}
