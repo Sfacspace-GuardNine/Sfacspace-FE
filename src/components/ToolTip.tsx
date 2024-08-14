@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export default function Tooltip({ children }: { children: ReactNode }) {
+export default function ToolTip({ children }: { children: ReactNode }) {
   return (
     <>
       <div

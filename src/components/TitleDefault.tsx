@@ -14,7 +14,7 @@ export default function TitleDefault({ children, link }: TTitleDefaultProps) {
       <Link href={`${link}`}>
         <div
           className={
-            "flex w-fit items-center gap-6 rounded-full p-5 text-4xl font-normal text-primary-500 outline outline-4"
+            "flex h-[79px] w-fit items-center gap-6 rounded-full p-5 text-[40px] font-normal text-primary-500 outline outline-4"
           }
         >
           <Image
