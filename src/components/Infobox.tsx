@@ -10,7 +10,6 @@ export default function Infobox({
   error = 0,
   warning = 0,
   success = 0,
-  ...rest
 }: TInfoboxProps) {
   return (
     <>
@@ -18,7 +17,6 @@ export default function Infobox({
         className={
           "flex w-fit gap-5 rounded-lg p-5 text-xl font-medium text-[#3f3f3f] outline outline-1 outline-[#C3C3C3]"
         }
-        {...rest}
       >
         <div className={"flex items-center gap-2"}>
           <Image

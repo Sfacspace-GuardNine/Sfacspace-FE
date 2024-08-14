@@ -9,7 +9,7 @@ export default function Ranking({ items = [], outline = true }: TRankingProps) {
   return (
     <>
       <div
-        className={`rounded-lg p-5 ${outline ? "outline outline-1 outline-[#c3c3c3]" : ""} w-fit`}
+        className={`rounded-lg p-5 ${outline ? "outline outline-1 outline-[#c3c3c3]" : ""} w-[346px]`}
       >
         <ul className={"w-full divide-y divide-strokeLine-main10"}>
           {items.length > 0 &&
