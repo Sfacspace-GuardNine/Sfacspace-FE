@@ -14,14 +14,14 @@ type Story = StoryObj<typeof InfoBoxDetail>;
 
 export const Default: Story = {
   args: {
-    children: "여기에 내용이 들어갑니다.",
+    text: ["여기에 내용이 들어갑니다."],
     variant: "primary",
   },
 };
 
 export const GrayWithMultipleLines: Story = {
   args: {
-    children: [
+    text: [
       "첫 번째 줄 텍스트입니다.",
       "두 번째 줄 텍스트입니다.",
       "세 번째 줄 텍스트입니다.",
@@ -32,7 +32,7 @@ export const GrayWithMultipleLines: Story = {
 
 export const RedWithEmptyContent: Story = {
   args: {
-    children: "",
+    text: [],
     variant: "red",
   },
 };

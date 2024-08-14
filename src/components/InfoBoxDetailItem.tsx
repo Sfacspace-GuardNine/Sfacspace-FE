@@ -1,7 +1,7 @@
 import { cn } from "@/utils/cn";
 
 type TInfoBoxDetailItemProps = {
-  text: string; // text를 string으로 변경
+  text: string;
   variant?: "red" | "primary" | "gray";
 };
 
