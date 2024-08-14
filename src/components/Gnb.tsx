@@ -5,9 +5,9 @@ import GnbTitle from "@/components/GnbTitle";
 export default function Gnb() {
   return (
     <>
-      <div
+      <header
         className={
-          "flex h-[136px] w-full items-center justify-between px-12 py-20"
+          "flex h-[136px] w-screen items-center justify-between px-12 py-20"
         }
       >
         <div className={"flex items-center gap-[100px]"}>
@@ -22,7 +22,7 @@ export default function Gnb() {
         <div>
           <GnbTitle link={""}>MY 저장소</GnbTitle>
         </div>
-      </div>
+      </header>
     </>
   );
 }
