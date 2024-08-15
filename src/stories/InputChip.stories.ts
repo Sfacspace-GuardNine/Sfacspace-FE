@@ -15,20 +15,20 @@ type Story = StoryObj<typeof InputChip>;
 export const Default: Story = {
   args: {
     children: "Default InputChip",
-    text: ".eslintrc.json",
+    text: "file name",
   },
 };
 
 export const Dark: Story = {
   args: {
     variant: "dark",
-    text: ".eslintrc.json",
+    text: "file name",
   },
 };
 
 export const Light: Story = {
   args: {
     variant: "light",
-    text: ".eslintrc.json",
+    text: "file name",
   },
 };
