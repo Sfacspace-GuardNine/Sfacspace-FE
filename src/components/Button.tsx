@@ -8,21 +8,23 @@ type TButtonProps = {
   shape?: "square" | "round";
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
+const hoverShadow = "shadow-[0_2px_12px_rgba(0,0,0,0.25)]";
+
 const variantClasses = {
   fill: cn(
     "bg-primary-500 text-white",
-    "enabled:hover:drop-shadow-lg disabled:bg-transparent disabled:text-[#969696]",
+    `enabled:hover:${hoverShadow} disabled:bg-transparent disabled:text-[#969696]`,
   ),
   outline: cn(
     "border border-primary-200 text-primary-500",
-    "enabled:hover:bg-primary-200 enabled:hover:bg-opacity-[.08] enabled:hover:drop-shadow-lg",
+    `enabled:hover:bg-[#6100FF] enabled:hover:bg-opacity-[.08] enabled:hover:${hoverShadow}`,
     "disabled:border-[#C3C3C3] disabled:bg-transparent disabled:text-[#969696]",
-    "focus:border-primary-500 focus:bg-opacity-[.12]",
-    "active:bg-primary-200",
+    "focus:border-primary-500 focus:bg-[#6100FF] focus:bg-opacity-[.12]",
+    "active:bg-[#6100FF] active:bg-opacity-[.12]",
   ),
   tonal: cn(
     "bg-primary-50 text-primary-500",
-    "enabled:hover:drop-shadow-lg disabled:bg-transparent disabled:text-primary-100",
+    `enabled:hover:${hoverShadow} disabled:bg-transparent disabled:text-primary-100`,
   ),
 };
 
