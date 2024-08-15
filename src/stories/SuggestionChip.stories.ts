@@ -12,11 +12,14 @@ export default meta;
 
 type Story = StoryObj<typeof SuggestionChip>;
 
-export const Default: Story = {};
-
 export const New: Story = {
   args: {
     variant: "new",
+  },
+  argTypes: {
+    disabled: {
+      control: "boolean",
+    },
   },
 };
 
@@ -24,22 +27,27 @@ export const Hot: Story = {
   args: {
     variant: "hot",
   },
+  argTypes: {
+    disabled: {
+      control: "boolean",
+    },
+  },
 };
 
 export const Clipping0: Story = {
   args: {
-    variant: "clipping0",
+    variant: "gray",
   },
 };
 
 export const Clipping1: Story = {
   args: {
-    variant: "clipping1",
+    variant: "purple",
   },
 };
 
 export const Clipping2: Story = {
   args: {
-    variant: "clipping2",
+    variant: "pink",
   },
 };
