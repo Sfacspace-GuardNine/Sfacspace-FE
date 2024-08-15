@@ -10,7 +10,7 @@ type TAssistChipProps = {
 const variantClasses = {
   default: cn(
     "border border-black bg-black bg-opacity-[0.08]",
-    "border-[#969696] disabled:bg-white disabled:text-[#969696]",
+    "disabled-[#C3C3C3] border-[#969696] disabled:bg-white disabled:text-[#969696]",
   ),
   fill: cn(
     "bg-[#7E5AFF] bg-opacity-[0.08]",

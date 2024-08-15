@@ -34,19 +34,13 @@ export const Hot: Story = {
   },
 };
 
-export const Clipping0: Story = {
-  args: {
-    variant: "gray",
-  },
-};
-
-export const Clipping1: Story = {
+export const Purple: Story = {
   args: {
     variant: "purple",
   },
 };
 
-export const Clipping2: Story = {
+export const Pink: Story = {
   args: {
     variant: "pink",
   },
