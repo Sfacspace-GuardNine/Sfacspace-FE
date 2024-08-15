@@ -30,14 +30,14 @@ const variantClasses = {
 
 const sizeClasses = {
   square: {
-    lg: "y-[61px] py-[16px] px-[60px] text-2xl font-semibold",
-    md: "y-[56px] py-[16px] px-[20px] text-2xl",
-    sm: "y-[20px] py-[8px] px-[20px] text-xl",
+    lg: "py-[16px] px-[60px] text-2xl font-semibold",
+    md: "py-[16px] px-[20px] text-2xl font-light",
+    sm: "py-[8px] px-[20px] text-xl font-light",
   },
   round: {
-    lg: "y-[56px] py-[16px] px-[24px] text-2xl",
-    md: "y-[56px] py-[16px] px-[24px] text-2xl",
-    sm: "y-[40px] py-[8px] px-[20px] text-xl",
+    lg: "py-[16px] px-[24px] text-2xl font-light",
+    md: "py-[16px] px-[24px] text-2xl font-light",
+    sm: "py-[8px] px-[20px] text-xl font-light",
   },
 };
 
