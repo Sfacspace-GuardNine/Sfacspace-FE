@@ -1,10 +1,10 @@
 import CheckedFileItem from "@/components/CheckedFileItem";
 
-type TCheckedFiles = {
+type TCheckedFilesProps = {
   files: { fileName: string; subTitle: string; dateAt: Date }[];
 };
 
-export default function CheckedFiles({ files }: TCheckedFiles) {
+export default function CheckedFiles({ files }: TCheckedFilesProps) {
   return (
     <>
       <ul

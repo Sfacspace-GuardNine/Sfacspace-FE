@@ -4,17 +4,17 @@ import Image from "next/image";
 
 dayjs.extend(relativeTime);
 
-type TCheckedFileItem = {
+type TCheckedFileItemProps = {
   fileName: string;
   subTitle: string;
   dateAt: Date;
 };
 
-export default function CheckedFileItem({
+export default function TCheckedFileItemProps({
   fileName,
   dateAt,
   subTitle,
-}: TCheckedFileItem) {
+}: TCheckedFileItemProps) {
   return (
     <>
       <li className={"flex items-center justify-between p-2.5"}>
