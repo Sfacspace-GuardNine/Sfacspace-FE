@@ -36,8 +36,8 @@ yarn-error.log*
 next-env.d.ts
 
 
-package-lock.json
 dist
 dist-ssr
 *.local
 *storybook.log
+storybook-static
