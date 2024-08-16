@@ -15,7 +15,7 @@ type Story = StoryObj<typeof Input>;
 export const Default: Story = {
   args: {
     disabled: false,
-    variant: "",
-    placeholder: "",
+    variant: "default",
+    placeholder: "Example",
   },
 };

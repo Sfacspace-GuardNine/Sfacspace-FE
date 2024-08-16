@@ -3,10 +3,15 @@ import { InputHTMLAttributes } from "react";
 import { cn } from "@/utils/cn";
 
 type TInputProps = InputHTMLAttributes<HTMLInputElement> & {
-  variant?: "filled" | "error" | "";
+  variant?: "filled" | "error" | "default";
 };
 
-const Input = ({ variant = "", disabled, className, ...rest }: TInputProps) => {
+const Input = ({
+  variant = "default",
+  disabled,
+  className,
+  ...rest
+}: TInputProps) => {
   const defaultStyle =
     "outline-none p-[12px] rounded-[8px] w-[866px] h-[51px] border-[1px] border-neutral-10 bg-transparent bg-transparent text-[#D6D6D6] text-[18px] font-medium focus:text-[#3F3F3F] focus:border-primary-500 focus:bg-transparent";
   const filledStyle = "bg-[#FAF8FF] text-[#3F3F3F]";
