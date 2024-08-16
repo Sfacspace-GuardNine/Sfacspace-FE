@@ -4,6 +4,8 @@ import Image from "next/image";
 
 import { cn } from "@/utils/cn";
 
+import SuggestionChip from "./SuggestionChip";
+
 type TOnlyCardProps = {
   variant?: "outlined" | "elevated" | "filled";
   title: string;
@@ -37,7 +39,11 @@ function OnlyCard({
   return (
     <div className={boxClass}>
       <div className="flex">
-        <p className="h-[35px] w-[59px]">HOT</p>
+        <SuggestionChip
+          text="Hot"
+          variant="hot"
+          className="h-[35px] w-[59px]"
+        />
         <p className="pl-2 pt-[11px] text-[20px] leading-6">{title}</p>
       </div>
       <div className="w-[71px] leading-[19px] text-[#ADADAD]">Microsoft</div>
