@@ -1,21 +1,18 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import Button from "@/components/Button";
+import AssistChip from "@/components/AssistChip";
 
-const meta: Meta<typeof Button> = {
-  title: "components/Button",
+const meta: Meta<typeof AssistChip> = {
+  title: "components/AssistChip",
   tags: ["autodocs"],
-  component: Button,
+  component: AssistChip,
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof AssistChip>;
 
 export const Default: Story = {
-  args: {
-    children: "Default Button",
-  },
   argTypes: {
     disabled: {
       control: "boolean",
@@ -26,7 +23,6 @@ export const Default: Story = {
 export const Filled: Story = {
   args: {
     variant: "fill",
-    children: "Fill Button",
   },
   argTypes: {
     disabled: {
@@ -38,19 +34,6 @@ export const Filled: Story = {
 export const OutLined: Story = {
   args: {
     variant: "outline",
-    children: "Outline Button",
-  },
-  argTypes: {
-    disabled: {
-      control: "boolean",
-    },
-  },
-};
-
-export const Tonal: Story = {
-  args: {
-    variant: "tonal",
-    children: "Tonal Button",
   },
   argTypes: {
     disabled: {
