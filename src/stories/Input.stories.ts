@@ -16,5 +16,6 @@ export const Default: Story = {
   args: {
     disabled: false,
     variant: "",
+    placeholder: "",
   },
 };
