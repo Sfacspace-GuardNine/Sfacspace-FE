@@ -6,12 +6,12 @@ export default function Footer() {
     <>
       <footer
         className={
-          "h-[324px] w-screen bg-[url('/images/footer-pattern.svg')] bg-cover px-20 py-[60px]"
+          "h-[324px] w-full bg-background-purpleLight bg-[url('/images/footer-pattern.svg')] bg-cover px-20 py-[60px]"
         }
       >
         <div className={"text-base font-medium text-[#3F3F3F]"}>
           <Image
-            src={"./images/sfacspace-logo.svg"}
+            src={"/images/sfacspace-logo.svg"}
             alt={"logo"}
             width={120}
             height={55}

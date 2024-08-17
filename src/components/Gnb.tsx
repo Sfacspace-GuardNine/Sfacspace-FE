@@ -7,12 +7,12 @@ export default function Gnb() {
     <>
       <header
         className={
-          "flex h-[136px] w-screen items-center justify-between px-12 py-20"
+          "flex h-[136px] w-full items-center justify-between px-12 py-20"
         }
       >
         <div className={"flex items-center gap-[100px]"}>
           <Image
-            src={"./images/flawdetector-logo.svg"}
+            src={"/images/flawdetector-logo.svg"}
             alt={"logo"}
             width={378.5}
             height={40}
