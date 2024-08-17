@@ -20,5 +20,13 @@ export const Ask: Story = {
 export const Top: Story = {
   args: {
     variant: "top",
+    children: "TOP",
+  },
+};
+
+export const DownText: Story = {
+  args: {
+    variant: "top",
+    children: "DOWN",
   },
 };
