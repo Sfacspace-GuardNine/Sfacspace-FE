@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Meta, StoryObj } from "@storybook/react";
 import Image from "next/image";
@@ -6,6 +6,7 @@ import Image from "next/image";
 import Button from "@/components/Button";
 import CheckedFiles from "@/components/CheckedFiles";
 import Popup from "@/components/Popup/Popup";
+import usePopup from "@/hooks/usePopup";
 
 const meta: Meta<typeof Popup.Container> = {
   title: "Components/Popup",
@@ -29,15 +30,12 @@ export const Default: Story = {
     variant: "small",
   },
   render: function Render(args) {
-    const [isOpen, setIsOpen] = useState(args.isShow);
-
-    const handleClose = () => setIsOpen(false);
-    const handleOpen = () => setIsOpen(true);
+    const { open: openPopup, close: closePopup, isOpen: isOpen } = usePopup();
 
     return (
       <>
-        <Button onClick={handleOpen}>Open Popup</Button>
-        <Popup.Container {...args} isShow={isOpen} onClose={handleClose}>
+        <Button onClick={openPopup}>Open Popup</Button>
+        <Popup.Container {...args} isShow={isOpen} onClose={closePopup}>
           <Popup.Title text="모달 타이틀 영역" />
           <Popup.Content
             text="설명하는 내용이 들어가는 영역"
@@ -54,15 +52,12 @@ export const Small: Story = {
     variant: "small",
   },
   render: function Render(args) {
-    const [isOpen, setIsOpen] = useState(args.isShow);
-
-    const handleClose = () => setIsOpen(false);
-    const handleOpen = () => setIsOpen(true);
+    const { open: openPopup, close: closePopup, isOpen: isOpen } = usePopup();
 
     return (
       <>
-        <Button onClick={handleOpen}>Open Small Popup</Button>
-        <Popup.Container {...args} isShow={isOpen} onClose={handleClose}>
+        <Button onClick={openPopup}>Open Small Popup</Button>
+        <Popup.Container {...args} isShow={isOpen} onClose={closePopup}>
           <Popup.Title text="모달 타이틀 영역" />
           <Popup.Content
             text="설명하는 내용이 들어가는 영역"
@@ -80,14 +75,12 @@ export const Large: Story = {
     hasBackground: true,
   },
   render: function Render(args) {
-    const [isOpen, setIsOpen] = useState(args.isShow);
-    const handleClose = () => setIsOpen(false);
-    const handleOpen = () => setIsOpen(true);
+    const { open: openPopup, close: closePopup, isOpen: isOpen } = usePopup();
 
     return (
       <>
-        <Button onClick={handleOpen}>Open Large Popup</Button>
-        <Popup.Container {...args} isShow={isOpen} onClose={handleClose}>
+        <Button onClick={openPopup}>Open Large Popup</Button>
+        <Popup.Container {...args} isShow={isOpen} onClose={closePopup}>
           <Popup.Title text="모달 타이틀 영역" />
           <CheckedFiles
             files={[
@@ -131,15 +124,12 @@ export const Large: Story = {
 export const Analyzing: Story = {
   args: { hasButtons: false, variant: "small", hasBackground: true },
   render: function Render(args) {
-    const [isOpen, setIsOpen] = useState(args.isShow);
-
-    const handleClose = () => setIsOpen(false);
-    const handleOpen = () => setIsOpen(true);
+    const { open: openPopup, close: closePopup, isOpen: isOpen } = usePopup();
 
     return (
       <>
-        <Button onClick={handleOpen}>Open Analyzing Popup</Button>
-        <Popup.Container {...args} isShow={isOpen} onClose={handleClose}>
+        <Button onClick={openPopup}>Open Analyzing Popup</Button>
+        <Popup.Container {...args} isShow={isOpen} onClose={closePopup}>
           <Image
             src={"./images/logo_bug.svg"}
             alt={"file"}
@@ -161,15 +151,12 @@ export const Analyzing: Story = {
 export const Login: Story = {
   args: { hasButtons: false, variant: "small" },
   render: function Render(args) {
-    const [isOpen, setIsOpen] = useState(args.isShow);
-
-    const handleClose = () => setIsOpen(false);
-    const handleOpen = () => setIsOpen(true);
+    const { open: openPopup, close: closePopup, isOpen: isOpen } = usePopup();
 
     return (
       <>
-        <Button onClick={handleOpen}>Open Login Popup</Button>
-        <Popup.Container {...args} isShow={isOpen} onClose={handleClose}>
+        <Button onClick={openPopup}>Open Login Popup</Button>
+        <Popup.Container {...args} isShow={isOpen} onClose={closePopup}>
           <Popup.Title text="자세한 정보를 보고싶다면?" />
           <Button
             shape="round"
