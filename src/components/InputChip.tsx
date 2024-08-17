@@ -47,7 +47,7 @@ export default function InputChip({
     >
       {hasIcon && (
         <Image
-          src={"./images/document_icon.svg"}
+          src={"/images/document_icon.svg"}
           alt={"file icon"}
           width={24}
           height={24}
@@ -57,7 +57,7 @@ export default function InputChip({
       {percentage && <span>{percentage}%</span>}
       {hasClose && (
         <Image
-          src={"./images/X.svg"}
+          src={"/images/X.svg"}
           alt={"close icon"}
           width={11.5}
           height={11.5}

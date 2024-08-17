@@ -29,7 +29,7 @@ export default function ProfilePage() {
 
         {/* 설정 등 */}
         <div className={"flex flex-col gap-9"}>
-          <GnbTitle link={"/me/library/setting"} className={"text-2xl"}>
+          <GnbTitle link={"/me/setting"} className={"text-2xl"}>
             설정
           </GnbTitle>
           <GnbTitle link={""} className={"text-2xl"}>

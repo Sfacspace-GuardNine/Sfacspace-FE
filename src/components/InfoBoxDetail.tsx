@@ -6,12 +6,13 @@ import InfoBoxDetailItem from "./InfoBoxDetailItem";
 
 type TInfoBoxProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "red" | "primary" | "gray";
+  title: string;
   text: string[];
 };
 
-function InfoBoxDetail({ variant = "primary", text }: TInfoBoxProps) {
+function InfoBoxDetail({ variant = "primary", text, title }: TInfoBoxProps) {
   const boxClass = cn(
-    "w-[1486px] rounded-[12px]",
+    "w-full rounded-[12px]",
     variant === "red"
       ? "bg-background-redLight"
       : variant === "gray"
@@ -42,7 +43,7 @@ function InfoBoxDetail({ variant = "primary", text }: TInfoBoxProps) {
   return (
     <div className={boxClass}>
       <div className="flex">
-        <p className={headerClass}>문제코드</p>
+        <p className={headerClass}>{title}</p>
         <button className={buttonClass}>위치보기</button>
       </div>
       <div className="pb-5 pl-10">

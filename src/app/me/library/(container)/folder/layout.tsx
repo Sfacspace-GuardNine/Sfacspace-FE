@@ -1,5 +1,3 @@
-import Footer from "@/components/Footer";
-
 export default function AiAnalyzeLayout({
   children,
 }: {
@@ -7,8 +5,7 @@ export default function AiAnalyzeLayout({
 }) {
   return (
     <>
-      <div className={"p-3"}>{children}</div>
-      <Footer />
+      <div className={"max-w-[1761px] pt-3"}>{children}</div>
     </>
   );
 }

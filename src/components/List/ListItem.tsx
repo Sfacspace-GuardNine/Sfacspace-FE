@@ -29,14 +29,14 @@ export default function ListItem({
       <div className="flex gap-[4px]">
         {isChecked && (
           <Image
-            src={`./images/check.svg`}
+            src={`/images/check.svg`}
             alt={"fileIcon"}
             width={24}
             height={24}
           />
         )}
         <Image
-          src={`./images/${type === "file" ? "file_empty" : "folder-open"}.svg`}
+          src={`/images/${type === "file" ? "file_empty" : "folder-open"}.svg`}
           alt={"fileIcon"}
           width={24}
           height={24}
@@ -47,7 +47,7 @@ export default function ListItem({
         <div className="flex">
           {statusStyle.icon && (
             <Image
-              src={`./images/${statusStyle.icon}.svg`}
+              src={`/images/${statusStyle.icon}.svg`}
               alt={"error"}
               width={18}
               height={18}
