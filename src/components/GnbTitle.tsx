@@ -20,7 +20,7 @@ export default function GnbTitle({
         className={`w-fit text-lg font-medium text-[#3f3f3f] hover:text-primary-500 ${className}`}
         {...rest}
       >
-        {children}
+        <p>{children}</p>
       </Link>
     </>
   );

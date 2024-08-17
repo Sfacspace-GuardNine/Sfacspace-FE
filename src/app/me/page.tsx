@@ -9,7 +9,11 @@ import LibraryFiles from "@/components/me/LibraryFiles";
 export default function MyLibraryPage() {
   return (
     <>
-      <div className={"bg-[url('/images/mylibrary-pattern.svg')] bg-center"}>
+      <div
+        className={
+          "mt-[13px] bg-[url('/images/mylibrary-pattern.svg')] bg-center"
+        }
+      >
         <div className={"container mx-auto max-w-[1314px]"}>
           {/* 상단 */}
           <div

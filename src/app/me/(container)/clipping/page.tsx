@@ -2,11 +2,11 @@ import React from "react";
 
 import LibraryFiles from "@/components/me/LibraryFiles";
 
-export default function DetectedPage() {
+export default function ClippingPage() {
   return (
     <>
+      {/* 스크랩 라이브러리 */}
       <div className={""}>
-        {/* 검출 결과 라이브러리 */}
         <LibraryFiles />
       </div>
     </>
