@@ -14,7 +14,7 @@ export default function MyLibraryPage() {
           "mt-[13px] bg-[url('/images/mylibrary-pattern.svg')] bg-center"
         }
       >
-        <div className={"container mx-auto max-w-[1314px]"}>
+        <main className={"container mx-auto max-w-[1314px]"}>
           {/* 상단 */}
           <div
             className={
@@ -64,7 +64,7 @@ export default function MyLibraryPage() {
             {/* 라이브러리 */}
             <LibraryFiles />
           </div>
-        </div>
+        </main>
       </div>
     </>
   );

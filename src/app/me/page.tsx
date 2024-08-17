@@ -12,7 +12,7 @@ export default function MePage() {
           "mt-[13px] bg-[url('/images/mylibrary-pattern.svg')] bg-center"
         }
       >
-        <div className={"container mx-auto max-w-[1314px] pb-[124px]"}>
+        <main className={"container mx-auto max-w-[1314px] pb-[124px]"}>
           {/* 상단 */}
           <div
             className={
@@ -45,7 +45,7 @@ export default function MePage() {
               </Link>
             </div>
           </div>
-        </div>
+        </main>
       </div>
     </>
   );
