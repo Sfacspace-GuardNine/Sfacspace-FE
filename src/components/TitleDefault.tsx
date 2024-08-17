@@ -18,7 +18,7 @@ export default function TitleDefault({ children, link }: TTitleDefaultProps) {
           }
         >
           <Image
-            src={"./images/arrow_left.svg"}
+            src={"/images/arrow_left.svg"}
             alt={"arrow_left"}
             width={36}
             height={36}
