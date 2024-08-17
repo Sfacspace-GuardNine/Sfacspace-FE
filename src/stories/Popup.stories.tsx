@@ -140,7 +140,7 @@ export const Analyzing: Story = {
         <Button onClick={handleOpen}>Open Analyzing Popup</Button>
         <Popup.Container {...args} isShow={isOpen} onClose={handleClose}>
           <Image
-            src={"./images/bug.svg"}
+            src={"./images/logo_bug.svg"}
             alt={"file"}
             width={106}
             height={109}
