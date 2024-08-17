@@ -4,13 +4,20 @@ import Link from "next/link";
 
 type TGnbTitleProps = {
   children: ReactNode;
-} & ComponentProps<typeof Link>;
+  link: string;
+} & Omit<ComponentProps<typeof Link>, "href">;
 
-export default function GnbTitle({ children, ...rest }: TGnbTitleProps) {
+export default function GnbTitle({
+  children,
+  link,
+  className,
+  ...rest
+}: TGnbTitleProps) {
   return (
     <>
       <Link
-        className={"text-lg font-medium text-[#3f3f3f] hover:text-primary-500"}
+        href={`${link}`}
+        className={`w-fit text-lg font-medium text-[#3f3f3f] hover:text-primary-500 ${className}`}
         {...rest}
       >
         {children}
