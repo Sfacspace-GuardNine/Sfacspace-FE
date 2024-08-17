@@ -15,6 +15,7 @@ interface TPopupProps {
 
   variant?: "large" | "small";
   hasButtons?: boolean;
+  hasBackground?: boolean;
   buttonText?: [string, string?];
 }
 
@@ -59,6 +60,7 @@ function Container({
   children,
   variant = "small",
   hasButtons = true,
+  hasBackground = false,
   buttonText = ["button", "button"],
 }: PropsWithChildren<TPopupProps>) {
   const variantClasses = {
@@ -74,6 +76,7 @@ function Container({
     <div
       className={cn(
         "z-100 absolute bottom-0 left-0 right-0 top-0 flex w-full items-center justify-center",
+        hasBackground && "bg-black bg-opacity-[.6]",
         backgroundClassName,
       )}
       onClick={onClose}

@@ -77,6 +77,7 @@ export const Small: Story = {
 export const Large: Story = {
   args: {
     variant: "large",
+    hasBackground: true,
   },
   render: function Render(args) {
     const [isOpen, setIsOpen] = useState(args.isShow);
@@ -128,7 +129,7 @@ export const Large: Story = {
 };
 
 export const Analyzing: Story = {
-  args: { hasButtons: false, variant: "small" },
+  args: { hasButtons: false, variant: "small", hasBackground: true },
   render: function Render(args) {
     const [isOpen, setIsOpen] = useState(args.isShow);
 
