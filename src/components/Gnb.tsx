@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import GnbTitle from "@/components/GnbTitle";
 
@@ -11,16 +12,18 @@ export default function Gnb() {
         }
       >
         <div className={"flex items-center gap-[100px]"}>
-          <Image
-            src={"/images/flawdetector-logo.svg"}
-            alt={"logo"}
-            width={378.5}
-            height={40}
-          />
+          <Link href={"/"}>
+            <Image
+              src={"/images/flawdetector-logo.svg"}
+              alt={"logo"}
+              width={378.5}
+              height={40}
+            />
+          </Link>
           <GnbTitle link={""}>취약점 DB</GnbTitle>
         </div>
         <div>
-          <GnbTitle link={""}>MY 저장소</GnbTitle>
+          <GnbTitle link={"/me"}>MY 저장소</GnbTitle>
         </div>
       </header>
     </>

@@ -48,7 +48,7 @@ export default function MyLibraryPage() {
                   {}
                 </span>
               </div>
-              <Link href={"/me/profile"}>
+              <Link href={"/me/library/profile"}>
                 <Button
                   variant={"outline"}
                   className={"h-fit border-2 border-primary-500"}
