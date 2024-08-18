@@ -70,6 +70,13 @@ export default function AiAnalyzePage() {
                   "컬러 코드를 설정할때 이렇게 하게 되면 이런 오류가 생기기때문에 이렇게 하지 않는게 좋다.",
                 ]}
               />
+              <InfoBoxDetail
+                variant={"red"}
+                title={'import { Badge } from "@/components/ui/badge";'}
+                text={[
+                  "컬러 코드를 설정할때 이렇게 하게 되면 이런 오류가 생기기때문에 이렇게 하지 않는게 좋다.",
+                ]}
+              />
             </div>
           </section>
         </div>

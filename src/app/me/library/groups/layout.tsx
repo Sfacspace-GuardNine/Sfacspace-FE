@@ -5,7 +5,7 @@ export default function AiAnalyzeLayout({
 }) {
   return (
     <>
-      <div className={"max-w-[1761px] pt-3"}>{children}</div>
+      <div className={"container mx-auto max-w-[1761px] pt-3"}>{children}</div>
     </>
   );
 }

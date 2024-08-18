@@ -23,7 +23,7 @@ export default function Gnb() {
           <GnbTitle link={""}>취약점 DB</GnbTitle>
         </div>
         <div>
-          <GnbTitle link={"/me"}>MY 저장소</GnbTitle>
+          <GnbTitle link={"/me/library"}>MY 저장소</GnbTitle>
         </div>
       </header>
     </>
