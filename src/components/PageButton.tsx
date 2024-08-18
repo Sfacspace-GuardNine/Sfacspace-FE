@@ -6,7 +6,7 @@ type TButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 const PageButton = ({ children, className, ...rest }: TButtonProps) => {
   const baseStyle =
-    "mr-[13px] w-[36px] h-[36px] flex justify-center items-center transparent text-[#3F3F3F] text-[16px] font-normal";
+    "mr-[13px] w-[36px] h-[36px] flex justify-center items-center transparent text-[#3F3F3F] text-[16px] font-normal rounded-[4px]";
   const hoverStyle = "hover:bg-[#FAF8FF] duration-300";
   const classNames = cn(baseStyle, hoverStyle, className);
 
