@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
 import { HTMLAttributes } from "react";
 
 import { createPortal } from "react-dom";
@@ -68,6 +68,14 @@ function Container({
     small: "p-[32px] gap-[24px] shadow-[0_2px_12px_rgba(0,0,0,0.25)] ",
   };
 
+  useEffect(() => {
+    if (isShow) document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isShow]);
+
   if (!isShow) {
     return null;
   }
@@ -75,7 +83,7 @@ function Container({
   return createPortal(
     <div
       className={cn(
-        "z-100 absolute bottom-0 left-0 right-0 top-0 flex w-full items-center justify-center",
+        "z-100 fixed inset-0 flex h-full w-full items-center justify-center",
         hasBackground && "bg-black bg-opacity-[.6]",
         backgroundClassName,
       )}
