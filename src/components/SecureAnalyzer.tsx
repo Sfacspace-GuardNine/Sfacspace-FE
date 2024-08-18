@@ -82,7 +82,10 @@ function ResultBox({ code, isCompleted }: TSecureAnalyzerProps) {
             </div>
           )}
           <div
-            className={cn("min-h-[760px] w-full", !isCompleted && "blur-sm")}
+            className={cn(
+              "min-h-[760px] w-full pt-[64px]",
+              !isCompleted && "blur-sm",
+            )}
           >
             <pre className="whitespace-pre-wrap">
               <code>{code}</code>
