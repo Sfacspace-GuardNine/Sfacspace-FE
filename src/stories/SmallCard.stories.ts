@@ -35,6 +35,9 @@ export const ElevatedVariant: Story = {
     title: "엘리베이티드 변형 제목입니다.",
     description: "엘리베이티드 변형에 대한 설명입니다.",
     daysAgo: 2,
+    pinButtonProps: {
+      onClick: () => alert("Pin 버튼 클릭됨!"),
+    },
   },
 };
 
@@ -44,27 +47,8 @@ export const FilledVariant: Story = {
     title: "필드 변형 제목입니다.",
     description: "필드 변형에 대한 설명입니다.",
     daysAgo: 1,
+    shareButtonProps: {
+      onClick: () => alert("Share 버튼 클릭됨!"),
+    },
   },
 };
-
-// export const HoveredState: Story = {
-//   args: {
-//     title: "호버 상태 제목입니다.",
-//     description: "호버 상태에 대한 설명입니다.",
-//     daysAgo: 4,
-//   },
-//   parameters: {
-//     status: "hover",
-//   },
-// };
-
-// export const PressedState: Story = {
-//   args: {
-//     title: "프레스 상태 제목입니다.",
-//     description: "프레스 상태에 대한 설명입니다.",
-//     daysAgo: 1,
-//   },
-//   parameters: {
-//     status: "pressed",
-//   },
-// };

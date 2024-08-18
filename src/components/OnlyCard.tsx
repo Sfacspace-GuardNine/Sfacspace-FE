@@ -50,9 +50,9 @@ function OnlyCard({
       <div className={descriptionClass}>{description}</div>
       <div className="mt-6 flex justify-between">
         <div className="flex gap-4">
-          <Image src="/icons/pin-icon.png" alt="pin" width={20} height={20} />
+          <Image src="/icons/pin-icon.svg" alt="pin" width={20} height={20} />
           <Image
-            src="/icons/share-icon.png"
+            src="/icons/share-icon.svg"
             alt="share"
             width={20}
             height={20}

@@ -62,7 +62,7 @@ function CardHovered({ title, createdAt }: TCardHoveredProps) {
           </div>
           <div className="flex h-[68px] w-[68px] items-center justify-center rounded-full bg-neutral-white opacity-70">
             <Image
-              src="/images/card-arrow.png"
+              src="/icons/card-arrow.svg"
               alt="card arrow"
               width={28}
               height={26}

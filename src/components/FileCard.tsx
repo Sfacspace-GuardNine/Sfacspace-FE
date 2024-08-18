@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
 
 import Image from "next/image";
 
@@ -6,15 +6,20 @@ import AssistChip from "@/components/AssistChip";
 import { cn } from "@/utils/cn";
 
 type TFileCardProps = {
-  variant?: "detected" | "default" | "hover";
+  variant?: "detected" | "default";
   title: string;
   caption: string;
+  buttonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
 };
 
-function FileCard({ variant = "default", title, caption }: TFileCardProps) {
+function FileCard({
+  variant = "default",
+  title,
+  caption,
+  buttonProps,
+}: TFileCardProps) {
   const boxClass = cn(
-    "h-[200px] w-[310px] rounded-[12px] border border-primary-100 p-5",
-    variant === "hover" ? "bg-primary-50" : "bg-neutral-white",
+    "h-[200px] w-[310px] rounded-[12px] border border-primary-100 bg-neutral-white p-5 hover:bg-primary-50",
   );
 
   const chipClass =
@@ -27,12 +32,14 @@ function FileCard({ variant = "default", title, caption }: TFileCardProps) {
       <div className="flex justify-between">
         <AssistChip text="Label" variant="outline" className={chipClass} />
         <div className="relative h-[17px] w-[3px]">
-          <Image
-            src="/icons/threedot-icon.png"
-            alt="dotIcon"
-            layout="fill"
-            objectFit="contain"
-          />
+          <button {...buttonProps}>
+            <Image
+              src="/icons/threedot-icon.svg"
+              alt="dotIcon"
+              layout="fill"
+              objectFit="contain"
+            />
+          </button>
         </div>
       </div>
       <div className="mt-[59px]">
