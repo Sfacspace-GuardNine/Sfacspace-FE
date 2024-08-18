@@ -27,11 +27,3 @@ export const Detected: Story = {
     caption: "Caption",
   },
 };
-
-export const Hover: Story = {
-  args: {
-    variant: "hover",
-    title: "기본 제목입니다.",
-    caption: "Caption",
-  },
-};
