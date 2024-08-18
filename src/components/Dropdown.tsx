@@ -2,8 +2,6 @@
 
 import { HTMLAttributes, useState } from "react";
 
-import { cn } from "@/utils/cn";
-
 import DropdownButton from "./DropdownButton";
 import DropdownList from "./DropdownList";
 
@@ -12,7 +10,7 @@ type TDropdownProps = HTMLAttributes<HTMLDivElement> & {
   list?: string[];
 };
 
-const Dropdown = ({ name, list, ...rest }: TDropdownProps) => {
+const Dropdown = ({ name, list, className, ...rest }: TDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -21,12 +19,13 @@ const Dropdown = ({ name, list, ...rest }: TDropdownProps) => {
 
   const baseStyle =
     "relative flex flex-col items-center justify-between gap-[8px]";
-  const classNames = cn(baseStyle);
 
   return (
-    <div className={classNames} {...rest}>
-      <DropdownButton onClick={toggleDropdown}>{name}</DropdownButton>
-      {isOpen && <DropdownList list={list}></DropdownList>}
+    <div className={baseStyle} {...rest}>
+      <DropdownButton onClick={toggleDropdown} className={className}>
+        {name}
+      </DropdownButton>
+      {isOpen && <DropdownList list={list} />}
     </div>
   );
 };

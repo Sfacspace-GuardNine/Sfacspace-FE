@@ -10,7 +10,7 @@ type TDropdownListProps = HTMLAttributes<HTMLDivElement> & {
 
 const DropdownList = ({ list, ...rest }: TDropdownListProps) => {
   const baseStyle =
-    "flex-col items-center justify-center rounded-[8px] overflow-hidden";
+    "flex-col items-center justify-center rounded-[8px] max-w-[200px] overflow-hidden";
   const hoverStyle = "hover:bg-[#FAF8FF]";
   const classNames = cn(baseStyle, hoverStyle);
 
