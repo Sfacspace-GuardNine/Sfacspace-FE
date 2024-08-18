@@ -9,7 +9,7 @@ export default function MePage() {
     <>
       <div
         className={
-          "mt-[13px] bg-[url('/images/mylibrary-pattern.svg')] bg-center"
+          "mt-[13px] bg-[url('/images/mylibrary-pattern.svg')] bg-no-repeat"
         }
       >
         <main className={"container mx-auto max-w-[1314px] pb-[124px]"}>

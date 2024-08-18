@@ -5,13 +5,14 @@ import Link from "next/link";
 
 import Button from "@/components/Button";
 import LibraryFiles from "@/components/me/LibraryFiles";
+import LibrarySort from "@/components/me/LibrarySort";
 
 export default function MyLibraryPage() {
   return (
     <>
       <div
         className={
-          "mt-[13px] bg-[url('/images/mylibrary-pattern.svg')] bg-center"
+          "mt-[13px] bg-[url('/images/mylibrary-pattern.svg')] bg-no-repeat"
         }
       >
         <main className={"container mx-auto max-w-[1314px]"}>
@@ -51,7 +52,7 @@ export default function MyLibraryPage() {
               <Link href={"/me/profile"}>
                 <Button
                   variant={"outline"}
-                  className={"h-fit border-2 border-primary-500"}
+                  className={"h-fit border-2 border-primary-500 bg-white"}
                   shape={"square"}
                   size={"md"}
                 >
@@ -62,6 +63,7 @@ export default function MyLibraryPage() {
             <hr className={"my-[80px] h-[1px] border-0 bg-[#BABABA]"} />
 
             {/* 라이브러리 */}
+            <LibrarySort />
             <LibraryFiles />
           </div>
         </main>

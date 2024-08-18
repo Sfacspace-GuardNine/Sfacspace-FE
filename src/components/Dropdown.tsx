@@ -10,7 +10,7 @@ type TDropdownProps = HTMLAttributes<HTMLDivElement> & {
   list?: string[];
 };
 
-const Dropdown = ({ name, list, className, ...rest }: TDropdownProps) => {
+const Dropdown = ({ name, className, children, ...rest }: TDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -18,14 +18,16 @@ const Dropdown = ({ name, list, className, ...rest }: TDropdownProps) => {
   };
 
   const baseStyle =
-    "relative flex flex-col items-center justify-between gap-[8px]";
+    "relative items-center justify-between gap-[8px] inline-block";
 
   return (
     <div className={baseStyle} {...rest}>
       <DropdownButton onClick={toggleDropdown} className={className}>
         {name}
       </DropdownButton>
-      {isOpen && <DropdownList list={list} />}
+      {isOpen && (
+        <DropdownList className={"absolute z-30 m-2"}>{children}</DropdownList>
+      )}
     </div>
   );
 };

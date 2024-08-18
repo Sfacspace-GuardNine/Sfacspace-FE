@@ -1,36 +1,42 @@
 "use client";
 
-import { HTMLAttributes, useState } from "react";
+import React from "react";
 
 import Image from "next/image";
 
 import { cn } from "@/utils/cn";
 
-type TDropdownItemProps = HTMLAttributes<HTMLDivElement>;
+type TDropdownItemProps = React.ComponentProps<"li"> & {
+  checked?: boolean;
+};
 
-const DropdownItem = ({ children, ...rest }: TDropdownItemProps) => {
-  const [isChecked, setCheck] = useState(false);
-  const toggleCheck = () => {
-    setCheck(!isChecked);
-  };
-  const baseStyle =
-    "h-[39px] flex items-center justify-center bg-neutral-white text-[16px] gap-[8px] p-[10px]";
-  const hoverStyle = "hover:bg-[#FAF8FF]";
-  const checkedStyle = "bg-[#E3E1E7]";
-  const classNames = cn(baseStyle, hoverStyle, isChecked ? checkedStyle : "");
-
+const DropdownItem = ({
+  children,
+  checked = false,
+  className,
+  ...rest
+}: TDropdownItemProps) => {
   return (
-    <div className={classNames} {...rest} onClick={toggleCheck}>
-      {isChecked && (
-        <Image
-          src={"./images/checked.svg"}
-          alt="checked"
-          width={24}
-          height={24}
-        ></Image>
-      )}
-      {children}
-    </div>
+    <>
+      <li
+        className={cn(
+          "flex min-w-[80px] cursor-pointer items-center justify-center gap-2 bg-white p-[10px] text-[16px] first:rounded-t-lg last:rounded-b-lg hover:bg-background-purpleDark",
+          { checkedStyle: checked },
+          className,
+        )}
+        {...rest}
+      >
+        {checked && (
+          <Image
+            src={"/images/checked.svg"}
+            alt="checked"
+            width={24}
+            height={24}
+          ></Image>
+        )}
+        {children}
+      </li>
+    </>
   );
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
 
-import LibraryFiles from "@/components/me/LibraryFiles";
+import ClippingFiles from "@/components/me/ClippingFiles";
+import LibrarySort from "@/components/me/LibrarySort";
 import MyLibraryBackButton from "@/components/me/MyLibraryBackButton";
 
 export default function ClippingPage() {
@@ -8,8 +9,9 @@ export default function ClippingPage() {
     <>
       <MyLibraryBackButton />
       {/* 스크랩 라이브러리 */}
-      <div className={""}>
-        <LibraryFiles />
+      <div>
+        <LibrarySort />
+        <ClippingFiles />
       </div>
     </>
   );
