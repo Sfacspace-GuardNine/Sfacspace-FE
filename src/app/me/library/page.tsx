@@ -42,12 +42,17 @@ export default function MyLibraryPage() {
                   alt={"avatar"}
                   className={"rounded-full"}
                 />
-                <span className={"text-[40px] font-medium text-[#3F3F3F]"}>
-                  Hello,
+                {/* 기능 개발 시, 컴포넌트 분리 예정 */}
+                <div
+                  className={
+                    "text-[40px] font-medium leading-tight text-[#3F3F3F]"
+                  }
+                >
+                  <span>Hello,</span>
                   <br />
                   {/* email 들어갈 곳 */}
-                  {}
-                </span>
+                  <span>example@email.com</span>
+                </div>
               </div>
               <Link href={"/me/profile"}>
                 <Button

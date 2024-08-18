@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 import dayjs from "dayjs";
@@ -10,7 +12,7 @@ type TClippingCardProps = {
   disabled?: boolean;
   label: string;
   date: Date;
-} & React.ComponentProps<"button">;
+} & React.ComponentProps<"div">;
 
 export default function ClippingCard({
   variant = "new",
@@ -22,9 +24,9 @@ export default function ClippingCard({
 }: TClippingCardProps) {
   return (
     <>
-      <button
+      <div
         className={cn(
-          "flex flex-col gap-6 rounded-lg p-7 outline outline-1 outline-[#C3C3C3]",
+          "flex cursor-pointer flex-col gap-6 rounded-lg p-7 outline outline-1 outline-[#C3C3C3]",
         )}
         {...rest}
       >
@@ -46,7 +48,7 @@ export default function ClippingCard({
         <p className={"text-[14px] text-[#969696]"}>
           {dayjs(date).format("YYYY.MM.DD HH:mm:ss")}
         </p>
-      </button>
+      </div>
     </>
   );
 }

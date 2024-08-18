@@ -26,12 +26,14 @@ export default function MeUserInfoLayout({
               alt={"avatar"}
               className={"rounded-full"}
             />
-            <span className={"text-[40px] font-medium text-[#3F3F3F]"}>
-              Hello,
+            <div
+              className={"text-[40px] font-medium leading-tight text-[#3F3F3F]"}
+            >
+              <span>Hello,</span>
               <br />
               {/* email 들어갈 곳 */}
-              {}
-            </span>
+              <span>example@email.com</span>
+            </div>
           </div>
           <Link href={""}>
             <Button

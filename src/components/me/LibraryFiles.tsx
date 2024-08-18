@@ -24,7 +24,7 @@ export default function LibraryFiles() {
     <>
       <div className={"gap-12"}>
         {/* 카드 영역 */}
-        <div className={"relative w-full"} data-carousel={"static"}>
+        <div className={"relative w-full"}>
           {/* 데이터 */}
           <div className={"grid grid-cols-4 gap-x-6 gap-y-12"}>
             {dummyData.map((value, idx) => (
