@@ -14,7 +14,7 @@ const DropdownItem = ({ children, ...rest }: TDropdownItemProps) => {
     setCheck(!isChecked);
   };
   const baseStyle =
-    "h-[39px] flex items-center justify-center bg-neutral-white text-[16px] gap-[8px]";
+    "h-[39px] flex items-center justify-center bg-neutral-white text-[16px] gap-[8px] p-[10px]";
   const hoverStyle = "hover:bg-[#FAF8FF]";
   const checkedStyle = "bg-[#E3E1E7]";
   const classNames = cn(baseStyle, hoverStyle, isChecked ? checkedStyle : "");
