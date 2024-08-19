@@ -5,6 +5,7 @@ import { cn } from "@/utils/cn";
 type TSuggestionChipProps = {
   text: string;
   variant: "new" | "hot" | "purple" | "pink";
+  isDisabled?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const variantClasses = {
@@ -16,15 +17,16 @@ const variantClasses = {
 };
 
 const disabledClasses = {
-  new: "disabled:bg-[#E8E8E8] disabled:text-[#ADADAD]",
-  hot: "disabled:bg-[#E8E8E8] disabled:text-[#ADADAD]",
-  purple: "disabled:bg-transparent disabled:text-[#ADADAD]",
-  pink: "disabled:bg-transparent disabled:text-[#ADADAD]",
+  new: "bg-[#E8E8E8] text-[#ADADAD]",
+  hot: "bg-[#E8E8E8] text-[#ADADAD]",
+  purple: "bg-transparent text-[#ADADAD]",
+  pink: "bg-transparent text-[#ADADAD]",
 };
 
 export default function SuggestionChip({
   text = "label",
   variant = "new",
+  isDisabled = false,
   className,
   ...props
 }: TSuggestionChipProps) {
@@ -32,8 +34,7 @@ export default function SuggestionChip({
     <button
       className={cn(
         "flex items-center justify-center rounded-full px-[12px] py-[8px] text-base font-semibold",
-        variantClasses[variant],
-        disabledClasses[variant],
+        !isDisabled ? variantClasses[variant] : disabledClasses[variant],
         className,
       )}
       {...props}

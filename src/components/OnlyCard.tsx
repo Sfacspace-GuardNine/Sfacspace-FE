@@ -14,7 +14,7 @@ type TOnlyCardProps = {
 };
 
 function OnlyCard({
-  variant = "elevated",
+  variant = "outlined",
   title,
   description,
   daysAgo,

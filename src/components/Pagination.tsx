@@ -5,11 +5,11 @@ import Image from "next/image";
 import PageButton from "./PageButton";
 
 type TPaginationProps = HTMLAttributes<HTMLDivElement> & {
-  start: number;
+  start?: number;
   size: number;
 };
 
-const Pagination = ({ start, size, ...rest }: TPaginationProps) => {
+const Pagination = ({ start = 1, size, ...rest }: TPaginationProps) => {
   const baseStyle = "flex";
   const pageNumberArr = Array.from({ length: size }, (_, i) => start + i);
 
