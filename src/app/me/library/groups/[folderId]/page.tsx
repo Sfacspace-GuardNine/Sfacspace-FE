@@ -5,12 +5,14 @@ import InputChip from "@/components/InputChip";
 import List from "@/components/List/List";
 import ProgressBar from "@/components/ProgressBar";
 import TitleDefault from "@/components/TitleDefault";
+import FileAnalyze from "@/components/me/FileAnalyze";
+import ResultAnalyze from "@/components/me/ResultAnalyze";
 
 export default function AiAnalyzePage() {
   return (
     <>
       <div className={"flex flex-col gap-[45px]"}>
-        <TitleDefault link={""}>example</TitleDefault>
+        <TitleDefault link={"/me/library"}>example</TitleDefault>
 
         <div className={"flex gap-7"}>
           <Button className={"h-[107px] w-[247px]"}>폴더 전체 검사</Button>
@@ -59,9 +61,14 @@ export default function AiAnalyzePage() {
             <Button size={"sm"}>검사하기</Button>
           </aside>
           <section className={"w-full"}>
-            <div>{/* 코드 분석 영역 */}</div>
+            {/* 코드 분석 영역 */}
+            <div className={"mb-[60px] flex gap-7"}>
+              <FileAnalyze code={""} />
+              <ResultAnalyze code={""} state={"result"} />
+            </div>
+
+            {/* 수정된 코드 영역 */}
             <div className={"flex flex-col gap-7"}>
-              {/* 수정된 코드 영역 */}
               <p className={"text-2xl font-bold"}>수정된 코드</p>
               <InfoBoxDetail
                 variant={"red"}
