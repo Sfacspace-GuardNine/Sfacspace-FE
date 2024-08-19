@@ -13,6 +13,7 @@ export default function MyLibraryBackButton() {
     detected: { title: "Detected Files", link: "/me/profile" },
     clipping: { title: "Clipping Article", link: "/me/profile" },
     setting: { title: "Setting", link: "/me/profile" },
+    help: { title: "Customer Service center", link: "/me/profile" },
   };
   const curPath = pathname.split("/").pop() as keyof typeof title;
 

@@ -32,7 +32,7 @@ export default function ProfilePage() {
           <GnbTitle link={"/me/setting"} className={"text-2xl"}>
             설정
           </GnbTitle>
-          <GnbTitle link={""} className={"text-2xl"}>
+          <GnbTitle link={"/me/help"} className={"text-2xl"}>
             고객센터
           </GnbTitle>
         </div>
