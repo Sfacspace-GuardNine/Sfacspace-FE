@@ -17,7 +17,7 @@ export default function DetectedCard({
     <>
       <div
         className={cn(
-          "flex h-[200px] cursor-pointer flex-col justify-between rounded-xl p-5 outline outline-1 outline-primary-100 hover:bg-primary-50",
+          "flex h-[200px] w-full cursor-pointer flex-col justify-between rounded-xl border border-primary-100 p-5 hover:bg-primary-50",
           className,
         )}
         {...rest}

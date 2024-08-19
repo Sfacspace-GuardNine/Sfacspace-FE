@@ -1,8 +1,15 @@
+"use client";
+
 import React from "react";
 
-import Image from "next/image";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import FileCard from "@/components/FileCard";
+
+import "../../styles/swiper-navigation.css";
 
 export default function LibraryFiles() {
   const dummyData = [
@@ -82,50 +89,39 @@ export default function LibraryFiles() {
 
   return (
     <>
-      <div className={"gap-12"}>
-        {/* 카드 영역 */}
-        <div className={"relative w-full"}>
-          {/* 데이터 */}
-          <div className={"grid grid-cols-4 gap-x-6 gap-y-12"}>
-            {dummyData.map((value, idx) => (
-              <FileCard
-                title={value.name}
-                caption={value.caption}
-                link={value.link}
-                key={idx}
-              />
-            ))}
-          </div>
-          {/* 버튼 */}
-          {/* prev */}
-          <button
-            type={"button"}
-            className={
-              "absolute start-[-26px] top-1/2 flex h-[52px] w-[52px] items-center justify-center rounded-full bg-white outline outline-1 outline-[#3F3F3F]"
-            }
-          >
-            <Image
-              src={"/icons/arrow-left.svg"}
-              alt={"prev"}
-              width={12}
-              height={22}
-            />
-          </button>
-          {/* next */}
-          <button
-            type={"button"}
-            className={
-              "absolute end-[-26px] top-1/2 flex h-[52px] w-[52px] items-center justify-center rounded-full bg-white outline outline-1 outline-[#3F3F3F]"
-            }
-          >
-            <Image
-              src={"/icons/arrow-right.svg"}
-              alt={"prev"}
-              width={12}
-              height={22}
-            />
-          </button>
-        </div>
+      <div>
+        <Swiper
+          modules={[Navigation]}
+          loop={false}
+          navigation={true}
+          slidesPerView={1}
+          slidesPerGroup={1}
+        >
+          <SwiperSlide>
+            <div className={"grid w-full grid-cols-4 gap-x-6 gap-y-12"}>
+              {dummyData.map((value, index) => (
+                <FileCard
+                  title={value.name}
+                  caption={value.caption}
+                  link={value.link}
+                  key={index}
+                />
+              ))}
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className={"grid w-full grid-cols-4 gap-x-6 gap-y-12"}>
+              {dummyData.map((value, index) => (
+                <FileCard
+                  title={value.name}
+                  caption={value.caption}
+                  link={value.link}
+                  key={index}
+                />
+              ))}
+            </div>
+          </SwiperSlide>
+        </Swiper>
       </div>
     </>
   );

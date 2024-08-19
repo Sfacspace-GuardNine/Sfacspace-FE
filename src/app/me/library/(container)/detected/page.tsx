@@ -8,7 +8,7 @@ export default function DetectedPage() {
   return (
     <>
       <MyLibraryBackButton />
-      <div className={""}>
+      <div>
         {/* 검출 결과 라이브러리 */}
         <LibrarySort />
         <DetectedFiles />

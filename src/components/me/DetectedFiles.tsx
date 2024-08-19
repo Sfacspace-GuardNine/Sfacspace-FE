@@ -1,15 +1,69 @@
+"use client";
+
 import React from "react";
 
-import Image from "next/image";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import DetectedCard from "@/components/DetectedCard";
 
+import "../../styles/swiper-navigation.css";
+
 export default function DetectedFiles() {
+  const dummyData = [
+    { label: "label", name: "소속 파일" },
+    { label: "label", name: "소속 파일" },
+    { label: "label", name: "소속 파일" },
+    { label: "label", name: "소속 파일" },
+    { label: "label", name: "소속 파일" },
+    { label: "label", name: "소속 파일" },
+    { label: "label", name: "소속 파일" },
+    { label: "label", name: "소속 파일" },
+    { label: "label", name: "소속 파일" },
+    { label: "label", name: "소속 파일" },
+    { label: "label", name: "소속 파일" },
+    { label: "label", name: "소속 파일" },
+  ];
+
   return (
     <>
-      <div className={"relative w-full"}>
+      <div className={""}>
+        <Swiper
+          modules={[Navigation]}
+          loop={false}
+          navigation={true}
+          slidesPerView={1}
+          slidesPerGroup={1}
+        >
+          <SwiperSlide>
+            <div className={"grid w-full grid-cols-4 gap-6"}>
+              {dummyData.map((value, index) => (
+                <DetectedCard
+                  label={value.label}
+                  fileName={value.name}
+                  key={index}
+                />
+              ))}
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className={"grid w-full grid-cols-4 gap-6"}>
+              {dummyData.map((value, index) => (
+                <DetectedCard
+                  label={"label"}
+                  fileName={"소속 파일"}
+                  key={index}
+                />
+              ))}
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </div>
+      {/*<div className={"relative w-full"}>
         <div className={"grid grid-cols-4 gap-6"}>
-          {/* 더미 데이터 */}
+           더미 데이터
           <DetectedCard label={"label"} fileName={"소속 파일"} />
           <DetectedCard label={"label"} fileName={"소속 파일"} />
           <DetectedCard label={"label"} fileName={"소속 파일"} />
@@ -23,8 +77,8 @@ export default function DetectedFiles() {
           <DetectedCard label={"label"} fileName={"소속 파일"} />
           <DetectedCard label={"label"} fileName={"소속 파일"} />
 
-          {/* 버튼 */}
-          {/* prev */}
+           버튼
+           prev
           <button
             type={"button"}
             className={
@@ -38,7 +92,7 @@ export default function DetectedFiles() {
               height={22}
             />
           </button>
-          {/* next */}
+           next
           <button
             type={"button"}
             className={
@@ -53,7 +107,7 @@ export default function DetectedFiles() {
             />
           </button>
         </div>
-      </div>
+      </div>*/}
     </>
   );
 }
