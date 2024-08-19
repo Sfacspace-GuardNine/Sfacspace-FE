@@ -62,11 +62,9 @@ export default function VulnDBPage() {
   }, [hoveredIndex]);
 
   return (
-    <div className={"mt-[13px]"}>
-      <main className={"container mx-auto max-w-[1314px]"}>
-        <div
-          className={"flex w-full flex-col items-center gap-[60px] pt-[76px]"}
-        >
+    <div className="mt-[13px]">
+      <main className="container mx-auto max-w-[1314px]">
+        <div className="flex w-full flex-col items-center gap-[60px] pt-[76px]">
           <div className="flex w-full gap-[28px]">
             {dummyData.slice(0, 3).map((data, index) => (
               <CardHovered
