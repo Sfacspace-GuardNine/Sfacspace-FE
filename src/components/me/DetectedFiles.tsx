@@ -7,7 +7,7 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import DetectedCard from "@/components/DetectedCard";
+import FileCard from "@/components/FileCard";
 
 import "../../styles/swiper-navigation.css";
 
@@ -40,9 +40,11 @@ export default function DetectedFiles() {
           <SwiperSlide>
             <div className={"grid w-full grid-cols-4 gap-6"}>
               {dummyData.map((value, index) => (
-                <DetectedCard
-                  label={value.label}
-                  fileName={value.name}
+                <FileCard
+                  title={value.name}
+                  caption={value.name}
+                  link={""}
+                  variant={"detected"}
                   key={index}
                 />
               ))}
@@ -51,9 +53,11 @@ export default function DetectedFiles() {
           <SwiperSlide>
             <div className={"grid w-full grid-cols-4 gap-6"}>
               {dummyData.map((value, index) => (
-                <DetectedCard
-                  label={"label"}
-                  fileName={"소속 파일"}
+                <FileCard
+                  title={value.name}
+                  caption={value.name}
+                  link={""}
+                  variant={"detected"}
                   key={index}
                 />
               ))}
@@ -61,53 +65,6 @@ export default function DetectedFiles() {
           </SwiperSlide>
         </Swiper>
       </div>
-      {/*<div className={"relative w-full"}>
-        <div className={"grid grid-cols-4 gap-6"}>
-           더미 데이터
-          <DetectedCard label={"label"} fileName={"소속 파일"} />
-          <DetectedCard label={"label"} fileName={"소속 파일"} />
-          <DetectedCard label={"label"} fileName={"소속 파일"} />
-          <DetectedCard label={"label"} fileName={"소속 파일"} />
-          <DetectedCard label={"label"} fileName={"소속 파일"} />
-          <DetectedCard label={"label"} fileName={"소속 파일"} />
-          <DetectedCard label={"label"} fileName={"소속 파일"} />
-          <DetectedCard label={"label"} fileName={"소속 파일"} />
-          <DetectedCard label={"label"} fileName={"소속 파일"} />
-          <DetectedCard label={"label"} fileName={"소속 파일"} />
-          <DetectedCard label={"label"} fileName={"소속 파일"} />
-          <DetectedCard label={"label"} fileName={"소속 파일"} />
-
-           버튼
-           prev
-          <button
-            type={"button"}
-            className={
-              "absolute start-[-26px] top-1/2 flex h-[52px] w-[52px] items-center justify-center rounded-full bg-white outline outline-1 outline-[#3F3F3F]"
-            }
-          >
-            <Image
-              src={"/icons/arrow-left.svg"}
-              alt={"prev"}
-              width={12}
-              height={22}
-            />
-          </button>
-           next
-          <button
-            type={"button"}
-            className={
-              "absolute end-[-26px] top-1/2 flex h-[52px] w-[52px] items-center justify-center rounded-full bg-white outline outline-1 outline-[#3F3F3F]"
-            }
-          >
-            <Image
-              src={"/icons/arrow-right.svg"}
-              alt={"prev"}
-              width={12}
-              height={22}
-            />
-          </button>
-        </div>
-      </div>*/}
     </>
   );
 }

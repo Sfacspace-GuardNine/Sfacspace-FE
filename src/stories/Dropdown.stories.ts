@@ -15,6 +15,5 @@ type Story = StoryObj<typeof Dropdown>;
 export const Default: Story = {
   args: {
     name: "Sort",
-    list: ["최신순", "오래된순", "이름순"],
   },
 };
