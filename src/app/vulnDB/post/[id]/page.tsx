@@ -5,6 +5,7 @@ import Image from "next/image";
 import Floating from "@/components/Floating";
 import SmallCard from "@/components/SmallCard";
 import SuggestionChip from "@/components/SuggestionChip";
+import VulnerabilityTable from "@/components/VulnDB/VulnerabilityTable";
 
 const dummyData = {
   title: "[취약성 경고] Mirosoft의 여러 보안 취약점에 대한 CNNVD의 보고서",
@@ -43,6 +44,28 @@ const dummyPosts = [
     description:
       "Microsoft Corporation (NASDAQ: MSFT) announced Monday that it has identified several security vulnerabilities in its software products, including Office 365, Exchange Server, and SharePoint Online. The announcement comes amid a growing concern about the company's security posture.",
     daysAgo: 5,
+  },
+];
+
+const DummyVulnData = [
+  {
+    number: 1,
+    name: "Microsoft Azure 취약점 패치",
+    cnnvd: "CNNVD-202403-3601",
+    cve: "CVE-2024-21964",
+    link: "https://microsoft.com/update/vulnerability/CVE-2024-21964",
+    severity: "취약 위험",
+    cveNumber: "https://msrc.microsoft.com",
+  },
+  {
+    number: 2,
+    name: "Microsoft Azure 취약점 패치",
+    cnnvd: "CNNVD-202403-3602",
+    cve: "CVE-2024-21965",
+    link: "https://microsoft.com/update/vulnerability/CVE-2024-21965",
+    severity: "취약 위험",
+
+    cveNumber: "https://msrc.microsoft.com",
   },
 ];
 
@@ -94,7 +117,9 @@ export default function VulnDBPostPage() {
           <span>{dummyData.description}</span>
         </div>
 
-        <div></div>
+        <div>
+          <VulnerabilityTable items={DummyVulnData} />
+        </div>
 
         <div className="flex flex-col gap-[16px]">
           <span className="text-2xl font-semibold"> 비슷한 정보글</span>
