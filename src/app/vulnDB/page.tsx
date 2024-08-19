@@ -100,7 +100,7 @@ export default function VulnDBPage() {
             </div>
 
             <div className="hidden lg:block lg:w-auto">
-              <div className="flex flex-col gap-[17px]">
+              <div className="flex flex-col gap-[17px] pb-[16px]">
                 <span className="text-2xl font-semibold">실시간 Topic</span>
                 <span className="text-lg font-medium text-[#969696]">
                   03.08 10:00기 기준
