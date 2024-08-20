@@ -7,7 +7,7 @@ export default function MainDivFirst() {
     <>
       <div
         className={
-          "flex h-screen snap-start flex-col items-center justify-center gap-[65px] bg-[url('/images/concentric-circles.svg')] bg-center text-primary-500"
+          "flex h-screen flex-col items-center justify-center gap-[65px] bg-[url('/images/concentric-circles.svg')] bg-center text-primary-500"
         }
       >
         <div className={"relative flex flex-col items-center"}>
@@ -33,7 +33,7 @@ export default function MainDivFirst() {
             alt="더블다운"
             width={38.5}
             height={38.5}
-            className={"absolute top-[calc(100%+65px)]"}
+            className={"absolute top-[calc(100%+65px)] animate-bounce"}
           />
         </div>
       </div>

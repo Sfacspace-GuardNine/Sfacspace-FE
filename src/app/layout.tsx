@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import Gnb from "@/components/Gnb";
+import { cn } from "@/utils/cn";
 
 import "./globals.css";
 
@@ -19,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={inter.className}>
+      <body className={cn(inter.className, "select-none")}>
         <Gnb />
         {children}
       </body>

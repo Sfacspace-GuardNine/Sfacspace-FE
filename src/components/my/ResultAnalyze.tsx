@@ -26,7 +26,7 @@ function ResultState({ code }: { code: string }) {
           />
           <div
             className={
-              "flex h-11 w-full max-w-[410px] items-center justify-center rounded-lg bg-[#E5F8E5] text-xl text-system-success outline outline-1 outline-system-success"
+              "flex h-11 w-full max-w-[410px] items-center justify-center rounded-lg border border-system-success bg-[#E5F8E5] text-xl text-system-success"
             }
           >
             분석 완료

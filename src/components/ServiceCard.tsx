@@ -24,7 +24,7 @@ export default function ServiceCard({
       >
         <Label variant={variant}>{label}</Label>
         <Image
-          src={`./images/service-card/service_card_${variant}.png`}
+          src={`/images/service-card/service_card_${variant}.png`}
           alt={"lock"}
           width={120}
           height={180}
