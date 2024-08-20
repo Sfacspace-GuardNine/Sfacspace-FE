@@ -9,7 +9,12 @@ type TFloatingProps = {
   children?: ReactNode;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-function Floating({ variant, className, children, ...props }: TFloatingProps) {
+function Floating({
+  variant = "ask",
+  className,
+  children,
+  ...props
+}: TFloatingProps) {
   const buttonClass = cn(
     "h-[76px] w-[76px] transition-all duration-300 ease-in-out",
     variant === "ask"

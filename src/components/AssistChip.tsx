@@ -30,7 +30,7 @@ export default function AssistChip({
   return (
     <button
       className={cn(
-        "enable:hover:shadow-lg flex h-[30px] w-[60px] items-center justify-center rounded-full px-[12px] py-[8px] text-base",
+        "enable:hover:shadow-lg flex items-center justify-center text-nowrap rounded-full px-[12px] py-[8px] text-base",
         variantClasses[variant],
         className,
       )}

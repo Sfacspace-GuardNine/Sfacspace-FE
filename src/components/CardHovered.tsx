@@ -10,17 +10,25 @@ import { cn } from "@/utils/cn";
 type TCardHoveredProps = {
   title: string;
   createdAt: Date;
+  index: number;
+  isHovered?: boolean;
+  setHoveredIndex: (index: number) => void;
 };
 
-function CardHovered({ title, createdAt }: TCardHoveredProps) {
-  const [isHovered, setIsHovered] = useState<boolean>(false);
+function CardHovered({
+  title,
+  createdAt,
+  index,
+  isHovered,
+  setHoveredIndex,
+}: TCardHoveredProps) {
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   return (
     <>
       <div
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={() => setHoveredIndex(index)}
+        onMouseLeave={() => setHoveredIndex(0)}
         onClick={() => setIsClicked(!isClicked)}
         className={cn(
           "relative h-[390px] w-[316px] overflow-hidden transition-all duration-300",
