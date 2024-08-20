@@ -41,6 +41,12 @@ export default function Home() {
         </Card>
         <Card className="bg-transparent backdrop-blur-sm">`;
 
+  const dummyData2 = [
+    'SectionBusinessForever from "@/components/section-business-forever";',
+    '"flex flex-col items-center py-36 min-h-screen"',
+    "Card className",
+  ];
+
   return (
     <>
       <div
@@ -50,7 +56,7 @@ export default function Home() {
       >
         <div
           className={
-            "mt-[94.5px] flex min-h-[976px] w-[725px] flex-col gap-8 rounded-lg border border-[#B3B3B3] p-10"
+            "relative mt-[94.5px] flex min-h-[976px] w-[725px] flex-col gap-8 rounded-lg border border-[#B3B3B3] p-10"
           }
         >
           <div className={"flex w-full flex-col items-center gap-6"}>
@@ -73,6 +79,29 @@ export default function Home() {
           <pre className={"whitespace-pre-wrap text-[#171717] blur-sm"}>
             {dummyData}
           </pre>
+
+          {/* 하이라이트 코드 */}
+          <p
+            className={
+              "absolute start-[294px] top-[167px] whitespace-nowrap rounded-lg bg-primary-300 p-[10px] font-semibold text-white shadow-[0_24px_36px_0_rgba(0,0,0,0.25)]"
+            }
+          >
+            {dummyData2[0]}
+          </p>
+          <p
+            className={
+              "absolute start-[264px] top-[311px] whitespace-nowrap rounded-lg bg-primary-300 p-[10px] font-semibold text-white shadow-[0_24px_36px_0_rgba(0,0,0,0.25)]"
+            }
+          >
+            {dummyData2[1]}
+          </p>
+          <p
+            className={
+              "absolute start-[85px] top-[728px] whitespace-nowrap rounded-lg bg-primary-300 p-[10px] font-semibold text-white shadow-[0_24px_36px_0_rgba(0,0,0,0.25)]"
+            }
+          >
+            {dummyData2[2]}
+          </p>
         </div>
         <div className={"flex h-full flex-col justify-center gap-[34px]"}>
           <p
