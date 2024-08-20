@@ -2,7 +2,7 @@ import React from "react";
 
 import Button from "@/components/Button";
 
-export default function MePage() {
+export default function LoginPage() {
   return (
     <>
       <div
