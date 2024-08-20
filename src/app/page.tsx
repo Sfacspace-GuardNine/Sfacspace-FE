@@ -1,19 +1,15 @@
-import Image from "next/image";
-
-import Button from "@/components/Button";
-import Floating from "@/components/Floating";
-import Gnb from "@/components/Gnb";
-import MainCarousel from "@/components/page/main/MainCarousel";
-import MainThird from "@/components/page/main/MainThird";
+import Footer from "@/components/Footer";
+import MainDivFirst from "@/components/main/MainDivFirst";
 
 export default function Home() {
   return (
     <>
-      <div className="flex min-h-screen flex-col">
-        <div className="h-auto">
-          <Gnb />
-        </div>
-        <div className="flex flex-grow items-center justify-center bg-concentric-circles bg-cover bg-center bg-no-repeat">
+      <div className={"flex flex-col"}>
+        <MainDivFirst />
+        <Footer />
+      </div>
+      {/*<div className="flex min-h-screen flex-col">
+        <div className="bg-concentric-circles flex flex-grow items-center justify-center bg-cover bg-center bg-no-repeat">
           <div className="flex flex-col items-center justify-center">
             <div className="text-6xl font-light leading-[76px] tracking-wide text-primary-500">
               Find your Flaw,
@@ -37,10 +33,6 @@ export default function Home() {
             />
           </div>
         </div>
-
-        <Floating variant="top" className="fixed bottom-[71px] right-20">
-          TOP
-        </Floating>
       </div>
       <div className="flex h-screen bg-primary-50">
         <div className="py-[275px] pl-[192px] pr-[452px]">
@@ -105,7 +97,7 @@ export default function Home() {
           <p>프로세스를 제공합니다.</p>
         </div>
         <MainCarousel />
-      </div>
+      </div>*/}
     </>
   );
 }

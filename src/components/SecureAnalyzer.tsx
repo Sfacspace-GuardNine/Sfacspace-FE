@@ -14,7 +14,7 @@ function AnalyzingBox({ code }: TSecureAnalyzerProps) {
         <>
           <div className="flex h-[108px] flex-col items-center justify-between">
             <Image
-              src={"./images/analyzing-icon.svg"}
+              src={"/images/analyzing-icon.svg"}
               alt={"Analyzing"}
               width={40}
               height={40}
@@ -33,7 +33,7 @@ function AnalyzingBox({ code }: TSecureAnalyzerProps) {
         <div className="flex h-full w-full items-center justify-center">
           <div className="flex flex-col items-center justify-center gap-[32px]">
             <Image
-              src={"./images/glass-plus.svg"}
+              src={"/images/glass-plus.svg"}
               alt={"Analyzing"}
               width={48}
               height={48}
@@ -61,7 +61,7 @@ function ResultBox({ code, isCompleted }: TSecureAnalyzerProps) {
           {isCompleted ? (
             <div className="flex h-[108px] flex-col items-center justify-between">
               <Image
-                src={"./images/completed-icon.svg"}
+                src={"/images/completed-icon.svg"}
                 alt={"Analyzing"}
                 width={40}
                 height={40}
@@ -73,7 +73,7 @@ function ResultBox({ code, isCompleted }: TSecureAnalyzerProps) {
           ) : (
             <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center gap-[44px]">
               <Image
-                src={"./images/logo-bug2.svg"}
+                src={"/images/logo-bug2.svg"}
                 alt={"Analyzing"}
                 width={78.77}
                 height={81}
@@ -96,7 +96,7 @@ function ResultBox({ code, isCompleted }: TSecureAnalyzerProps) {
         <div className="flex h-full w-full items-center justify-center">
           <div className="flex flex-col items-center justify-center gap-[32px]">
             <Image
-              src={"./images/folder-dashed.svg"}
+              src={"/images/folder-dashed.svg"}
               alt={"Analyzing"}
               width={48}
               height={48}

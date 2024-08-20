@@ -13,7 +13,7 @@ const DropdownButton = ({
   ...rest
 }: TDropdownButtonProps) => {
   const baseStyle =
-    "w-[100px] h-[44px] rounded-[8px] bg-transparent border-[1px] border-[#C3C3C3] flex items-center justify-center text-[20px] text-[#3F3F3F] gap-[4px]";
+    "w-fit h-[44px] rounded-[8px] border-[1px] border-[#C3C3C3] flex items-center text-[20px] text-[#3F3F3F] gap-[4px] p-[10px]";
 
   const classNames = cn(baseStyle, className);
 
@@ -21,7 +21,7 @@ const DropdownButton = ({
     <button className={classNames} onClick={onClick} {...rest}>
       {children}
       <Image
-        src={"./images/arrow_down.svg"}
+        src={"/images/arrow_down.svg"}
         alt="arrow down"
         width={24}
         height={24}

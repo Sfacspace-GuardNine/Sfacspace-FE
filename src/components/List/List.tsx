@@ -28,7 +28,7 @@ export default function List({ items }: TListProps) {
           <span>userName</span>
         </div>
         <Image
-          src="./images/list-caption.svg"
+          src="/images/list-caption.svg"
           alt="listCaption"
           width={30}
           height={30}

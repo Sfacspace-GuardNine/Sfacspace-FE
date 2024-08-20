@@ -1,0 +1,20 @@
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    display: none;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    border: 1px solid #3F3F3F;
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+}
+
+.swiper-button-prev {
+    background: url("../../public/icons/arrow-left.svg") no-repeat white center;
+}
+
+.swiper-button-next {
+    background: url("../../public/icons/arrow-right.svg") no-repeat white center;
+}

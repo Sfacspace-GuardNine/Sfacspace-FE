@@ -17,6 +17,7 @@ export const Default: Story = {
     variant: "default",
     title: "기본 제목입니다.",
     caption: "Caption",
+    link: "",
   },
 };
 
@@ -25,5 +26,6 @@ export const Detected: Story = {
     variant: "detected",
     title: "00.00.00",
     caption: "Caption",
+    link: "",
   },
 };
