@@ -50,6 +50,9 @@ const config: Config = {
           success: "#00C308",
         },
       },
+      backgroundImage: {
+        "concentric-circles": "url('/images/concentric-circles.svg')",
+      },
     },
   },
   plugins: [],

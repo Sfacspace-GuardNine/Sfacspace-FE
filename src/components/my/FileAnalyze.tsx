@@ -18,7 +18,7 @@ function AnalyzingState({ code }: { code: string }) {
         />
         <div
           className={
-            "flex h-11 w-full max-w-[410px] items-center justify-center rounded-lg bg-primary-50 text-xl text-primary-500 outline outline-1 outline-primary-500"
+            "flex h-11 w-full max-w-[410px] items-center justify-center rounded-lg border border-primary-500 bg-primary-50 text-xl text-primary-500"
           }
         >
           취약성 실시간 검사중
@@ -26,7 +26,7 @@ function AnalyzingState({ code }: { code: string }) {
       </div>
 
       {/* 코드 영역 */}
-      <pre className={"text-[#171717]"}>{code}</pre>
+      <pre className={"whitespace-pre-wrap text-[#171717]"}>{code}</pre>
     </>
   );
 }
@@ -58,7 +58,7 @@ export default function FileAnalyze({ className, code }: TFileAnalyzeProps) {
     <>
       <div
         className={cn(
-          "flex min-h-[976px] w-full flex-col gap-8 rounded-lg p-10 outline outline-1 outline-[#B3B3B3]",
+          "flex min-h-[976px] w-full flex-col gap-8 rounded-lg border border-[#B3B3B3] p-10",
           className,
         )}
       >

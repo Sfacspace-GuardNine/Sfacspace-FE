@@ -1,10 +1,10 @@
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 
-export default function HelpPage() {
+export default function MainDivFifth() {
   return (
     <>
-      <div className={"flex h-fit gap-[124px]"}>
+      <div className={"container mx-auto flex h-screen gap-[124px] py-[10vh]"}>
         <aside className={"flex min-w-[430px] flex-col justify-between"}>
           <div className={"flex flex-col gap-[30px]"}>
             <p
@@ -40,7 +40,7 @@ export default function HelpPage() {
 
         <main
           className={
-            "flex w-full flex-col justify-between gap-8 rounded-[40px] border border-primary-500 p-[60px]"
+            "flex w-full flex-col justify-between rounded-[40px] border border-primary-500 p-[60px]"
           }
         >
           <div className={"flex flex-col gap-[23px]"}>

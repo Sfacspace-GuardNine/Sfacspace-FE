@@ -7,9 +7,7 @@ export default function Gnb() {
   return (
     <>
       <header
-        className={
-          "flex h-[136px] w-full items-center justify-between px-12 py-20"
-        }
+        className={"flex h-[136px] w-full items-center justify-between px-12"}
       >
         <div className={"flex items-center gap-[100px]"}>
           <Link href={"/"}>
