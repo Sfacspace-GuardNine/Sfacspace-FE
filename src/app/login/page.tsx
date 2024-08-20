@@ -18,7 +18,7 @@ export default function LoginPage() {
               <p className={"text-[60px] text-primary-500"}>Find your Flaw</p>
               <Button
                 className={
-                  "border-4 border-primary-500 px-[40px] py-0 text-[60px]"
+                  "border-4 border-primary-500 bg-white px-[40px] py-0 text-[60px]"
                 }
                 variant="outline"
                 shape="round"
