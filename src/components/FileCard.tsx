@@ -1,52 +1,46 @@
-import React, { ButtonHTMLAttributes } from "react";
+import React, { ComponentProps } from "react";
 
-import Image from "next/image";
+import Link from "next/link";
 
 import AssistChip from "@/components/AssistChip";
-import { cn } from "@/utils/cn";
+import ThreeDotDropDown from "@/components/ThreeDotDropDown";
 
 type TFileCardProps = {
   variant?: "detected" | "default";
   title: string;
   caption: string;
-  buttonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
-};
+  link: string;
+} & Omit<ComponentProps<typeof Link>, "href">;
 
 function FileCard({
   variant = "default",
   title,
   caption,
-  buttonProps,
+  link,
+  ...rest
 }: TFileCardProps) {
-  const boxClass = cn(
-    "h-[200px] w-[310px] rounded-[12px] border border-primary-100 bg-neutral-white p-5 hover:bg-primary-50",
-  );
-
-  const chipClass =
-    variant === "detected"
-      ? "border-primary-500 text-primary-500 bg-white"
-      : "border-[#3F3F3F] text-[#3F3F3F]";
-
   return (
-    <div className={boxClass}>
-      <div className="flex justify-between">
-        <AssistChip text="Label" variant="outline" className={chipClass} />
-        <div className="relative h-[17px] w-[3px]">
-          <button {...buttonProps}>
-            <Image
-              src="/icons/threedot-icon.svg"
-              alt="dotIcon"
-              layout="fill"
-              objectFit="contain"
-            />
-          </button>
+    <>
+      <Link
+        className={
+          "flex h-[200px] flex-col justify-between rounded-xl border border-primary-100 p-5 hover:bg-primary-50"
+        }
+        href={link}
+        {...rest}
+      >
+        <div className="flex justify-between">
+          <AssistChip
+            text="Label"
+            variant={variant === "detected" ? "outline" : "default"}
+          />
+          <ThreeDotDropDown />
         </div>
-      </div>
-      <div className="mt-[59px]">
-        <p className="text-[28px] leading-8">{title}</p>
-        <p className="mt-[10px] leading-4 text-[#969696]">{caption}</p>
-      </div>
-    </div>
+        <div className="flex flex-col gap-[10px]">
+          <p className="line-clamp-1 text-[28px]">{title}</p>
+          <p className="line-clamp-1 text-[#969696]">{caption}</p>
+        </div>
+      </Link>
+    </>
   );
 }
 
