@@ -5,14 +5,14 @@ import InputChip from "@/components/InputChip";
 import List from "@/components/List/List";
 import ProgressBar from "@/components/ProgressBar";
 import TitleDefault from "@/components/TitleDefault";
-import FileAnalyze from "@/components/me/FileAnalyze";
-import ResultAnalyze from "@/components/me/ResultAnalyze";
+import FileAnalyze from "@/components/my/FileAnalyze";
+import ResultAnalyze from "@/components/my/ResultAnalyze";
 
 export default function AiAnalyzePage() {
   return (
     <>
       <div className={"flex flex-col gap-[45px]"}>
-        <TitleDefault link={"/me/library"}>example</TitleDefault>
+        <TitleDefault link={"/my/library"}>example</TitleDefault>
 
         <div className={"flex gap-7"}>
           <Button className={"h-[107px] w-[247px]"}>폴더 전체 검사</Button>

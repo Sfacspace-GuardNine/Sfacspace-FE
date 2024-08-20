@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Button from "@/components/Button";
-import LibraryFiles from "@/components/me/LibraryFiles";
-import LibrarySort from "@/components/me/LibrarySort";
+import LibraryFiles from "@/components/my/LibraryFiles";
+import SortFiles from "@/components/my/SortFiles";
 
 export default function MyLibraryPage() {
   return (
@@ -54,7 +54,7 @@ export default function MyLibraryPage() {
                   <span>example@email.com</span>
                 </div>
               </div>
-              <Link href={"/me/profile"}>
+              <Link href={"/my/profile"}>
                 <Button
                   variant={"outline"}
                   className={"h-fit border-2 border-primary-500 bg-white"}
@@ -68,7 +68,7 @@ export default function MyLibraryPage() {
             <hr className={"my-[80px] h-[1px] border-0 bg-[#BABABA]"} />
 
             {/* 라이브러리 */}
-            <LibrarySort />
+            <SortFiles />
             <LibraryFiles />
           </div>
         </main>

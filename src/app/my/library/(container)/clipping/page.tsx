@@ -3,9 +3,9 @@ import React from "react";
 import Image from "next/image";
 
 import Button from "@/components/Button";
-import ClippingFiles from "@/components/me/ClippingFiles";
-import LibrarySort from "@/components/me/LibrarySort";
-import MyLibraryBackButton from "@/components/me/MyLibraryBackButton";
+import ClippingFiles from "@/components/my/ClippingFiles";
+import MyLibraryBackButton from "@/components/my/MyLibraryBackButton";
+import SortFiles from "@/components/my/SortFiles";
 
 export default function ClippingPage() {
   return (
@@ -13,7 +13,7 @@ export default function ClippingPage() {
       <MyLibraryBackButton />
       {/* 스크랩 라이브러리 */}
       <div>
-        <LibrarySort />
+        <SortFiles />
         <ClippingFiles />
 
         {/* 더보기 버튼 */}

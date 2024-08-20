@@ -1,8 +1,8 @@
 import React from "react";
 
-import DetectedFiles from "@/components/me/DetectedFiles";
-import LibrarySort from "@/components/me/LibrarySort";
-import MyLibraryBackButton from "@/components/me/MyLibraryBackButton";
+import DetectedFiles from "@/components/my/DetectedFiles";
+import MyLibraryBackButton from "@/components/my/MyLibraryBackButton";
+import SortFiles from "@/components/my/SortFiles";
 
 export default function DetectedPage() {
   return (
@@ -10,7 +10,7 @@ export default function DetectedPage() {
       <MyLibraryBackButton />
       <div>
         {/* 검출 결과 라이브러리 */}
-        <LibrarySort />
+        <SortFiles />
         <DetectedFiles />
       </div>
     </>

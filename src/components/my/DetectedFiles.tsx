@@ -29,7 +29,7 @@ export default function DetectedFiles() {
 
   return (
     <>
-      <div className={""}>
+      <div>
         <Swiper
           modules={[Navigation]}
           loop={false}

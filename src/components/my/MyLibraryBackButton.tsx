@@ -9,11 +9,11 @@ import TitleDefault from "@/components/TitleDefault";
 export default function MyLibraryBackButton() {
   const pathname = usePathname();
   const title = {
-    profile: { title: "Profile Information", link: "/me/library" },
-    detected: { title: "Detected Files", link: "/me/profile" },
-    clipping: { title: "Clipping Article", link: "/me/profile" },
-    setting: { title: "Setting", link: "/me/profile" },
-    help: { title: "Customer Service center", link: "/me/profile" },
+    profile: { title: "Profile Information", link: "/my/library" },
+    detected: { title: "Detected Files", link: "/my/profile" },
+    clipping: { title: "Clipping Article", link: "/my/profile" },
+    setting: { title: "Setting", link: "/my/profile" },
+    help: { title: "Customer Service center", link: "/my/profile" },
   };
   const curPath = pathname.split("/").pop() as keyof typeof title;
 

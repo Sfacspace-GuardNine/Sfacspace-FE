@@ -18,10 +18,10 @@ export default function ProfilePage() {
         {/* 라이브러리 */}
         <p className={"pb-12 text-[32px] font-semibold"}>라이브러리</p>
         <div className={"flex flex-col gap-9"}>
-          <GnbTitle link={"/me/library/detected"} className={"text-2xl"}>
+          <GnbTitle link={"/my/library/detected"} className={"text-2xl"}>
             검출된 파일
           </GnbTitle>
-          <GnbTitle link={"/me/library/clipping"} className={"text-2xl"}>
+          <GnbTitle link={"/my/library/clipping"} className={"text-2xl"}>
             스크랩
           </GnbTitle>
         </div>
@@ -29,10 +29,10 @@ export default function ProfilePage() {
 
         {/* 설정 등 */}
         <div className={"flex flex-col gap-9"}>
-          <GnbTitle link={"/me/setting"} className={"text-2xl"}>
+          <GnbTitle link={"/my/setting"} className={"text-2xl"}>
             설정
           </GnbTitle>
-          <GnbTitle link={"/me/help"} className={"text-2xl"}>
+          <GnbTitle link={"/my/help"} className={"text-2xl"}>
             고객센터
           </GnbTitle>
         </div>

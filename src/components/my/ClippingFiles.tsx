@@ -1,5 +1,3 @@
-"use client";
-
 import ClippingCard from "@/components/ClippingCard";
 
 export default function ClippingFiles() {

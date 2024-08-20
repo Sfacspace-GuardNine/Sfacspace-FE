@@ -4,7 +4,7 @@ import Dropdown from "@/components/Dropdown";
 import DropdownItem from "@/components/DropdownItem";
 import DropdownList from "@/components/DropdownList";
 
-export default function LibrarySort() {
+export default function SortFiles() {
   return (
     <>
       <div className={"flex justify-between"}>

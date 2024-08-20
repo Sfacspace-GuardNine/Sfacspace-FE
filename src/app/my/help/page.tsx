@@ -38,7 +38,7 @@ export default function HelpPage() {
 
         <main
           className={
-            "flex flex-col justify-between gap-8 rounded-[40px] border border-primary-500 p-[60px]"
+            "flex w-full flex-col justify-between gap-8 rounded-[40px] border border-primary-500 p-[60px]"
           }
         >
           <div className={"flex flex-col gap-[23px]"}>

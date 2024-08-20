@@ -1,7 +1,7 @@
 import React from "react";
 
 import Footer from "@/components/Footer";
-import MyLibraryBackButton from "@/components/me/MyLibraryBackButton";
+import MyLibraryBackButton from "@/components/my/MyLibraryBackButton";
 
 export default function HelpLayout({
   children,

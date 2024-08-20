@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import Button from "@/components/Button";
 import Footer from "@/components/Footer";
-import MyLibraryBackButton from "@/components/me/MyLibraryBackButton";
+import MyLibraryBackButton from "@/components/my/MyLibraryBackButton";
 
 export default function MeUserInfoLayout({
   children,
