@@ -2,8 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 import GnbTitle from "@/components/GnbTitle";
+import { getSession } from "@/libs/getSession";
 
-export default function Gnb() {
+export default async function Gnb() {
+  const session = await getSession();
+  const myLink = session ? "/my/library" : "/my";
+
   return (
     <>
       <header
@@ -18,10 +22,10 @@ export default function Gnb() {
               height={40}
             />
           </Link>
-          <GnbTitle link={""}>취약점 DB</GnbTitle>
+          <GnbTitle link="/vulndb">취약점 DB</GnbTitle>
         </div>
         <div>
-          <GnbTitle link={"/my/library"}>MY 저장소</GnbTitle>
+          <GnbTitle link={myLink}>MY 저장소</GnbTitle>
         </div>
       </header>
     </>

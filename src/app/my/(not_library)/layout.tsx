@@ -1,17 +1,19 @@
 import React from "react";
 
 import Image from "next/image";
-import Link from "next/link";
 
 import Button from "@/components/Button";
 import Footer from "@/components/Footer";
 import MyLibraryBackButton from "@/components/my/MyLibraryBackButton";
+import { onlyLogin } from "@/libs/onlyLogin";
+import { logout } from "@/server/users.action";
 
-export default function MeUserInfoLayout({
+export default async function MeUserInfoLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  await onlyLogin();
   return (
     <>
       <div className={"container mx-auto max-w-[1314px] pb-[124px]"}>
@@ -35,7 +37,7 @@ export default function MeUserInfoLayout({
               <span>example@email.com</span>
             </div>
           </div>
-          <Link href={""}>
+          <form action={logout}>
             <Button
               variant={"outline"}
               className={"h-fit border-2 border-primary-500"}
@@ -44,7 +46,7 @@ export default function MeUserInfoLayout({
             >
               로그아웃
             </Button>
-          </Link>
+          </form>
         </div>
         <hr className={"my-[80px] h-[1px] border-0 bg-[#BABABA]"} />
         {children}

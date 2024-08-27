@@ -1,8 +1,13 @@
-import React from "react";
+"use client";
+
+import React, { useTransition } from "react";
 
 import Button from "@/components/Button";
+import { githubLogin } from "@/server/users.action";
 
 export default function LoginPage() {
+  const startTransition = useTransition()[1];
+
   return (
     <>
       <div
@@ -30,6 +35,7 @@ export default function LoginPage() {
               size="md"
               shape="round"
               className="w-fit text-nowrap text-[28px]"
+              onClick={() => startTransition(async () => await githubLogin())}
             >
               Github로 연동 로그인하기
             </Button>

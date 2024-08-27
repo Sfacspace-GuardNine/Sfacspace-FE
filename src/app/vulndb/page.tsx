@@ -1,12 +1,10 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
-import CardHovered from "@/components/CardHovered";
 import OnlyCard from "@/components/OnlyCard";
 import Pagination from "@/components/Pagination";
 import Ranking from "@/components/Ranking";
 import SuggestionChip from "@/components/SuggestionChip";
+import OnlyCardBlur from "@/components/VulnDB/OnlyCardBlur";
+import VulCardHovered from "@/components/VulnDB/VulCardHovered";
+import { getSession } from "@/libs/getSession";
 
 const dummyData = [
   {
@@ -52,31 +50,14 @@ const dummyItems = [
   "10. 클린 코어",
 ];
 
-export default function VulnDBPage() {
-  const [hoveredIndex, setHoveredIndex] = useState(0);
-
-  useEffect(() => {
-    if (hoveredIndex === null) {
-      setHoveredIndex(0);
-    }
-  }, [hoveredIndex]);
+export default async function VulnDBPage() {
+  const session = await getSession();
 
   return (
     <div className="mt-[13px]">
       <main className="container mx-auto max-w-[1314px]">
         <div className="flex w-full flex-col items-center gap-[60px] pt-[76px]">
-          <div className="flex w-full gap-[28px]">
-            {dummyData.slice(0, 3).map((data, index) => (
-              <CardHovered
-                key={index}
-                title={data.title}
-                createdAt={data.createdAt}
-                index={index}
-                isHovered={hoveredIndex === index}
-                setHoveredIndex={setHoveredIndex}
-              />
-            ))}
-          </div>
+          <VulCardHovered />
 
           <div className="flex w-full justify-between">
             <div className="flex w-full max-w-[865px] flex-col gap-[16px]">
@@ -86,14 +67,18 @@ export default function VulnDBPage() {
                 <SuggestionChip variant="new" text="NEW" isDisabled={true} />
               </div>
               <div className="flex flex-col gap-[16px]">
-                {dummyData.map((data, index) => (
-                  <OnlyCard
-                    key={index}
-                    title={data.title}
-                    description={data.title}
-                    daysAgo={data.daysAgo}
-                  />
-                ))}
+                {session ? (
+                  dummyData.map((data, index) => (
+                    <OnlyCard
+                      key={index}
+                      title={data.title}
+                      description={data.description}
+                      daysAgo={data.daysAgo}
+                    />
+                  ))
+                ) : (
+                  <OnlyCardBlur />
+                )}
               </div>
             </div>
 
