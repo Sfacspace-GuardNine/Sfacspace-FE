@@ -8,7 +8,7 @@ import {
   orderBy,
   query,
   runTransaction,
-  startAt,
+  startAfter,
 } from "@firebase/firestore";
 import dayjs from "dayjs";
 import { serverTimestamp } from "firebase/firestore";
@@ -28,7 +28,7 @@ export const getHotArticles = async (
       q = query(
         docRef,
         orderBy("hot_score", "desc"),
-        startAt(lastVisible),
+        startAfter(lastVisible),
         limit(pageSize),
       );
     } else {
@@ -41,7 +41,7 @@ export const getHotArticles = async (
     return {
       docs: querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() })),
       last: lastVisibleDoc,
-      page: Math.ceil(docSnap.docs.length / 10),
+      total: docSnap.docs.length,
     };
   } catch (error) {
     console.log(error);
@@ -62,7 +62,7 @@ export const getNewArticles = async (
       q = query(
         docRef,
         orderBy("created_at", "desc"),
-        startAt(lastVisible),
+        startAfter(lastVisible),
         limit(pageSize),
       );
     } else {
@@ -75,7 +75,7 @@ export const getNewArticles = async (
     return {
       docs: querySnap.docs.map((doc) => ({ id: doc.id, data: doc.data() })),
       last: lastVisibleDoc,
-      page: Math.ceil(docSnap.docs.length / 10),
+      total: docSnap.docs.length,
     };
   } catch (error) {
     console.error(error);
@@ -88,39 +88,37 @@ export const getArticleDetails = async (postId: number) => {
     const docRef = doc(db, "articles", `${postId}`);
 
     return await runTransaction(db, async (transaction) => {
-      const doc = await transaction.get(docRef);
-      if (!doc.exists()) {
+      const docSnap = await transaction.get(docRef);
+      if (!docSnap.exists()) {
         throw "Document does not exist!";
       }
 
-      const docData = doc.data();
-      const lastViewedAt = docData.last_viewed_at;
+      const docData = docSnap.data();
+      const lastViewedAt = docData.last_viewed_at
+        ? docData.last_viewed_at.toDate()
+        : null;
       const viewCount = docData.view_count;
       const hotScore = docData.hot_score;
 
+      const currentTime = dayjs();
+      let newHotScore = hotScore;
+
       if (lastViewedAt) {
-        const currentTime = dayjs();
-        const lastViewedTime = dayjs(lastViewedAt.seconds * 1000);
+        const lastViewedTime = dayjs(lastViewedAt);
         const hoursDiff = currentTime.diff(lastViewedTime, "hours");
 
-        const newHotScore = lastViewedAt
-          ? (viewCount * 1.0) / (hoursDiff + 1) + hotScore
-          : viewCount * 1.0 + 1 + hotScore;
-
-        transaction.update(docRef, {
-          view_count: viewCount + 1,
-          hot_score: newHotScore,
-          last_viewed_at: serverTimestamp(),
-        });
+        newHotScore = (viewCount * 1.0) / (hoursDiff + 1) + hotScore;
       } else {
-        transaction.update(docRef, {
-          view_count: viewCount + 1,
-          hot_score: hotScore + 1,
-          last_viewed_at: serverTimestamp(),
-        });
+        newHotScore = viewCount * 1.0 + 1 + hotScore;
       }
 
-      return doc.data();
+      transaction.update(docRef, {
+        view_count: viewCount + 1,
+        hot_score: newHotScore,
+        last_viewed_at: serverTimestamp(),
+      });
+
+      return docSnap.data();
     });
   } catch (error) {
     console.error(error);

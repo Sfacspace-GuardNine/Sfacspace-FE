@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 
-import { DocumentData } from "@firebase/firestore";
+import { DocumentData, QueryDocumentSnapshot } from "@firebase/firestore";
 import Link from "next/link";
 
+import CardHovered from "@/components/CardHovered";
 import OnlyCard from "@/components/OnlyCard";
 import Pagination from "@/components/Pagination";
 import Ranking from "@/components/Ranking";
@@ -27,12 +28,19 @@ const dummyItems = [
 export default function VulnDBPage({
   searchParams,
 }: {
-  searchParams: { types: "hot" | "new" };
+  searchParams: { types: "hot" | "new"; page: number };
 }) {
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const [data, setData] = useState<DocumentData[]>([]);
   const [articleTypes, setArticleTypes] = useState("hot");
-  const [pageSize, setPageSize] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [lastVisible, setLastVisible] =
+    useState<QueryDocumentSnapshot<DocumentData> | null>(null);
+
+  const handlePageButton = (page: number) => {
+    setCurrentPage(() => page);
+    window.scrollTo(0, 0);
+  };
 
   useEffect(() => {
     if (hoveredIndex === null) {
@@ -46,36 +54,39 @@ export default function VulnDBPage({
     }
 
     if (searchParams.types === "new") {
-      getNewArticles(5, null).then((res) => {
+      getNewArticles(5, lastVisible).then((res) => {
         setData(res.docs);
-        setPageSize(res.page);
+        setLastVisible(res.last);
       });
     } else if (
       searchParams.types === "hot" ||
       searchParams.types === undefined
     ) {
-      getHotArticles(5, null).then((res) => {
+      getHotArticles(5, lastVisible).then((res) => {
         setData(res.docs);
-        setPageSize(res.page);
+        setLastVisible(res.last);
       });
     }
-  }, [searchParams]);
+  }, [searchParams, currentPage]);
 
   return (
     <div className="mt-[13px]">
       <main className="container mx-auto max-w-[1314px]">
         <div className="flex w-full flex-col items-center gap-[60px] pt-[76px]">
           <div className="flex w-full gap-[28px]">
-            {/*{dummyData.slice(0, 3).map((data, index) => (
-              <CardHovered
-                key={index}
-                title={data.title}
-                createdAt={data.createdAt}
-                index={index}
-                isHovered={hoveredIndex === index}
-                setHoveredIndex={setHoveredIndex}
-              />
-            ))}*/}
+            {data &&
+              data
+                .slice(0, 3)
+                .map((data, index) => (
+                  <CardHovered
+                    key={index}
+                    title={data.data.title}
+                    createdAt={data.data.created_at.toDate()}
+                    index={index}
+                    isHovered={hoveredIndex === index}
+                    setHoveredIndex={setHoveredIndex}
+                  />
+                ))}
           </div>
 
           <div className="flex w-full justify-between">
@@ -123,7 +134,11 @@ export default function VulnDBPage({
             </div>
           </div>
           <div className="flex justify-center">
-            <Pagination size={pageSize} />
+            <Pagination
+              size={10}
+              start={currentPage}
+              onClickPageButton={handlePageButton}
+            />
           </div>
         </div>
       </main>
