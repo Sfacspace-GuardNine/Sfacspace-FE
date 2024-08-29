@@ -32,6 +32,7 @@ export default function VulnDBPage({
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const [data, setData] = useState<DocumentData[]>([]);
   const [articleTypes, setArticleTypes] = useState("hot");
+  const [pageSize, setPageSize] = useState(0);
 
   useEffect(() => {
     if (hoveredIndex === null) {
@@ -45,9 +46,18 @@ export default function VulnDBPage({
     }
 
     if (searchParams.types === "new") {
-      getNewArticles(5, null).then((res) => setData(res.docs));
-    } else if (searchParams.types === "hot") {
-      getHotArticles(5, null).then((res) => setData(res.docs));
+      getNewArticles(5, null).then((res) => {
+        setData(res.docs);
+        setPageSize(res.page);
+      });
+    } else if (
+      searchParams.types === "hot" ||
+      searchParams.types === undefined
+    ) {
+      getHotArticles(5, null).then((res) => {
+        setData(res.docs);
+        setPageSize(res.page);
+      });
     }
   }, [searchParams]);
 
@@ -113,7 +123,7 @@ export default function VulnDBPage({
             </div>
           </div>
           <div className="flex justify-center">
-            <Pagination size={10} />
+            <Pagination size={pageSize} />
           </div>
         </div>
       </main>

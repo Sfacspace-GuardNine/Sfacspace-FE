@@ -51,7 +51,7 @@ function OnlyCard({
       <div className="flex pb-3">
         {type === "hot" ? (
           <SuggestionChip
-            text="Hot"
+            text="HOT"
             variant="hot"
             className="h-[35px] w-[59px]"
           />
