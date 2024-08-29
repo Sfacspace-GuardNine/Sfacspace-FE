@@ -2,42 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-import CardHovered from "@/components/CardHovered";
+import { DocumentData } from "@firebase/firestore";
+import Link from "next/link";
+
 import OnlyCard from "@/components/OnlyCard";
 import Pagination from "@/components/Pagination";
 import Ranking from "@/components/Ranking";
 import SuggestionChip from "@/components/SuggestionChip";
-
-const dummyData = [
-  {
-    title: "[취약성 경고] Mirosoft의 여러 보안 취약점에 대한 CNNVD의 보고서",
-    createdAt: new Date("2024-08-16T00:00:00"),
-    description:
-      "Microsoft Corporation (NASDAQ: MSFT) announced Monday that it has identified several security vulnerabilities in its software products, including Office 365, Exchange Server, and SharePoint Online. The announcement comes amid a growing concern about the company's security posture.",
-    daysAgo: 5,
-  },
-  {
-    title: "[취약성 경고] Mirosoft의 여러 보안 취약점에 대한 CNNVD의 보고서",
-    createdAt: new Date("2024-08-16T00:00:00"),
-    description:
-      "Microsoft Corporation (NASDAQ: MSFT) announced Monday that it has identified several security vulnerabilities in its software products, including Office 365, Exchange Server, and SharePoint Online. The announcement comes amid a growing concern about the company's security posture.",
-    daysAgo: 5,
-  },
-  {
-    title: "[취약성 경고] Mirosoft의 여러 보안 취약점에 대한 CNNVD의 보고서",
-    createdAt: new Date("2024-08-16T00:00:00"),
-    description:
-      "Microsoft Corporation (NASDAQ: MSFT) announced Monday that it has identified several security vulnerabilities in its software products, including Office 365, Exchange Server, and SharePoint Online. The announcement comes amid a growing concern about the company's security posture.",
-    daysAgo: 5,
-  },
-  {
-    title: "[취약성 경고] Mirosoft의 여러 보안 취약점에 대한 CNNVD의 보고서",
-    createdAt: new Date("2024-08-16T00:00:00"),
-    description:
-      "Microsoft Corporation (NASDAQ: MSFT) announced Monday that it has identified several security vulnerabilities in its software products, including Office 365, Exchange Server, and SharePoint Online. The announcement comes amid a growing concern about the company's security posture.",
-    daysAgo: 5,
-  },
-];
+import { getHotArticles, getNewArticles } from "@/server/article";
 
 const dummyItems = [
   "1. Topic",
@@ -52,8 +24,14 @@ const dummyItems = [
   "10. 클린 코어",
 ];
 
-export default function VulnDBPage() {
+export default function VulnDBPage({
+  searchParams,
+}: {
+  searchParams: { types: "hot" | "new" };
+}) {
   const [hoveredIndex, setHoveredIndex] = useState(0);
+  const [data, setData] = useState<DocumentData[]>([]);
+  const [articleTypes, setArticleTypes] = useState("hot");
 
   useEffect(() => {
     if (hoveredIndex === null) {
@@ -61,12 +39,24 @@ export default function VulnDBPage() {
     }
   }, [hoveredIndex]);
 
+  useEffect(() => {
+    if (["hot", "new"].includes(searchParams.types)) {
+      setArticleTypes(searchParams.types);
+    }
+
+    if (searchParams.types === "new") {
+      getNewArticles(5, null).then((res) => setData(res.docs));
+    } else if (searchParams.types === "hot") {
+      getHotArticles(5, null).then((res) => setData(res.docs));
+    }
+  }, [searchParams]);
+
   return (
     <div className="mt-[13px]">
       <main className="container mx-auto max-w-[1314px]">
         <div className="flex w-full flex-col items-center gap-[60px] pt-[76px]">
           <div className="flex w-full gap-[28px]">
-            {dummyData.slice(0, 3).map((data, index) => (
+            {/*{dummyData.slice(0, 3).map((data, index) => (
               <CardHovered
                 key={index}
                 title={data.title}
@@ -75,24 +65,39 @@ export default function VulnDBPage() {
                 isHovered={hoveredIndex === index}
                 setHoveredIndex={setHoveredIndex}
               />
-            ))}
+            ))}*/}
           </div>
 
           <div className="flex w-full justify-between">
             <div className="flex w-full max-w-[865px] flex-col gap-[16px]">
               <span className="text-2xl font-semibold">취약점DB</span>
               <div className="flex gap-[12px]">
-                <SuggestionChip variant="hot" text="HOT" isDisabled={false} />
-                <SuggestionChip variant="new" text="NEW" isDisabled={true} />
+                <Link href={"/vulndb?types=hot"}>
+                  <SuggestionChip
+                    variant="hot"
+                    text="HOT"
+                    isDisabled={articleTypes !== "hot"}
+                  />
+                </Link>
+                <Link href={"/vulndb?types=new"}>
+                  <SuggestionChip
+                    variant="new"
+                    text="NEW"
+                    isDisabled={articleTypes !== "new"}
+                  />
+                </Link>
               </div>
               <div className="flex flex-col gap-[16px]">
-                {dummyData.map((data, index) => (
-                  <OnlyCard
-                    key={index}
-                    title={data.title}
-                    description={data.title}
-                    daysAgo={data.daysAgo}
-                  />
+                {data.map((item) => (
+                  <Link href={`/vulndb/${item.id}`} key={item.id}>
+                    <OnlyCard
+                      title={item.data.title}
+                      type={articleTypes}
+                      description={item.data.content_text.slice(0, 100)}
+                      publishedAt={item.data.published_at}
+                      source={item.data.source.toUpperCase()}
+                    />
+                  </Link>
                 ))}
               </div>
             </div>

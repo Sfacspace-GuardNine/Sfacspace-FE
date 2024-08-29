@@ -20,7 +20,7 @@ const Pagination = ({ start = 1, size, ...rest }: TPaginationProps) => {
       ))}
       <PageButton>
         <Image
-          src={"./images/arrow_right.svg"}
+          src={"/images/arrow_right.svg"}
           alt={"file"}
           width={24}
           height={24}
