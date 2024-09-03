@@ -18,7 +18,7 @@ export default function Gnb() {
               height={40}
             />
           </Link>
-          <GnbTitle link={""}>취약점 DB</GnbTitle>
+          <GnbTitle link={"/vulndb"}>취약점 DB</GnbTitle>
         </div>
         <div>
           <GnbTitle link={"/my/library"}>MY 저장소</GnbTitle>

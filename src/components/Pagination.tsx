@@ -7,16 +7,24 @@ import PageButton from "./PageButton";
 type TPaginationProps = HTMLAttributes<HTMLDivElement> & {
   start?: number;
   size: number;
+  onClickPageButton: (page: number) => void;
 };
 
-const Pagination = ({ start = 1, size, ...rest }: TPaginationProps) => {
+const Pagination = ({
+  start = 1,
+  size,
+  onClickPageButton,
+  ...rest
+}: TPaginationProps) => {
   const baseStyle = "flex";
   const pageNumberArr = Array.from({ length: size }, (_, i) => start + i);
 
   return (
     <div className={baseStyle} {...rest}>
       {pageNumberArr.map((page) => (
-        <PageButton key={page}>{page}</PageButton>
+        <PageButton key={page} onClick={() => onClickPageButton(page)}>
+          {page}
+        </PageButton>
       ))}
       <PageButton>
         <Image
