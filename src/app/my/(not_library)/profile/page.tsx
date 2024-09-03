@@ -1,10 +1,13 @@
 import React from "react";
 
 import GnbTitle from "@/components/GnbTitle";
+import UserProfileHeader from "@/components/my/UserProfileHeader";
 
 export default function ProfilePage() {
   return (
     <>
+      <UserProfileHeader />
+      <hr className={"my-[80px] h-[1px] border-0 bg-[#BABABA]"} />
       <div className={"text-[#3F3F3F]"}>
         {/* 내 정보 */}
         <p className={"pb-12 text-[32px] font-semibold"}>내 정보</p>

@@ -1,10 +1,13 @@
 import React from "react";
 
 import Switch from "@/components/Switch";
+import UserProfileHeader from "@/components/my/UserProfileHeader";
 
 export default function SettingPage() {
   return (
     <>
+      <UserProfileHeader />
+      <hr className={"my-[80px] h-[1px] border-0 bg-[#BABABA]"} />
       <div className={"text-[#3F3F3F]"}>
         {/* 계정 유형 */}
         <div className={"flex items-center gap-8"}>
