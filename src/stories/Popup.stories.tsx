@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import Button from "@/components/Button";
 import CheckedFiles from "@/components/CheckedFiles";
-import Popup from "@/components/Popup/Popup";
+import Popup from "@/components/Popup";
 import usePopup from "@/hooks/usePopup";
 
 const meta: Meta<typeof Popup.Container> = {

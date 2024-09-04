@@ -52,23 +52,20 @@ export const useAuth = () => {
   };
 
   const handleLogOut = async () => {
-    const isOk = confirm("로그아웃 하시겠습니까?");
-    if (isOk) {
-      setIsLoading(true);
-      try {
-        await auth.signOut();
+    setIsLoading(true);
+    try {
+      await auth.signOut();
 
-        await fetch("/api/logout", {
-          method: "POST",
-        });
+      await fetch("/api/logout", {
+        method: "POST",
+      });
 
-        setIsLoading(false);
-        router.push("/login");
-      } catch (error) {
-        console.error("로그아웃 오류:", error);
-        alert("로그아웃에 실패했습니다. 다시 시도해주세요.");
-        setIsLoading(false);
-      }
+      setIsLoading(false);
+      router.push("/login");
+    } catch (error) {
+      console.error("로그아웃 오류:", error);
+      alert("로그아웃에 실패했습니다. 다시 시도해주세요.");
+      setIsLoading(false);
     }
   };
 
