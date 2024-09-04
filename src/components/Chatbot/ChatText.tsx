@@ -10,8 +10,8 @@ import { cn } from "@/utils/cn";
 dayjs.locale("ko");
 
 type TChatText = {
-  time: Date;
-  isUser: boolean;
+  time?: Date;
+  isUser?: boolean;
 } & React.ComponentProps<"div">;
 
 export default function ChatText({ time, isUser, children }: TChatText) {
@@ -23,7 +23,7 @@ export default function ChatText({ time, isUser, children }: TChatText) {
             src={"/icons/chat-oper-icon.svg"}
             alt={"oper"}
             width={62}
-            height={62}
+            height={63}
           />
         )}
         <div className={"flex items-end gap-1"}>
@@ -31,7 +31,7 @@ export default function ChatText({ time, isUser, children }: TChatText) {
             {!isUser && <p className={"text-xl"}>플로디텍터 운영자</p>}
             <p
               className={cn(
-                "max-w-[300px] whitespace-pre-line rounded-[20px] px-2 py-3",
+                "w-fit max-w-[300px] whitespace-pre-line rounded-[20px] px-2 py-3",
                 { "rounded-tr-none bg-primary-500 text-white": isUser },
                 { "rounded-tl-none bg-[#F7F7F7]": !isUser },
               )}
@@ -42,7 +42,7 @@ export default function ChatText({ time, isUser, children }: TChatText) {
           <p
             className={cn("text-sm text-[#8B8F93]", { "order-first": isUser })}
           >
-            {dayjs(time).format("A HH:mm")}
+            {time && dayjs(time).format("A HH:mm")}
           </p>
         </div>
       </div>
