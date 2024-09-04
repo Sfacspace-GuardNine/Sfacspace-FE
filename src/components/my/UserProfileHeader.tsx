@@ -5,16 +5,16 @@ import React, { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 import Button from "@/components/Button";
 import MyLibraryBackButton from "@/components/my/MyLibraryBackButton";
 import { auth } from "@/firebase";
+import { useAuth } from "@/hooks/useAuth";
 import { TUser } from "@/type/user";
 
 export default function UserProfileHeader() {
-  const router = useRouter();
   const [user, setUser] = useState<TUser>(null);
+  const { handleLogOut } = useAuth();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -31,18 +31,6 @@ export default function UserProfileHeader() {
 
     return () => unsubscribe();
   }, []);
-
-  const handleLogOut = async () => {
-    const isOk = confirm("로그아웃 하시겠습니까?");
-    if (isOk) {
-      await auth.signOut();
-
-      await fetch("/api/logout", {
-        method: "POST",
-      });
-      router.push("/login");
-    }
-  };
 
   return (
     <div>
