@@ -1,5 +1,8 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
+
+import { onAuthStateChanged } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -7,9 +10,27 @@ import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
 import MyLibraryBackButton from "@/components/my/MyLibraryBackButton";
 import { auth } from "@/firebase";
+import { TUser } from "@/type/user";
 
 export default function UserProfileHeader() {
   const router = useRouter();
+  const [user, setUser] = useState<TUser>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser({
+          displayName: currentUser.displayName,
+          email: currentUser.email,
+          photoURL: currentUser.photoURL,
+        });
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const handleLogOut = async () => {
     const isOk = confirm("로그아웃 하시겠습니까?");
@@ -31,7 +52,11 @@ export default function UserProfileHeader() {
           <Image
             width={107}
             height={107}
-            src={"https://api.dicebear.com/9.x/identicon/svg"}
+            src={
+              user?.photoURL
+                ? user.photoURL
+                : "https://api.dicebear.com/9.x/identicon/svg"
+            }
             alt={"avatar"}
             className={"rounded-full"}
           />
@@ -40,7 +65,7 @@ export default function UserProfileHeader() {
           >
             <span>Hello,</span>
             <br />
-            <span>example@email.com</span>
+            <span>{user ? user.email : "로딩중..."}</span>
           </div>
         </div>
         <Link href={""}>

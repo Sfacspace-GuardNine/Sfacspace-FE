@@ -1,13 +1,36 @@
-import React from "react";
+"use client";
 
+import React, { useEffect, useState } from "react";
+
+import { onAuthStateChanged } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 
 import Button from "@/components/Button";
 import LibraryFiles from "@/components/my/LibraryFiles";
 import SortFiles from "@/components/my/SortFiles";
+import { auth } from "@/firebase";
+import { TUser } from "@/type/user";
 
 export default function MyLibraryPage() {
+  const [user, setUser] = useState<TUser>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser({
+          displayName: currentUser.displayName,
+          email: currentUser.email,
+          photoURL: currentUser.photoURL,
+        });
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <>
       <div
@@ -38,7 +61,11 @@ export default function MyLibraryPage() {
                 <Image
                   width={107}
                   height={107}
-                  src={"https://api.dicebear.com/9.x/identicon/svg"}
+                  src={
+                    user?.photoURL
+                      ? user.photoURL
+                      : "https://api.dicebear.com/9.x/identicon/svg"
+                  }
                   alt={"avatar"}
                   className={"rounded-full"}
                 />
@@ -51,7 +78,7 @@ export default function MyLibraryPage() {
                   <span>Hello,</span>
                   <br />
                   {/* email 들어갈 곳 */}
-                  <span>example@email.com</span>
+                  <span>{user ? user.email : "로딩중..."}</span>
                 </div>
               </div>
               <Link href={"/my/profile"}>

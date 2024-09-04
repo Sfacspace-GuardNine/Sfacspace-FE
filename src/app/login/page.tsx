@@ -3,10 +3,11 @@
 import React from "react";
 
 import { GithubAuthProvider, signInWithPopup } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
 import Button from "@/components/Button";
-import { auth } from "@/firebase";
+import { auth, db } from "@/firebase";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -21,6 +22,20 @@ export default function LoginPage() {
       console.log(displayName, email, photoURL);
 
       const token = await result.user.getIdToken();
+
+      const userRef = doc(db, "users", user.uid);
+
+      const docSnap = await getDoc(userRef);
+
+      if (!docSnap.exists()) {
+        await setDoc(userRef, {
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          createdAt: new Date().toISOString(),
+        });
+      }
 
       // 쿠키에 토큰 저장
       await fetch("/api/setCookie", {
