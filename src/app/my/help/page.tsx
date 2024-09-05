@@ -1,7 +1,60 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+import { onAuthStateChanged } from "firebase/auth";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
+
 import Button from "@/components/Button";
 import Input from "@/components/Input";
+import { auth, db } from "@/firebase";
 
 export default function HelpPage() {
+  const [content, setContent] = useState({
+    name: "",
+    message: "",
+  });
+  const [userId, setUserId] = useState<string | null>(null);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUserId(currentUser.uid);
+        setUserEmail(currentUser.email);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setContent({
+      ...content,
+      [e.target.name]: e.target.value,
+    });
+    console.dir(content);
+  };
+
+  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      await addDoc(collection(db, "inquiries"), {
+        name: content.name,
+        message: content.message,
+        createAt: Timestamp.now(),
+        email: userEmail,
+        userId: userId,
+      });
+      alert("등록에 성공했습니다.");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <>
       <div className={"flex h-fit gap-[124px]"}>
@@ -43,31 +96,50 @@ export default function HelpPage() {
             "flex w-full flex-col justify-between gap-8 rounded-[40px] border border-primary-500 p-[60px]"
           }
         >
-          <div className={"flex flex-col gap-[23px]"}>
-            <p className={"text-2xl font-bold"}>문의하기</p>
-            <span className={"text-[#8F8F8F]"}>
-              문의하고싶은 내용을 구체적으로 작성해주셔야 피드백이 정상적으로
-              반영됩니다.
-            </span>
-          </div>
-          <div className={"flex flex-col gap-2"}>
-            <p className={"text-lg font-medium"}>Name</p>
-            <Input placeholder={"이름을 적어주세요."} />
-          </div>
-          <div className={"flex flex-col gap-2"}>
-            <p className={"text-lg font-medium"}>Email</p>
-            <Input placeholder={"justin@floatfactory.kr"} disabled />
-          </div>
-          <div className={"flex flex-col gap-2"}>
-            <p className={"text-lg font-medium"}>Message</p>
-            <textarea
-              placeholder={"내용을 적어주세요."}
-              className={
-                "min-h-[226px] w-full rounded-lg border border-neutral-10 p-3 focus:outline focus:outline-1 focus:outline-primary-500"
-              }
-            />
-          </div>
-          <Button className={"text-lg font-semibold"}>문의 보내기</Button>
+          <form
+            onSubmit={onSubmitHandler}
+            className={"flex flex-col gap-[23px]"}
+          >
+            <div className={"flex flex-col gap-[23px]"}>
+              <p className={"text-2xl font-bold"}>문의하기</p>
+              <span className={"text-[#8F8F8F]"}>
+                문의하고싶은 내용을 구체적으로 작성해주셔야 피드백이 정상적으로
+                반영됩니다.
+              </span>
+            </div>
+            <div className={"flex flex-col gap-2"}>
+              <p className={"text-lg font-medium"}>Name</p>
+              <Input
+                placeholder={"이름을 적어주세요."}
+                name="name"
+                required
+                onChange={handleChange}
+              />
+            </div>
+            <div className={"flex flex-col gap-2"}>
+              <p className={"text-lg font-medium"}>Email</p>
+              <Input
+                placeholder={"email"}
+                value={userEmail || "email"}
+                disabled
+              />
+            </div>
+            <div className={"flex flex-col gap-2"}>
+              <p className={"text-lg font-medium"}>Message</p>
+              <textarea
+                placeholder={"내용을 적어주세요."}
+                className={
+                  "min-h-[226px] w-full rounded-lg border border-neutral-10 p-3 focus:outline focus:outline-1 focus:outline-primary-500"
+                }
+                name="message"
+                required
+                onChange={handleChange}
+              />
+            </div>
+            <Button type="submit" className={"text-lg font-semibold"}>
+              문의 보내기
+            </Button>
+          </form>
         </main>
       </div>
     </>
