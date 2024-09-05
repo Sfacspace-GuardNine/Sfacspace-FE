@@ -31,6 +31,7 @@ export const useAuth = () => {
           email,
           photoURL,
           createdAt: new Date().toISOString(),
+          isEmailConsent: false,
         });
       }
 
