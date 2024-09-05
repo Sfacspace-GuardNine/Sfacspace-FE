@@ -6,7 +6,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 
-import Button from "@/components/Button";
 import LibraryFiles from "@/components/my/LibraryFiles";
 import SortFiles from "@/components/my/SortFiles";
 import { auth } from "@/firebase";
@@ -56,7 +55,11 @@ export default function MyLibraryPage() {
           </div>
           <div className={"py-[124px]"}>
             {/* 계정 */}
-            <div className={"flex w-full items-center justify-between"}>
+            <div
+              className={
+                "flex w-full items-center justify-between rounded-[42px] bg-[#F3F3F3] p-[32px]"
+              }
+            >
               <div className={"flex gap-11"}>
                 <Image
                   width={107}
@@ -82,14 +85,12 @@ export default function MyLibraryPage() {
                 </div>
               </div>
               <Link href={"/my/profile"}>
-                <Button
-                  variant={"outline"}
-                  className={"h-fit border-2 border-primary-500 bg-white"}
-                  shape={"square"}
-                  size={"md"}
-                >
-                  프로필 정보
-                </Button>
+                <Image
+                  src={"/images/arrow_right.svg"}
+                  alt={"Analyzing"}
+                  width={40}
+                  height={40}
+                />
               </Link>
             </div>
             <hr className={"my-[80px] h-[1px] border-0 bg-[#BABABA]"} />
