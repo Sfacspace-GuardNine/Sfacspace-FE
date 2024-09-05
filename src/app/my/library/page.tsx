@@ -13,6 +13,7 @@ import { TUser } from "@/type/user";
 
 export default function MyLibraryPage() {
   const [user, setUser] = useState<TUser>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -25,10 +26,15 @@ export default function MyLibraryPage() {
       } else {
         setUser(null);
       }
+      setIsLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
+
+  if (isLoading) {
+    return <div>로딩중...</div>;
+  }
 
   return (
     <>
@@ -65,9 +71,8 @@ export default function MyLibraryPage() {
                   width={107}
                   height={107}
                   src={
-                    user?.photoURL
-                      ? user.photoURL
-                      : "https://api.dicebear.com/9.x/identicon/svg"
+                    user?.photoURL ||
+                    "https://api.dicebear.com/9.x/identicon/svg"
                   }
                   alt={"avatar"}
                   className={"rounded-full"}
@@ -81,7 +86,7 @@ export default function MyLibraryPage() {
                   <span>Hello,</span>
                   <br />
                   {/* email 들어갈 곳 */}
-                  <span>{user ? user.email : "로딩중..."}</span>
+                  <span>{user?.email || "사용자 정보 없음"}</span>
                 </div>
               </div>
               <Link href={"/my/profile"}>

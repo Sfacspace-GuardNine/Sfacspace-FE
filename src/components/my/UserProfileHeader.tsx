@@ -17,6 +17,8 @@ import Popup from "../Popup";
 
 export default function UserProfileHeader() {
   const [user, setUser] = useState<TUser>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const { handleLogOut } = useAuth();
   const { open: openPopup, close: closePopup, isOpen: isOpen } = usePopup();
 
@@ -31,10 +33,15 @@ export default function UserProfileHeader() {
       } else {
         setUser(null);
       }
+      setIsLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
+
+  if (isLoading) {
+    return <div>로딩중...</div>;
+  }
 
   return (
     <div>
@@ -44,11 +51,7 @@ export default function UserProfileHeader() {
           <Image
             width={107}
             height={107}
-            src={
-              user?.photoURL
-                ? user.photoURL
-                : "https://api.dicebear.com/9.x/identicon/svg"
-            }
+            src={user?.photoURL || "https://api.dicebear.com/9.x/identicon/svg"}
             alt={"avatar"}
             className={"rounded-full"}
           />
@@ -57,7 +60,7 @@ export default function UserProfileHeader() {
           >
             <span>Hello,</span>
             <br />
-            <span>{user ? user.email : "로딩중..."}</span>
+            <span>{user?.email || "사용자 정보 없음"}</span>
           </div>
         </div>
         <Link href={""}>
