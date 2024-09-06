@@ -1,41 +1,10 @@
 "use client";
 
-import React from "react";
-
-import { GithubAuthProvider, signInWithPopup } from "firebase/auth";
-import { useRouter } from "next/navigation";
-
 import Button from "@/components/Button";
-import { auth } from "@/firebase";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function LoginPage() {
-  const router = useRouter();
-
-  const handleLogin = async () => {
-    try {
-      const provider = new GithubAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      const { displayName, email, photoURL } = user;
-      console.log(displayName, email, photoURL);
-
-      const token = await result.user.getIdToken();
-
-      // 쿠키에 토큰 저장
-      await fetch("/api/setCookie", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token }),
-      });
-
-      router.push("/my/library");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { handleLogin } = useAuth();
 
   return (
     <>

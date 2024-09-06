@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 
 import { cn } from "@/utils/cn";
 
-import Button from "../Button";
+import Button from "./Button";
 
 interface TPopupProps {
   isShow: boolean;
