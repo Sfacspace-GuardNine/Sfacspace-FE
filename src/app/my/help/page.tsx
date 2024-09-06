@@ -33,7 +33,7 @@ export default function HelpPage() {
   ) => {
     setContent({
       ...content,
-      [e.target.name]: e.target.value,
+      [e.target.id]: e.target.value,
     });
     console.dir(content);
   };
@@ -111,7 +111,7 @@ export default function HelpPage() {
               <p className={"text-lg font-medium"}>Name</p>
               <Input
                 placeholder={"이름을 적어주세요."}
-                name="name"
+                id="name"
                 required
                 onChange={handleChange}
               />
@@ -131,7 +131,7 @@ export default function HelpPage() {
                 className={
                   "min-h-[226px] w-full rounded-lg border border-neutral-10 p-3 focus:outline focus:outline-1 focus:outline-primary-500"
                 }
-                name="message"
+                id="message"
                 required
                 onChange={handleChange}
               />
