@@ -50,6 +50,9 @@ const config: Config = {
           success: "#00C308",
         },
       },
+      fontFamily: {
+        pretendard: ["var(--font-pretendard)"],
+      },
       backgroundImage: {
         "concentric-circles": "url('/images/concentric-circles.svg')",
       },
