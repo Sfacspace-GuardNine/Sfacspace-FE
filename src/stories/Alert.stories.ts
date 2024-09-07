@@ -14,41 +14,45 @@ type Story = StoryObj<typeof Alert>;
 
 export const Info: Story = {
   args: {
-    title: "정보 알림",
+    title: "검사 대기중",
     line: "1",
-    text1: "이것은 정보 메시지입니다.",
+    text1: "순차적으로 파일 검사가 진행됩니다.",
+    text2: "잠시만 대기해주시면 검사가 시작됩니다.",
     variant: "info",
-    isShow: true,
+    isShow: false,
   },
 };
 
 export const Error: Story = {
   args: {
-    title: "에러 발생",
+    title: "Error",
     line: "2",
-    text1: "문제가 발생했습니다.",
+    text1: "오류가 발생했습니다.",
     text2: "다시 시도해주세요.",
     variant: "error",
     isShow: true,
+    buttonChild: "다시 시도하기",
   },
 };
 
 export const InProgress: Story = {
   args: {
-    title: "진행 중",
+    title: "검사 중",
     line: "1",
-    text1: "작업이 진행 중입니다.",
+    text1: "코드가 많을수록 처리시간이 길어집니다.",
     variant: "ing",
-    isShow: true,
+    isShow: false,
   },
 };
 
 export const Complete: Story = {
   args: {
-    title: "작업 완료",
+    title: "프로젝트 검사 완료",
     line: "1",
-    text1: "작업이 완료되었습니다.",
+    text1: "검사결과를 확인해보세요.",
     variant: "complete",
     isShow: true,
+    buttonChild: "결과 보러가기",
+    linkHref: "/",
   },
 };

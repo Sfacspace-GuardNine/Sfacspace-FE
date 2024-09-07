@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { ButtonHTMLAttributes, useState } from "react";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import { cn } from "./../utils/cn";
 import Button from "./Button";
@@ -14,6 +15,9 @@ type TAlertProps = {
   text2?: string;
   variant: "info" | "error" | "ing" | "complete";
   isShow: boolean;
+  buttonChild?: React.ReactNode;
+  linkHref?: string;
+  buttonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
   className?: string;
 };
 
@@ -24,11 +28,14 @@ export default function Alert({
   text2,
   variant,
   isShow,
+  buttonChild,
+  linkHref,
+  buttonProps,
   className,
 }: TAlertProps) {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isAlertDisplayed, setIsAlertDisplayed] = useState(true);
 
-  if (!isVisible) return null;
+  if (!isAlertDisplayed) return null;
 
   const renderIcon = () => {
     switch (variant) {
@@ -55,7 +62,7 @@ export default function Alert({
         return (
           <Image
             src="/icons/ing-icon.svg"
-            alt="얼럿 에러"
+            alt="검사 중"
             width={36}
             height={36}
             className="animate-spin"
@@ -65,7 +72,7 @@ export default function Alert({
         return (
           <Image
             src="/icons/alert-check-icon.svg"
-            alt="얼럿 에러"
+            alt="검사완료"
             width={39}
             height={39}
           />
@@ -76,23 +83,28 @@ export default function Alert({
   };
 
   const renderButton = () => {
-    if (!isShow) return null;
+    if (!isShow || !buttonChild) return null;
 
-    switch (variant) {
-      case "error":
-        return (
-          <Button className="font-Pretendard h-[58px] w-full py-[12px] font-medium">
-            다시 시도하기
+    if (linkHref) {
+      return (
+        <Link href={linkHref}>
+          <Button
+            className="font-Pretendard h-[58px] w-full py-[12px] font-medium"
+            {...buttonProps}
+          >
+            {buttonChild}
           </Button>
-        );
-      case "complete":
-        return (
-          <Button className="font-Pretendard h-[58px] w-full py-[12px] font-medium">
-            결과 보러가기
-          </Button>
-        );
-      default:
-        return null;
+        </Link>
+      );
+    } else {
+      return (
+        <Button
+          className="font-Pretendard h-[58px] w-full py-[12px] font-medium"
+          {...buttonProps}
+        >
+          {buttonChild}
+        </Button>
+      );
     }
   };
 
@@ -118,7 +130,7 @@ export default function Alert({
         </div>
         <button
           className="flex cursor-pointer items-start p-[6px]"
-          onClick={() => setIsVisible(false)}
+          onClick={() => setIsAlertDisplayed(false)}
         >
           <Image
             src="/icons/alert-x-icon.svg"
