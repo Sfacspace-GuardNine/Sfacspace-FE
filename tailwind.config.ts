@@ -48,6 +48,7 @@ const config: Config = {
           assist: "#6DB0FF",
           suggest: "#FFD542",
           success: "#00C308",
+          accent: "#17E0D4",
         },
       },
       fontFamily: {
