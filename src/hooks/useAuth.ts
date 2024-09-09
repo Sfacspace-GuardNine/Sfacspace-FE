@@ -6,10 +6,12 @@ import { useRouter } from "next/navigation";
 
 import { auth } from "@/firebase";
 import { db } from "@/firebase";
+import useGitRepoStore from "@/stores/useGitRepoStore";
 
 export const useAuth = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const { setGitToken } = useGitRepoStore();
 
   const handleLogin = async () => {
     setIsLoading(true);
@@ -23,6 +25,12 @@ export const useAuth = () => {
 
       const userRef = doc(db, "users", uid);
       const docSnap = await getDoc(userRef);
+
+      const credential = GithubAuthProvider.credentialFromResult(result);
+      const gitToken = credential?.accessToken;
+      if (gitToken) {
+        setGitToken(gitToken);
+      }
 
       if (!docSnap.exists()) {
         await setDoc(userRef, {
