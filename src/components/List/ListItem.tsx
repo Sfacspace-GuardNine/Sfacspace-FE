@@ -4,26 +4,33 @@ import { useState } from "react";
 
 import Image from "next/image";
 
+import useGitContentsStore from "@/stores/useGitContentsStore";
 import { cn } from "@/utils/cn";
 
 import ProgressBar from "../ProgressBar";
 import BookmarkButton from "../my/BookmarkButton";
-import { TFileItemProps } from "./List";
+
+export type TFileItemProps = {
+  type: "file" | "dir";
+  name: string;
+  path: string;
+};
 
 const statusStyles = {
+  none: { text: null, icon: null },
   analyzing: { text: null, icon: "loader-icon" },
   pending: { text: "대기중..", icon: null },
   completed: { text: null, icon: "check-circle-icon" },
   error: { text: null, icon: "alert-triangle" },
 };
 
-export default function ListItem({
-  type,
-  name,
-  status,
-  isChecked = false,
-}: TFileItemProps) {
+export default function ListItem({ type, name, path }: TFileItemProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const { selectedFiles } = useGitContentsStore();
+
+  const fileDetails = selectedFiles.find((file) => file.path === path);
+  const isChecked = !!fileDetails;
+  const status = fileDetails?.status;
 
   const statusStyle = status && statusStyles[status];
 
@@ -40,7 +47,7 @@ export default function ListItem({
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="flex">
-          {type === "folder" ? (
+          {type === "dir" ? (
             <div className="mr-[2px] h-5 w-5">
               <Image
                 src={`/images/file-fold-icon.svg`}
@@ -68,11 +75,10 @@ export default function ListItem({
             height={`${type === "file" ? 20 : 16}`}
             className={`${type === "file" ? "mr-[10px]" : "mr-[4px]"}`}
           />
-          <span className="tracking-tighter">{name}</span>
+          <span className="text-overflow tracking-tighter">{name}</span>
         </div>
         <div className="flex items-center">
-          {type === "file" ? <BookmarkButton isHovered={isHovered} /> : null}
-          {statusStyle && (
+          {!isHovered && statusStyle && (
             <div className="flex">
               {statusStyle.icon && (
                 <Image
@@ -93,6 +99,7 @@ export default function ListItem({
               </span>
             </div>
           )}
+          {type === "file" && <BookmarkButton isHovered={isHovered} />}
         </div>
       </div>
       {status === "completed" && <ProgressBar value={50} />}
