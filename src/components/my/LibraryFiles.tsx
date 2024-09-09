@@ -1,13 +1,9 @@
 "use client";
 
-import "swiper/css";
-import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect, useState } from "react";
 
 import FileCard from "@/components/FileCard";
-
-import "../../styles/swiper-navigation.css";
+import Pagination from "@/components/Pagination";
 
 type TRepository = {
   id: string;
@@ -23,28 +19,47 @@ type TLibraryFilesProps = {
 };
 
 export default function LibraryFiles({ repos }: TLibraryFilesProps) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 16;
+  const totalItems = repos.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const currentRepos = repos.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  );
+
+  const handlePageClick = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo(0, 0);
+  };
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [totalPages, currentPage]);
+
   return (
     <div>
-      <Swiper
-        modules={[Navigation]}
-        loop={false}
-        navigation={true}
-        slidesPerView={1}
-        slidesPerGroup={1}
-      >
-        <SwiperSlide>
-          <div className={"grid w-full grid-cols-4 gap-x-6 gap-y-12"}>
-            {repos.map((repo) => (
-              <FileCard
-                key={repo.id}
-                title={repo.name}
-                caption={repo.description}
-                link={`/my/library/groups/${repo.owner}/${repo.name}`}
-              />
-            ))}
-          </div>
-        </SwiperSlide>
-      </Swiper>
+      <div className="grid w-full grid-cols-4 gap-x-6 gap-y-12">
+        {currentRepos.map((repo) => (
+          <FileCard
+            key={repo.id}
+            title={repo.name}
+            caption={repo.description}
+            link={`/my/library/groups/${repo.owner}/${repo.name}`}
+          />
+        ))}
+      </div>
+
+      <div className="mt-8 flex justify-center">
+        <Pagination
+          size={totalPages}
+          start={1}
+          onClickPageButton={handlePageClick}
+        />
+      </div>
     </div>
   );
 }
