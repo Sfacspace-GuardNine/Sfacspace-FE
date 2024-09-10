@@ -9,11 +9,13 @@ import Link from "next/link";
 import LibraryFiles from "@/components/my/LibraryFiles";
 import SortFiles from "@/components/my/SortFiles";
 import { auth } from "@/firebase";
+import useGitRepoStore from "@/stores/useGitRepoStore";
 import { TUser } from "@/type/user";
 
 export default function MyLibraryPage() {
   const [user, setUser] = useState<TUser>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { repositories, fetchRepositories } = useGitRepoStore();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -32,6 +34,22 @@ export default function MyLibraryPage() {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchRepositories();
+    };
+
+    fetchData();
+  }, [fetchRepositories]);
+
+  const reposData = repositories.map((repo) => ({
+    id: repo.id,
+    name: repo.name,
+    description: repo.description,
+    created_at: repo.created_at,
+    owner: repo.owner.login,
+  }));
+
   if (isLoading) {
     return <div>로딩중...</div>;
   }
@@ -44,7 +62,6 @@ export default function MyLibraryPage() {
         }
       >
         <main className={"container mx-auto max-w-[1314px]"}>
-          {/* 상단 */}
           <div
             className={
               "flex w-full flex-col items-center gap-5 pt-[69px] text-center text-[60px] text-primary-500"
@@ -60,7 +77,6 @@ export default function MyLibraryPage() {
             </p>
           </div>
           <div className={"py-[124px]"}>
-            {/* 계정 */}
             <div
               className={
                 "flex w-full items-center justify-between rounded-[42px] bg-[#F3F3F3] p-[32px]"
@@ -77,7 +93,6 @@ export default function MyLibraryPage() {
                   alt={"avatar"}
                   className={"rounded-full"}
                 />
-                {/* 기능 개발 시, 컴포넌트 분리 예정 */}
                 <div
                   className={
                     "text-[40px] font-medium leading-tight text-[#3F3F3F]"
@@ -85,8 +100,7 @@ export default function MyLibraryPage() {
                 >
                   <span>Hello,</span>
                   <br />
-                  {/* email 들어갈 곳 */}
-                  <span>{user?.email || "사용자 정보 없음"}</span>
+                  <span>{user?.email}</span>
                 </div>
               </div>
               <Link href={"/my/profile"}>
@@ -100,9 +114,8 @@ export default function MyLibraryPage() {
             </div>
             <hr className={"my-[80px] h-[1px] border-0 bg-[#BABABA]"} />
 
-            {/* 라이브러리 */}
             <SortFiles />
-            <LibraryFiles />
+            <LibraryFiles repos={reposData} />
           </div>
         </main>
       </div>
