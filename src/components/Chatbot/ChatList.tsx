@@ -35,6 +35,7 @@ export default function ChatList({ className, uid }: TChatListProps) {
         timestamp: new Date(),
         message: message,
       };
+
       setChatMessageList((prev) => [...prev, chatEntry]);
       setMessage("");
       setIsChatLoading(true);
@@ -53,6 +54,7 @@ export default function ChatList({ className, uid }: TChatListProps) {
           timestamp: new Date(),
           message: state.message.trim(),
         };
+
         setChatMessageList((prev) => [...prev, chatEntry]);
         setIsChatLoading(false);
 
