@@ -79,7 +79,7 @@ const List = ({ setCurrentFile }: TListProps) => {
   };
 
   const handleFileClick = (item: TRepoContentItem) => {
-    toggleFileSelection(item);
+    toggleFileSelection({ file: item, repoName });
     setCurrentFile(item);
   };
 

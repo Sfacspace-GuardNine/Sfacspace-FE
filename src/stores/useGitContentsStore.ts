@@ -23,6 +23,7 @@ type TSelectedFile = {
   path: string;
   progress: number;
   status: Tstatus;
+  repoName: string;
 };
 
 type GitContentsStore = {
@@ -35,7 +36,13 @@ type GitContentsStore = {
   ) => Promise<TRepoContentItem[]>;
   fetchFileContent: (url: string) => Promise<string | void>;
   setRepoContents: (contents: TRepoContentItem[]) => void;
-  toggleFileSelection: (file: TRepoContentItem) => void;
+  toggleFileSelection: ({
+    file,
+    repoName,
+  }: {
+    file: TRepoContentItem;
+    repoName: string;
+  }) => void;
 };
 
 const useGitContentsStore = create(
@@ -85,14 +92,25 @@ const useGitContentsStore = create(
       }
     },
 
-    toggleFileSelection: (item: TRepoContentItem) => {
+    toggleFileSelection: ({
+      file,
+      repoName,
+    }: {
+      file: TRepoContentItem;
+      repoName: string;
+    }) => {
       const { selectedFiles } = get();
-      const index = selectedFiles.findIndex((file) => file.path === item.path);
+      const index = selectedFiles.findIndex((item) => item.path === file.path);
       if (index === -1) {
         set({
           selectedFiles: [
             ...selectedFiles,
-            { path: item.path, status: "none", progress: 0 },
+            {
+              path: file.path,
+              status: "none",
+              progress: 0,
+              repoName,
+            },
           ],
         });
       } else {

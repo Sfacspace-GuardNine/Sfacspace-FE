@@ -56,6 +56,7 @@ export default function AiAnalyzePage() {
       (file) => file.path === currentFile.path,
     );
 
+    //현재 파일의 상태 관리
     if (fileDetails?.status) setCurrentStatus(fileDetails.status);
 
     const fetchContent = async () => {
@@ -69,6 +70,7 @@ export default function AiAnalyzePage() {
       }
     };
 
+    //현재 파일의 코드 관리
     fetchContent();
   }, [currentFile, selectedFiles, fetchFileContent]);
 
