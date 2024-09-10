@@ -10,6 +10,7 @@ import OnlyCard from "@/components/OnlyCard";
 import Pagination from "@/components/Pagination";
 import Ranking from "@/components/Ranking";
 import SuggestionChip from "@/components/SuggestionChip";
+import SearchBar from "@/components/VulnDB/SearchBar";
 import { getHotArticles, getNewArticles } from "@/server/article.action";
 
 const dummyItems = [
@@ -88,6 +89,8 @@ export default function VulnDBPage({
                   />
                 ))}
           </div>
+
+          <SearchBar />
 
           <div className="flex w-full justify-between">
             <div className="flex w-full max-w-[865px] flex-col gap-[16px]">

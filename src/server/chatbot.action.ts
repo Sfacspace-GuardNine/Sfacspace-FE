@@ -1,6 +1,10 @@
 "use server";
 
+import { arrayUnion, doc, getDoc, setDoc } from "firebase/firestore";
 import { cookies } from "next/headers";
+
+import { db } from "@/firebase";
+import { TChatTextList } from "@/type/chatbot";
 
 async function setChatbotToken() {
   const hasToken = cookies().has("chatbot-token");
@@ -55,4 +59,67 @@ export async function getChatbotResponse(
 
     return { message: await res.text(), status: true };
   });
+}
+
+function timestampToDate(timestamp: {
+  nanoseconds: number;
+  seconds: number;
+}): Date {
+  return new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
+}
+
+export async function getChatbotList(uid: string) {
+  const docRef = doc(db, "chatbotLogs", uid);
+  const docSnap = await getDoc(docRef);
+
+  try {
+    if (docSnap.exists()) {
+      return docSnap
+        .data()
+        .messages.map(
+          (item: {
+            timestamp: { seconds: number; nanoseconds: number };
+            message: string;
+            is_user: boolean;
+          }) => {
+            const newItem = { ...item };
+
+            return {
+              isUser: newItem.is_user,
+              message: newItem.message,
+              timestamp: timestampToDate(newItem.timestamp),
+            };
+          },
+        );
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function setChatbotList({
+  uid,
+  isUser,
+  message,
+  timestamp,
+}: {
+  uid: string;
+} & TChatTextList) {
+  try {
+    const listRef = doc(db, "chatbotLogs", uid);
+
+    const chatEntry = {
+      is_user: isUser,
+      message: message,
+      timestamp: timestamp,
+    };
+
+    await setDoc(
+      listRef,
+      { uid: uid, messages: arrayUnion(chatEntry) },
+      { merge: true },
+    );
+  } catch (err) {
+    console.error(err);
+  }
 }

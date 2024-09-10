@@ -2,17 +2,28 @@ import React, { ButtonHTMLAttributes } from "react";
 
 import { cn } from "@/utils/cn";
 
+import EditedCode from "./EditedCode";
 import InfoBoxDetailItem from "./InfoBoxDetailItem";
 
 type TInfoBoxProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "red" | "primary" | "gray";
   title: string;
-  text: string[];
+  text: string;
+  weakness: string;
+  codeLanguage?: string;
+  codeDetail?: string[];
 };
 
-function InfoBoxDetail({ variant = "primary", text, title }: TInfoBoxProps) {
+function InfoBoxDetail({
+  variant = "primary",
+  text = "",
+  title,
+  weakness,
+  codeLanguage = "javascript",
+  codeDetail,
+}: TInfoBoxProps) {
   const boxClass = cn(
-    "w-full rounded-[12px]",
+    "w-full rounded-[12px] p-5",
     variant === "red"
       ? "bg-background-redLight"
       : variant === "gray"
@@ -21,7 +32,7 @@ function InfoBoxDetail({ variant = "primary", text, title }: TInfoBoxProps) {
   );
 
   const headerClass = cn(
-    "pl-5 pt-5 text-2xl font-semibold",
+    "font-pretendard text-2xl font-semibold",
     variant === "red"
       ? "text-system-warning"
       : variant === "gray"
@@ -30,7 +41,7 @@ function InfoBoxDetail({ variant = "primary", text, title }: TInfoBoxProps) {
   );
 
   const buttonClass = cn(
-    "ml-2 mt-[22.5px] rounded-[16px] border-[2px] px-1 font-semibold leading-[19px]",
+    "h-[29px] w-[75px] rounded-[16px] border-[2px] font-semibold",
     variant === "red"
       ? "border-system-warning text-system-warning"
       : variant === "gray"
@@ -38,20 +49,33 @@ function InfoBoxDetail({ variant = "primary", text, title }: TInfoBoxProps) {
         : "border-primary-500 text-primary-500",
   );
 
-  const isSingleLine = text.length === 1; // 두 줄이상일 경우 list마크를 넣기 위함
+  const splitTextIntoSentences = (text: string): string[] => {
+    const sentences = text
+      .split(/(?<=[.!?])\s+/) // 마침표, 물음표, 느낌표를 기준으로 쪼갬.
+      .map((sentence) => sentence.trim())
+      .filter((sentence) => sentence.length > 0);
+
+    return sentences;
+  };
+
+  const sentences = splitTextIntoSentences(text);
 
   return (
     <div className={boxClass}>
-      <div className="flex">
+      <div className="flex gap-2">
         <p className={headerClass}>{title}</p>
         <button className={buttonClass}>위치보기</button>
       </div>
-      <div className="pb-5 pl-10">
-        <ul className={isSingleLine ? "" : "list-disc"}>
-          {text.map((item, index) => (
+      <div className="pb-5">
+        <ul className="mt-[10px] w-5/6">
+          <li className="mb-[10px] ml-[30px] list-disc font-pretendard text-[18px] font-medium">
+            취약점 : {weakness}
+          </li>
+          {sentences.map((item, index) => (
             <InfoBoxDetailItem key={index} text={item} variant={variant} />
           ))}
         </ul>
+        <EditedCode language={codeLanguage} codeDetail={codeDetail} />
       </div>
     </div>
   );

@@ -2,7 +2,6 @@ import React from "react";
 
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
-import HTMLReactParser from "html-react-parser";
 import Image from "next/image";
 
 import { cn } from "@/utils/cn";
@@ -36,7 +35,7 @@ export default function ChatText({ time, isUser, children }: TChatText) {
                 { "rounded-tl-none bg-[#F7F7F7]": !isUser },
               )}
             >
-              {HTMLReactParser(children as string)}
+              {children}
             </p>
           </div>
           <p

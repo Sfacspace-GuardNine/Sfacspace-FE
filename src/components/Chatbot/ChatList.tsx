@@ -1,17 +1,22 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { startTransition, useEffect, useState } from "react";
 
 import Image from "next/image";
 import { useFormState } from "react-dom";
 
 import ChatText from "@/components/Chatbot/ChatText";
-import { getChatbotResponse } from "@/server/chatbot.action";
+import {
+  getChatbotList,
+  getChatbotResponse,
+  setChatbotList,
+} from "@/server/chatbot.action";
+import { TChatTextList } from "@/type/chatbot";
 import { cn } from "@/utils/cn";
 
-type TChatTextList = { isUser: boolean; time: Date; text: string };
+type TChatListProps = { uid: string } & React.ComponentProps<"div">;
 
-export default function ChatList({ className }: React.ComponentProps<"div">) {
+export default function ChatList({ className, uid }: TChatListProps) {
   const [isChatLoading, setIsChatLoading] = useState(false);
   const [state, formAction] = useFormState(getChatbotResponse, {
     message: "",
@@ -23,23 +28,37 @@ export default function ChatList({ className }: React.ComponentProps<"div">) {
   const handleOnChangeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
   };
-  const handleOnSubmit = () => {
-    setChatMessageList((prev) => [
-      ...prev,
-      { isUser: true, time: new Date(), text: message },
-    ]);
-    setMessage("");
-    setIsChatLoading(true);
+  const handleOnSubmit = async () => {
+    try {
+      const chatEntry = {
+        isUser: true,
+        timestamp: new Date(),
+        message: message,
+      };
+      setChatMessageList((prev) => [...prev, chatEntry]);
+      setMessage("");
+      setIsChatLoading(true);
+
+      await setChatbotList({ uid, ...chatEntry });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {
-    if (state.status) {
-      setChatMessageList((prev) => [
-        ...prev,
-        { isUser: false, time: new Date(), text: state.message.trim() },
-      ]);
-      setIsChatLoading(false);
-    }
+    startTransition(async () => {
+      if (state.status) {
+        const chatEntry = {
+          isUser: false,
+          timestamp: new Date(),
+          message: state.message.trim(),
+        };
+        setChatMessageList((prev) => [...prev, chatEntry]);
+        setIsChatLoading(false);
+
+        await setChatbotList({ uid, ...chatEntry });
+      }
+    });
   }, [state]);
 
   useEffect(() => {
@@ -48,6 +67,16 @@ export default function ChatList({ className }: React.ComponentProps<"div">) {
       chatBody.scrollTop = chatBody.scrollHeight;
     }
   }, [chatMessageList]);
+
+  useEffect(() => {
+    startTransition(async () => {
+      await getChatbotList(uid).then((res) => {
+        if (res) {
+          setChatMessageList(res);
+        }
+      });
+    });
+  }, []);
 
   return (
     <>
@@ -74,9 +103,9 @@ export default function ChatList({ className }: React.ComponentProps<"div">) {
           id={"chat_body"}
           className={"flex h-full flex-col gap-6 overflow-y-scroll px-5 py-6"}
         >
-          {chatMessageList.map((data, index) => (
-            <ChatText time={data.time} isUser={data.isUser} key={index}>
-              {data.text}
+          {chatMessageList?.map((data, index) => (
+            <ChatText time={data.timestamp} isUser={data.isUser} key={index}>
+              {data.message}
             </ChatText>
           ))}
           {isChatLoading && <ChatText isUser={false}>...</ChatText>}

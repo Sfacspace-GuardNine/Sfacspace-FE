@@ -1,8 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import Button from "@/components/Button";
+import { getSession } from "@/libs/getSession";
 
-export default function MainDivFirst() {
+export default async function MainDivFirst() {
+  const session = await getSession();
+
   return (
     <>
       <div
@@ -25,9 +29,20 @@ export default function MainDivFirst() {
             인공지능의 뛰어난 분석 능력을 활용하여 코드의 보안 취약점을 신속하게
             해결하세요.
           </p>
-          <Button shape={"round"} className={"mt-[65px]"}>
-            Login
-          </Button>
+          {!session && (
+            <Link href="/login">
+              <Button shape={"round"} className={"mt-[65px]"}>
+                Login
+              </Button>
+            </Link>
+          )}
+          {session && (
+            <Link href="/my/library">
+              <Button shape={"round"} className={"mt-[65px]"}>
+                파일 분석하러 가기
+              </Button>
+            </Link>
+          )}
           <Image
             src="/icons/caretdouble-down.svg"
             alt="더블다운"

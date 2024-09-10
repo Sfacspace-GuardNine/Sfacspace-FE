@@ -2,15 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { onAuthStateChanged } from "firebase/auth";
+
 import ChatList from "@/components/Chatbot/ChatList";
 import Floating from "@/components/Floating";
+import { auth } from "@/firebase";
 
 export default function Chatbot() {
+  const [uid, setUid] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+  const [isChatVisible, setIsChatVisible] = useState(false);
   const chatBotRef = useRef<HTMLDivElement>(null);
 
   const onClickFloatingButton = () => {
-    setIsVisible((prev) => !prev);
+    setIsChatVisible((prev) => !prev);
   };
 
   useEffect(() => {
@@ -19,7 +24,7 @@ export default function Chatbot() {
         chatBotRef.current &&
         !chatBotRef.current.contains(e.target as Node)
       ) {
-        setIsVisible(false);
+        setIsChatVisible(false);
       }
     };
 
@@ -29,15 +34,32 @@ export default function Chatbot() {
     };
   }, [chatBotRef]);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (curUser) => {
+      if (curUser) {
+        setUid(curUser.uid);
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <>
-      <div
-        className={"fixed bottom-5 right-5 z-50 flex flex-col items-end gap-6"}
-        ref={chatBotRef}
-      >
-        <ChatList className={`${isVisible ? "" : "hidden"}`} />
-        <Floating onClick={onClickFloatingButton} />
-      </div>
+      {isVisible && (
+        <div
+          className={
+            "fixed bottom-5 right-5 z-50 flex flex-col items-end gap-6"
+          }
+          ref={chatBotRef}
+        >
+          <ChatList className={`${isChatVisible ? "" : "hidden"}`} uid={uid} />
+          <Floating onClick={onClickFloatingButton} />
+        </div>
+      )}
     </>
   );
 }
