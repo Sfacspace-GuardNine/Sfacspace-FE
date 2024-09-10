@@ -131,7 +131,10 @@ export default function ChatList({ className, uid }: TChatListProps) {
             />
             <button
               type={"submit"}
-              className={"rounded-[34px] bg-primary-500 px-[14px] py-[10px]"}
+              disabled={isChatLoading}
+              className={
+                "rounded-[34px] bg-primary-500 px-[14px] py-[10px] disabled:bg-neutral-20"
+              }
             >
               <Image
                 src={"/icons/chat-up.svg"}

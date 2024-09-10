@@ -29,8 +29,9 @@ async function setChatbotToken() {
   cookies().set({
     name: "chatbot-token",
     value: newToken,
+    secure: true,
     httpOnly: true,
-    maxAge: 1800,
+    maxAge: 60 * 60 * 6,
   });
 
   return newToken;
