@@ -4,7 +4,7 @@ import Image from "next/image";
 
 type EditedCodeProps = {
   language?: string;
-  codeDetail?: string[];
+  codeDetail?: string;
 };
 
 function EditedCode({ language, codeDetail }: EditedCodeProps) {
@@ -27,7 +27,7 @@ function EditedCode({ language, codeDetail }: EditedCodeProps) {
           </div>
         </div>
         <div className="whitespace-pre-wrap rounded-bl-[10px] rounded-br-[10px] bg-neutral-80 px-5 py-4 text-[18px] text-[#D6D6D6]">
-          {codeDetail?.map((line, index) => <div key={index}>{line}</div>)}
+          {codeDetail}
         </div>
       </div>
     </div>

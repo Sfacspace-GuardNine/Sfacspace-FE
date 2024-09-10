@@ -11,7 +11,7 @@ type TInfoBoxProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   text: string;
   weakness: string;
   codeLanguage?: string;
-  codeDetail?: string[];
+  codeDetail?: string;
 };
 
 function InfoBoxDetail({

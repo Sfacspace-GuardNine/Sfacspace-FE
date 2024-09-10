@@ -28,11 +28,7 @@ export const GrayWithMultipleLines: Story = {
     text: "첫 번째 줄 텍스트입니다. 두 번째 줄 텍스트입니다. 세 번째 줄 텍스트입니다.",
     weakness:
       "사용자 입력을 HTML에 직접 삽입하면서 HTML을 안전하게 처리하지 않음",
-    codeDetail: [
-      "function displayUserInput(input) {",
-      "document.getElementById('userInput').textContent = input; // textContent를 사용해 XSS 예방",
-      "}",
-    ],
+    codeDetail: "function displayUserInput(input) {",
     variant: "gray",
   },
 };

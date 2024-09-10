@@ -2,28 +2,35 @@
 
 import { useEffect, useState } from "react";
 
+import { onAuthStateChanged } from "firebase/auth";
 import { useParams } from "next/navigation";
 
-import Alert from "@/components/Alert";
 import Button from "@/components/Button";
 import InfoBoxDetail from "@/components/InfoBoxDetail";
 import List from "@/components/List/List";
 import NewInfoBox from "@/components/NewInfoBox";
 import TitleDefault from "@/components/TitleDefault";
-import FileAnalyze from "@/components/my/FileAnalyze";
+import { auth } from "@/firebase";
+import { useLamma } from "@/hooks/useLamma";
 import useGitContentsStore, {
   TRepoContentItem,
   Tstatus,
 } from "@/stores/useGitContentsStore";
 import useGitRepoStore from "@/stores/useGitRepoStore";
+import { Vulnerability } from "@/type/vulnerability";
+import { onFile } from "@/utils/save2db";
 
 export default function AiAnalyzePage() {
   const { owner, name } = useParams();
+  const { onScan } = useLamma();
+
   const repoOwner = Array.isArray(owner) ? owner[0] : owner;
   const repoName = Array.isArray(name) ? name[0] : name;
   const [curentCode, setCurrentCode] = useState<string | null>(null);
   const [currentFile, setCurrentFile] = useState<TRepoContentItem>();
   const [currentStatus, setCurrentStatus] = useState<Tstatus>();
+  const [uid, setUid] = useState<string | null>(null);
+  const [vulnerabilities, setVulnerabilities] = useState<Vulnerability[]>([]);
 
   const {
     selectedFiles,
@@ -32,6 +39,17 @@ export default function AiAnalyzePage() {
     fetchFileContent,
   } = useGitContentsStore();
   const { gitToken } = useGitRepoStore();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        setUid(uid);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const fetchContents = async () => {
@@ -58,12 +76,13 @@ export default function AiAnalyzePage() {
 
     //현재 파일의 상태 관리
     if (fileDetails?.status) setCurrentStatus(fileDetails.status);
-
+    console.log(currentStatus);
     const fetchContent = async () => {
       try {
         const content = await fetchFileContent(currentFile.download_url);
         if (content) {
           setCurrentCode(content);
+          console.log(curentCode);
         }
       } catch (error) {
         console.error(error);
@@ -72,7 +91,54 @@ export default function AiAnalyzePage() {
 
     //현재 파일의 코드 관리
     fetchContent();
+
+    const fetchVulnerabilities = async () => {
+      if (uid) {
+        try {
+          const fetchedVulnerabilities = await onFile(
+            uid,
+            repoName,
+            currentFile.path,
+          );
+          console.log("펫취", fetchedVulnerabilities);
+          if (!fetchedVulnerabilities) {
+            return;
+          }
+          setVulnerabilities(fetchedVulnerabilities);
+        } catch (error) {
+          console.error("Error fetching vulnerabilities:", error);
+        }
+      }
+    };
+
+    fetchVulnerabilities();
   }, [currentFile, selectedFiles, fetchFileContent]);
+
+  // 검사하기 버튼 클릭 핸들러
+  const handleScan = async () => {
+    if (!selectedFiles || selectedFiles.length === 0) return;
+    console.log("검사하기", selectedFiles);
+
+    for (const file of selectedFiles) {
+      const code = await fetchFileContent(file.download_url); // 코드 가져오기
+      const userId = uid; // 사용자 ID 설정
+      const repoId = repoName; // 리포지토리 이름을 repoId로 사용
+      const fileId = file.path; // 파일 경로를 fileId로 사용
+
+      if (typeof code === "string" && userId) {
+        try {
+          const isSaved = await onScan(code, userId, repoId, fileId); // onScan 함수 호출
+          console.log(`Result for file ${file.path}:`, isSaved); // 결과를 콘솔에 출력
+        } catch (error) {
+          console.error(`Error scanning file ${file.path}:`, error);
+        }
+      } else {
+        console.error(
+          `Invalid code for file ${file.path}. Expected a string but got ${typeof code}.`,
+        );
+      }
+    }
+  };
 
   return (
     <div className={"flex flex-col gap-[45px]"}>
@@ -84,14 +150,16 @@ export default function AiAnalyzePage() {
           <aside className={"flex w-[247px] flex-col gap-6"}>
             <NewInfoBox />
             <List setCurrentFile={setCurrentFile} />
-            <Button size={"sm"}>검사하기</Button>
+            <Button size={"sm"} onClick={handleScan}>
+              검사하기
+            </Button>
           </aside>
         </div>
 
         <div className={"flex flex-1 pb-[125px]"}>
           <section className={"w-full"}>
             {/* 코드 분석 영역 */}
-            <div className={"relative mb-[60px] flex gap-7"}>
+            {/* <div className={"relative mb-[60px] flex gap-7"}>
               <Alert
                 title={currentStatus || "없음"}
                 line="2"
@@ -103,33 +171,21 @@ export default function AiAnalyzePage() {
                 className="absolute right-[12px] top-[13px]"
               />
               <FileAnalyze code={curentCode} />
-            </div>
+            </div> */}
 
             {/* 수정된 코드 영역 */}
             <div className={"flex flex-col gap-7"}>
-              <InfoBoxDetail
-                variant={"red"}
-                title={"XSS (Cross-Site Scripting) Vulnerablility"}
-                weakness="사용자 입력을 HTML에 직접 삽입하면서 HTML을 안전하게 처리하지 않음"
-                text="사용자 입력을 HTML에 삽입하기 전에 반드시 적절한 인코딩을 수행하거나, DOM API를 사용해 안전하게 요소를 삽입해야함. 'innerHTML'은 입력된 HTML 코드를 그대로 렌더링하기 떄문에 악성 스크립트를 실행할 수 있음. 'textContent'는 HTML을 해석하지 않고 텍스트로만 처리하기 때문에 안전함."
-                codeDetail={[
-                  "function displayUserInput(input) {",
-                  "document.getElementById('userInput').textContent = input; // textContent를 사용해 XSS 예방",
-                  "}",
-                ]}
-              />
-              <InfoBoxDetail
-                variant={"red"}
-                title={"Insecure Password Handling"}
-                weakness="비밀번호를 'localStorage'에 평문으로 저장함."
-                text="비밀번호는 브라우저의 메모리에서만 유지되도록 하고, 저장이 필요한 경우에는 안전한 해시 알고리츰을 사용해 해시값만 저장. 'localStorage'는 자바스크립트를 통해 쉽게 접근할 수 있어, 악정 스크립트에 의해 유출될 수 있음. 비밀번호를 해시하여 저장하면 공격자가 해시값을 얻더라도 원래 비밀번호를 알아내기 어려움."
-                codeDetail={[
-                  "function storePassword(password) {",
-                  "const hashedPassword = hashFunction(password); // 안전한 해시 함수 사용",
-                  "localStorage.setItem('passwordHash', hashedPassword);",
-                  "}",
-                ]}
-              />
+              {vulnerabilities.map((vulnerability, index) => (
+                <InfoBoxDetail
+                  key={index}
+                  variant={"red"}
+                  title={vulnerability.title}
+                  weakness={vulnerability.reason}
+                  text={vulnerability.fix}
+                  codeDetail={vulnerability.new_code}
+                  lang=""
+                />
+              ))}
             </div>
           </section>
         </div>

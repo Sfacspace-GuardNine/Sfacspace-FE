@@ -102,7 +102,9 @@ export default function ListItem({ type, name, path }: TFileItemProps) {
           {type === "file" && <BookmarkButton isHovered={isHovered} />}
         </div>
       </div>
-      {status === "completed" && <ProgressBar value={50} />}
+      {status === "analyzing" && (
+        <ProgressBar value={fileDetails?.progress || 0} />
+      )}
     </div>
   );
 }
