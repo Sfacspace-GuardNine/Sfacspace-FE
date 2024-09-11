@@ -28,6 +28,7 @@ export default function LibraryFiles({ repos }: TLibraryFilesProps) {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage,
   );
+  console.log(currentRepos);
 
   const handlePageClick = (page: number) => {
     setCurrentPage(page);
@@ -47,9 +48,13 @@ export default function LibraryFiles({ repos }: TLibraryFilesProps) {
           <FileCard
             key={repo.id}
             title={repo.name}
-            caption={repo.description}
             link={`/my/library/groups/${repo.owner}/${repo.name}`}
-          />
+            variant="default"
+            createdAt={repo.created_at}
+            repoId={repo.id}
+          >
+            검사하기
+          </FileCard>
         ))}
       </div>
 
