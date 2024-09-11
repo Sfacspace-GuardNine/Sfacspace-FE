@@ -33,8 +33,6 @@ export default function ListItem({ type, name, path, sha }: TFileItemProps) {
   const isChecked = !!fileDetails;
   const status = fileDetails?.status;
 
-  console.log(fileDetails);
-
   const statusStyle = status && statusStyles[status];
 
   return (

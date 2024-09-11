@@ -112,10 +112,7 @@ const translateJSON = async (
 };
 
 export const useLamma = () => {
-  const {
-    selectedFiles,
-    setSelectedFiles, // 파일 내용을 가져오는 함수 가져오기
-  } = useGitContentsStore();
+  const { selectedFiles, setSelectedFiles } = useGitContentsStore();
 
   const onScan = async (
     code: string,
@@ -140,7 +137,9 @@ export const useLamma = () => {
 
       setSelectedFiles(
         selectedFiles.map((file) =>
-          file.path === fileId ? { ...file, progress: 25 } : file,
+          file.path === fileId
+            ? { ...file, status: "analyzing", progress: 25 }
+            : file,
         ),
       );
 
@@ -153,7 +152,9 @@ export const useLamma = () => {
 
       setSelectedFiles(
         selectedFiles.map((file) =>
-          file.path === fileId ? { ...file, progress: 50 } : file,
+          file.path === fileId
+            ? { ...file, status: "analyzing", progress: 50 }
+            : file,
         ),
       );
 
@@ -166,7 +167,9 @@ export const useLamma = () => {
 
       setSelectedFiles(
         selectedFiles.map((file) =>
-          file.path === fileId ? { ...file, progress: 75 } : file,
+          file.path === fileId
+            ? { ...file, status: "analyzing", progress: 75 }
+            : file,
         ),
       );
 
@@ -183,15 +186,15 @@ export const useLamma = () => {
 
       setSelectedFiles(
         selectedFiles.map((file) =>
-          file.path === fileId ? { ...file, progress: 90 } : file,
+          file.path === fileId
+            ? { ...file, status: "analyzing", progress: 90 }
+            : file,
         ),
       );
 
       setSelectedFiles(
         selectedFiles.map((file) =>
-          file.path === fileId
-            ? { ...file, status: "completed", progress: 100 }
-            : file,
+          file.path === fileId ? { ...file, status: "completed" } : file,
         ),
       );
 

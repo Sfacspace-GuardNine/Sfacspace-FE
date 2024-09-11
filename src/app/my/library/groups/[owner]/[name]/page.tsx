@@ -36,6 +36,7 @@ export default function AiAnalyzePage() {
 
   const {
     selectedFiles,
+    setSelectedFiles,
     fetchRepoContents,
     setRepoContents,
     fetchFileContent,
@@ -101,10 +102,11 @@ export default function AiAnalyzePage() {
             repoName,
             currentFile.path,
           );
-          console.log("펫취", fetchedVulnerabilities);
+
           if (!fetchedVulnerabilities) {
             return;
           }
+
           setVulnerabilities(fetchedVulnerabilities);
         } catch (error) {
           console.error("Error fetching vulnerabilities:", error);
@@ -125,26 +127,62 @@ export default function AiAnalyzePage() {
   // 검사하기 버튼 클릭 핸들러
   const handleScan = async () => {
     if (!selectedFiles || selectedFiles.length === 0) return;
-    console.log("검사하기", selectedFiles);
 
-    for (const file of selectedFiles) {
-      const code = await fetchFileContent(file.download_url); // 코드 가져오기
-      const userId = uid; // 사용자 ID 설정
-      const repoId = repoName; // 리포지토리 이름을 repoId로 사용
-      const fileId = file.path; // 파일 경로를 fileId로 사용
+    const updatedFiles = selectedFiles.map((file) => ({
+      ...file,
+      status: "pending" as Tstatus,
+    }));
+
+    await setSelectedFiles(updatedFiles);
+
+    for (const file of updatedFiles) {
+      const code = await fetchFileContent(file.download_url);
+      const userId = uid;
+      const repoId = repoName;
+      const fileId = file.path;
 
       if (typeof code === "string" && userId) {
-        try {
-          const isSaved = await onScan(code, userId, repoId, fileId); // onScan 함수 호출
-          console.log(`Result for file ${file.path}:`, isSaved); // 결과를 콘솔에 출력
-        } catch (error) {
-          console.error(`Error scanning file ${file.path}:`, error);
-        }
+        const isSaved = await onScan(code, userId, repoId, fileId);
+        console.log(`Result for file ${file.path}:`, isSaved);
       } else {
         console.error(
           `Invalid code for file ${file.path}. Expected a string but got ${typeof code}.`,
         );
       }
+    }
+  };
+
+  const renderAlert = () => {
+    switch (currentStatus) {
+      case "completed":
+        return (
+          <Alert
+            variant="complete"
+            isShow={true}
+            buttonChild="결과 보러가기"
+            linkHref="/"
+            className="absolute right-[12px] top-[13px]"
+          />
+        );
+      case "error":
+        return (
+          <Alert
+            variant="error"
+            isShow={true}
+            buttonChild="다시 시도하기"
+            className="absolute right-[12px] top-[13px]"
+          />
+        );
+      case "analyzing":
+        return (
+          <Alert
+            variant="ing"
+            isShow={true}
+            className="absolute right-[12px] top-[13px]"
+          />
+        );
+      default:
+        return null;
     }
   };
 
@@ -168,16 +206,7 @@ export default function AiAnalyzePage() {
           <section className={"w-full"}>
             {/* 코드 분석 영역 */}
             <div className={"relative mb-[60px] flex gap-7"}>
-              <Alert
-                title={currentStatus || "없음"}
-                line="2"
-                text1="순차적으로 파일 검사가 진행됩니다."
-                text2="다시 시도해주세요."
-                variant="error"
-                isShow={true}
-                buttonChild="다시 시도하기"
-                className="absolute right-[12px] top-[13px]"
-              />
+              {renderAlert()}
               <FileAnalyze code={curentCode} />
             </div>
 
