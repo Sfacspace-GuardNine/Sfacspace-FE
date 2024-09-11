@@ -41,7 +41,7 @@ export default function FileAnalyze({ className, code }: TFileAnalyzeProps) {
           className,
         )}
       >
-        {code ? <AnalyzingState code={code} /> : <WaitState />}
+        <pre>{code ? <AnalyzingState code={code} /> : <WaitState />}</pre>
       </div>
     </>
   );

@@ -59,43 +59,31 @@ const onDelete = async (userId: string, repoId: string, fileId: string) => {
   }
 };
 
-// const onLogOut = async (userId: string) => {
-//   try {
-//     // Query the collection to find documents matching the criteria
-//     const q = query(
-//       collection(db, "vulnerabilityReport"),
-//       where("userId", "==", userId),
-//     );
-
-//     // Fetch the documents
-//     const querySnapshot = await getDocs(q);
-
-//     // Iterate through the results and delete each document
-//     querySnapshot.forEach(async (docSnapshot) => {
-//       // Get the document reference
-//       const docRef = doc(db, "vulnerabilityReport", docSnapshot.id);
-
-//       // Delete the document
-//       await deleteDoc(docRef);
-//     });
-//   } catch (error) {
-//     console.error("Error deleting document: ", error);
-//   }
-// };
+const handleLogOutDB = async (userId: string) => {
+  try {
+    const q = query(
+      collection(db, "vulnerabilityReport"),
+      where("userId", "==", userId),
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (docSnapshot) => {
+      const docRef = doc(db, "vulnerabilityReport", docSnapshot.id);
+      await deleteDoc(docRef);
+    });
+  } catch (error) {
+    console.error("Error deleting document: ", error);
+  }
+};
 
 const onLib = async (userId: string, repoId: string) => {
   try {
-    // Query the collection to find documents that match userId, repoId, and fileId
     const q = query(
       collection(db, "vulnerabilityReport"),
       where("userId", "==", userId),
       where("repoId", "==", repoId),
     );
-
-    // Get the documents that match the query
     const querySnapshot = await getDocs(q);
     const files: string[] = [];
-    // Iterate through the documents and log the data
     querySnapshot.forEach((docSnapshot) => {
       const data = docSnapshot.data();
       files.push(data.fileId);
@@ -108,7 +96,6 @@ const onLib = async (userId: string, repoId: string) => {
 
 const onFile = async (userId: string, repoId: string, fileId: string) => {
   try {
-    // Query the collection to find documents that match userId, repoId, and fileId
     const q = query(
       collection(db, "vulnerabilityReport"),
       where("userId", "==", userId),
@@ -116,15 +103,12 @@ const onFile = async (userId: string, repoId: string, fileId: string) => {
       where("fileId", "==", fileId),
     );
 
-    // Get the documents that match the query
     const querySnapshot = await getDocs(q);
     const vulnerabilities: Vulnerability[] = [];
 
-    // Iterate through the documents
     querySnapshot.forEach((docSnapshot) => {
       const data = docSnapshot.data();
 
-      // Ensure data.vulnerabilities exists and is an array
       if (Array.isArray(data.vulnerabilities)) {
         data.vulnerabilities.forEach((vulnerability: Vulnerability) => {
           vulnerabilities.push(vulnerability); // Push each vulnerability to the array
@@ -137,4 +121,4 @@ const onFile = async (userId: string, repoId: string, fileId: string) => {
     console.error("Error fetching data: ", error);
   }
 };
-export { onScan, onLib, onFile, onDelete };
+export { onScan, onLib, onFile, onDelete, handleLogOutDB };
