@@ -33,8 +33,6 @@ export default function ListItem({ type, name, path, sha }: TFileItemProps) {
   const isChecked = !!fileDetails;
   const status = fileDetails?.status;
 
-  console.log(fileDetails);
-
   const statusStyle = status && statusStyles[status];
 
   return (
@@ -107,7 +105,9 @@ export default function ListItem({ type, name, path, sha }: TFileItemProps) {
           )}
         </div>
       </div>
-      {status === "completed" && <ProgressBar value={50} />}
+      {status === "analyzing" && (
+        <ProgressBar value={fileDetails?.progress || 0} />
+      )}
     </div>
   );
 }
