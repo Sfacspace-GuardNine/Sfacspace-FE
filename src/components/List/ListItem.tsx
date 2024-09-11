@@ -14,6 +14,7 @@ export type TFileItemProps = {
   type: "file" | "dir";
   name: string;
   path: string;
+  sha: string;
 };
 
 const statusStyles = {
@@ -24,13 +25,15 @@ const statusStyles = {
   error: { text: null, icon: "alert-triangle" },
 };
 
-export default function ListItem({ type, name, path }: TFileItemProps) {
+export default function ListItem({ type, name, path, sha }: TFileItemProps) {
   const [isHovered, setIsHovered] = useState(false);
   const { selectedFiles } = useGitContentsStore();
 
   const fileDetails = selectedFiles.find((file) => file.path === path);
   const isChecked = !!fileDetails;
   const status = fileDetails?.status;
+
+  console.log(fileDetails);
 
   const statusStyle = status && statusStyles[status];
 
@@ -99,7 +102,9 @@ export default function ListItem({ type, name, path }: TFileItemProps) {
               </span>
             </div>
           )}
-          {type === "file" && <BookmarkButton isHovered={isHovered} />}
+          {type === "file" && (
+            <BookmarkButton isHovered={isHovered} sha={sha} />
+          )}
         </div>
       </div>
       {status === "completed" && <ProgressBar value={50} />}
