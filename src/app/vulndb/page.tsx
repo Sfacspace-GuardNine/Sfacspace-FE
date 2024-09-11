@@ -11,7 +11,7 @@ import Pagination from "@/components/Pagination";
 import Ranking from "@/components/Ranking";
 import SuggestionChip from "@/components/SuggestionChip";
 import SearchBar from "@/components/VulnDB/SearchBar";
-import { getHotArticles, getNewArticles } from "@/server/article";
+import { getHotArticles, getNewArticles } from "@/server/article.action";
 
 const dummyItems = [
   "1. Topic",

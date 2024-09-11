@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 
+import Chatbot from "@/components/Chatbot/Chatbot";
 import Gnb from "@/components/Gnb";
 import { cn } from "@/utils/cn";
 
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body className={cn(inter.className, pretendard.variable, "select-none")}>
         <Gnb />
         {children}
+        <Chatbot />
       </body>
     </html>
   );

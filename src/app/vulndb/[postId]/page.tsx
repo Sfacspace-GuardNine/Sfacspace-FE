@@ -9,7 +9,7 @@ import Image from "next/image";
 import Floating from "@/components/Floating";
 import SmallCard from "@/components/SmallCard";
 import SuggestionChip from "@/components/SuggestionChip";
-import { getArticleDetails } from "@/server/article";
+import { getArticleDetails } from "@/server/article.action";
 
 const dummyPosts = [
   {
