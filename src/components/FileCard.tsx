@@ -1,45 +1,113 @@
-import React, { ComponentProps } from "react";
+import React, { HTMLAttributes, useState } from "react";
 
+import dayjs from "dayjs";
+import Image from "next/image";
 import Link from "next/link";
 
 import AssistChip from "@/components/AssistChip";
-import ThreeDotDropDown from "@/components/ThreeDotDropDown";
+import { cn } from "@/utils/cn";
+
+import BookmarkButton from "./my/BookmarkButton";
 
 type TFileCardProps = {
-  variant?: "detected" | "default";
+  variant?: "detected" | "detecting" | "default";
   title: string;
-  caption: string;
   link: string;
-} & Omit<ComponentProps<typeof Link>, "href">;
+  repoId: string;
+  createdAt: string;
+  children: React.ReactNode;
+} & HTMLAttributes<HTMLDivElement>;
 
 function FileCard({
   variant = "default",
   title,
-  caption,
   link,
+  repoId,
+  createdAt,
+  children,
   ...rest
 }: TFileCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const dateStr = createdAt;
+  const formattedDate = dayjs(dateStr).format("YY.MM.DD");
+
   return (
     <>
-      <Link
+      <div
         className={
-          "flex h-[200px] flex-col justify-between rounded-xl border border-primary-100 p-5 hover:bg-primary-50"
+          "flex h-[200px] flex-col justify-between rounded-xl border border-primary-100 p-5 hover:bg-background-purpleLight"
         }
-        href={link}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         {...rest}
       >
         <div className="flex justify-between">
-          <AssistChip
-            text="Label"
-            variant={variant === "detected" ? "outline" : "default"}
-          />
-          <ThreeDotDropDown />
+          <div className="flex flex-col">
+            {variant !== "default" && (
+              <AssistChip
+                text={
+                  variant === "detected"
+                    ? "검사완료"
+                    : variant === "detecting"
+                      ? "검사중"
+                      : ""
+                }
+                variant={
+                  variant === "detected" || variant === "detecting"
+                    ? "fill"
+                    : "default"
+                }
+                className={
+                  variant === "detected"
+                    ? "h-[38px] w-[79px] bg-primary-50 bg-opacity-100 font-pretendard font-medium text-primary-500"
+                    : variant === "detecting"
+                      ? "h-[38px] w-[66px] bg-background-grayLight bg-opacity-100 font-pretendard font-medium text-[#969696]"
+                      : ""
+                }
+              />
+            )}
+            <p className="line-clamp-1 max-w-[205px] text-[28px]">{title}</p>
+          </div>
+
+          <div className="h-12 w-12 items-center rounded-[12px] bg-white p-[10px]">
+            <BookmarkButton
+              isHovered={isHovered}
+              width={28}
+              height={27}
+              variant="light"
+              repoId={repoId}
+            />
+          </div>
         </div>
-        <div className="flex flex-col gap-[10px]">
-          <p className="line-clamp-1 text-[28px]">{title}</p>
-          <p className="line-clamp-1 text-[#969696]">{caption}</p>
+        <div className="flex items-baseline justify-between">
+          <Link href={link}>
+            <button
+              className={cn(
+                "flex h-12 w-[146px] items-center justify-between rounded-[14px] bg-[#6100FF] p-[10px] text-white",
+                variant === "detected" && "bg-neutral-100",
+              )}
+            >
+              <Image
+                src="/images/detector-logo.svg"
+                alt="디텍터 로고"
+                width={24}
+                height={24}
+              />
+              {children}
+              <Image
+                src="/images/filecard-caretright.svg"
+                alt="캐럿라이트"
+                width={24}
+                height={24}
+              />
+            </button>
+          </Link>
+          <div>
+            <p>{formattedDate}</p>
+          </div>
         </div>
-      </Link>
+      </div>
     </>
   );
 }
