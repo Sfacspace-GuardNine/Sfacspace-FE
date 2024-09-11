@@ -91,6 +91,7 @@ const List = ({ setCurrentFile }: TListProps) => {
         key={item.path}
         name={item.name}
         path={item.path}
+        sha={item.sha}
       />
     </div>
   );
@@ -111,6 +112,7 @@ const List = ({ setCurrentFile }: TListProps) => {
             key={item.path}
             name={item.name}
             path={item.path}
+            sha={item.sha}
           />
         </div>
         {isExpanded && children && (

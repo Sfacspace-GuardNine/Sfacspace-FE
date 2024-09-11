@@ -24,6 +24,7 @@ type TSelectedFile = {
   progress: number;
   status: Tstatus;
   repoName: string;
+  download_url: string;
 };
 
 type GitContentsStore = {
@@ -43,6 +44,7 @@ type GitContentsStore = {
     file: TRepoContentItem;
     repoName: string;
   }) => void;
+  setSelectedFiles: (files: TSelectedFile[]) => void;
 };
 
 const useGitContentsStore = create(
@@ -110,6 +112,7 @@ const useGitContentsStore = create(
               status: "none",
               progress: 0,
               repoName,
+              download_url: file.download_url,
             },
           ],
         });
@@ -134,6 +137,10 @@ const useGitContentsStore = create(
       } catch (error) {
         console.error("파일을 불러오는데 실패했습니다.", error);
       }
+    },
+
+    setSelectedFiles: (files: TSelectedFile[]) => {
+      set({ selectedFiles: files });
     },
   })),
 );

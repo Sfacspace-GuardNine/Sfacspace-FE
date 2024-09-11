@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { auth } from "@/firebase";
 import { db } from "@/firebase";
 import useGitRepoStore from "@/stores/useGitRepoStore";
+import { handleLogOutDB } from "@/utils/save2db";
 
 export const useAuth = () => {
   const router = useRouter();
@@ -63,13 +64,21 @@ export const useAuth = () => {
   const handleLogOut = async () => {
     setIsLoading(true);
     try {
+      const user = auth.currentUser; // 현재 로그인한 사용자 가져오기
+      const uid = user?.uid; // 사용자 ID 가져오기
+
       await auth.signOut();
 
       await fetch("/api/logout", {
         method: "POST",
       });
 
+      if (uid) {
+        handleLogOutDB(uid); // 로그아웃 시 사용자 ID 전달
+      }
+
       setIsLoading(false);
+
       router.push("/login");
     } catch (error) {
       console.error("로그아웃 오류:", error);

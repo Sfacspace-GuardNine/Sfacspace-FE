@@ -9,6 +9,7 @@ import Link from "next/link";
 import LibraryFiles from "@/components/my/LibraryFiles";
 import SortFiles from "@/components/my/SortFiles";
 import { auth } from "@/firebase";
+import useBookmarkStore from "@/stores/useBookmarkStore";
 import useGitRepoStore from "@/stores/useGitRepoStore";
 import { TUser } from "@/type/user";
 
@@ -16,6 +17,8 @@ export default function MyLibraryPage() {
   const [user, setUser] = useState<TUser>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { repositories, fetchRepositories } = useGitRepoStore();
+  const { bookmarks } = useBookmarkStore();
+  const [isShowBookmarks, setIsShowBookmarks] = useState<boolean>(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -48,11 +51,16 @@ export default function MyLibraryPage() {
     description: repo.description,
     created_at: repo.created_at,
     owner: repo.owner.login,
+    isBookmarked: bookmarks.repos.includes(repo.id),
   }));
 
   if (isLoading) {
     return <div>로딩중...</div>;
   }
+
+  const handleBookmarkToggle = () => {
+    setIsShowBookmarks((prev) => !prev);
+  };
 
   return (
     <>
@@ -112,10 +120,39 @@ export default function MyLibraryPage() {
                 />
               </Link>
             </div>
-            <hr className={"my-[80px] h-[1px] border-0 bg-[#BABABA]"} />
+            {/* <hr className={"my-[80px] h-[1px] border-0 bg-[#BABABA]"} /> */}
+            <div className="my-7 flex w-full gap-[21px] font-pretendard text-[20px] font-medium text-[#3F3F3F]">
+              <button className="flex h-[60px] w-1/2 items-center justify-center gap-[13.5px] rounded-[12px] border border-[#E6E6E6]">
+                <Image
+                  src="/images/folder-recent.svg"
+                  alt="최근폴더"
+                  width={28}
+                  height={28}
+                />
+                <p>Recent File</p>
+              </button>
+              <button
+                onClick={handleBookmarkToggle}
+                className="flex h-[60px] w-1/2 items-center justify-center gap-[13.5px] rounded-[12px] border border-[#E6E6E6]"
+              >
+                <Image
+                  src="/images/folder-bookmarked.svg"
+                  alt="북마크폴더"
+                  width={28}
+                  height={28}
+                />
+                <p>Bookmark</p>
+              </button>
+            </div>
 
             <SortFiles />
-            <LibraryFiles repos={reposData} />
+            <LibraryFiles
+              repos={
+                isShowBookmarks
+                  ? reposData.filter((repo) => repo.isBookmarked)
+                  : reposData
+              }
+            />
           </div>
         </main>
       </div>

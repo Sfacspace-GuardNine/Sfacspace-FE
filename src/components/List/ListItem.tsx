@@ -14,6 +14,7 @@ export type TFileItemProps = {
   type: "file" | "dir";
   name: string;
   path: string;
+  sha: string;
 };
 
 const statusStyles = {
@@ -24,7 +25,7 @@ const statusStyles = {
   error: { text: null, icon: "alert-triangle" },
 };
 
-export default function ListItem({ type, name, path }: TFileItemProps) {
+export default function ListItem({ type, name, path, sha }: TFileItemProps) {
   const [isHovered, setIsHovered] = useState(false);
   const { selectedFiles } = useGitContentsStore();
 
@@ -99,10 +100,14 @@ export default function ListItem({ type, name, path }: TFileItemProps) {
               </span>
             </div>
           )}
-          {type === "file" && <BookmarkButton isHovered={isHovered} />}
+          {type === "file" && (
+            <BookmarkButton isHovered={isHovered} sha={sha} />
+          )}
         </div>
       </div>
-      {status === "completed" && <ProgressBar value={50} />}
+      {status === "analyzing" && (
+        <ProgressBar value={fileDetails?.progress || 0} />
+      )}
     </div>
   );
 }

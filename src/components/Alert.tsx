@@ -9,10 +9,6 @@ import { cn } from "./../utils/cn";
 import Button from "./Button";
 
 type TAlertProps = {
-  title: string;
-  line: "1" | "2";
-  text1: string;
-  text2?: string;
   variant: "info" | "error" | "ing" | "complete";
   isShow: boolean;
   buttonChild?: React.ReactNode;
@@ -21,11 +17,42 @@ type TAlertProps = {
   className?: string;
 };
 
+const variantSettings = {
+  info: {
+    title: "검사 대기중",
+    line: "1",
+    text1: "순차적으로 파일 검사가 진행됩니다.",
+    text2: "잠시만 대기해주시면 검사가 시작됩니다.",
+    icon: "/icons/hourglass-icon.svg",
+    iconClassName: "animate-spin",
+  },
+  error: {
+    title: "Error",
+    line: "2",
+    text1: "오류가 발생했습니다.",
+    text2: "다시 시도해주세요.",
+    icon: "/icons/alert-error-icon.svg",
+    iconClassName: null,
+  },
+  ing: {
+    title: "검사 중",
+    line: "1",
+    text1: "코드가 많을수록 처리시간이 길어집니다.",
+    icon: "/icons/ing-icon.svg",
+    iconClassName: "animate-spin",
+    text2: null,
+  },
+  complete: {
+    title: "프로젝트 검사 완료",
+    line: "1",
+    text1: "검사결과를 확인해보세요.",
+    text2: null,
+    icon: "/icons/alert-check-icon.svg",
+    iconClassName: null,
+  },
+};
+
 export default function Alert({
-  title,
-  line,
-  text1,
-  text2,
   variant,
   isShow,
   buttonChild,
@@ -35,55 +62,13 @@ export default function Alert({
 }: TAlertProps) {
   const [isAlertDisplayed, setIsAlertDisplayed] = useState(true);
 
-  if (!isAlertDisplayed) return null;
+  if (!isAlertDisplayed || !isShow) return null;
 
-  const renderIcon = () => {
-    switch (variant) {
-      case "info":
-        return (
-          <Image
-            src="/icons/hourglass-icon.svg"
-            alt="검사 대기중"
-            width={27}
-            height={39}
-            className="animate-spin"
-          />
-        );
-      case "error":
-        return (
-          <Image
-            src="/icons/alert-error-icon.svg"
-            alt="얼럿 에러"
-            width={39}
-            height={39}
-          />
-        );
-      case "ing":
-        return (
-          <Image
-            src="/icons/ing-icon.svg"
-            alt="검사 중"
-            width={36}
-            height={36}
-            className="animate-spin"
-          />
-        );
-      case "complete":
-        return (
-          <Image
-            src="/icons/alert-check-icon.svg"
-            alt="검사완료"
-            width={39}
-            height={39}
-          />
-        );
-      default:
-        return null;
-    }
-  };
+  const { title, line, text1, text2, icon, iconClassName } =
+    variantSettings[variant];
 
   const renderButton = () => {
-    if (!isShow || !buttonChild) return null;
+    if (!buttonChild) return null;
 
     if (linkHref) {
       return (
@@ -117,7 +102,13 @@ export default function Alert({
     >
       <div className="flex gap-[18px]">
         <div className="flex w-12 items-start justify-center">
-          {renderIcon()}
+          <Image
+            src={icon}
+            alt={title}
+            width={36}
+            height={36}
+            className={iconClassName || ""}
+          />
         </div>
         <div className="mt-[10px] w-[314px] font-medium">
           <p className="mb-4 text-[20px] font-medium">{title}</p>
