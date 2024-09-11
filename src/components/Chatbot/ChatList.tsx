@@ -65,6 +65,7 @@ export default function ChatList({ className, uid }: TChatListProps) {
 
   useEffect(() => {
     const chatBody = document.querySelector("#chat_body");
+
     if (chatBody) {
       chatBody.scrollTop = chatBody.scrollHeight;
     }
