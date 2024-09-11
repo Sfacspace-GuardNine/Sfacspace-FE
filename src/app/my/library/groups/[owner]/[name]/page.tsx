@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useParams } from "next/navigation";
 
+import Alert from "@/components/Alert";
 import Button from "@/components/Button";
 import InfoBoxDetail from "@/components/InfoBoxDetail";
 import List from "@/components/List/List";
 import NewInfoBox from "@/components/NewInfoBox";
 import TitleDefault from "@/components/TitleDefault";
+import FileAnalyze from "@/components/my/FileAnalyze";
 import { auth } from "@/firebase";
 import { useLamma } from "@/hooks/useLamma";
 import useGitContentsStore, {
@@ -82,7 +84,6 @@ export default function AiAnalyzePage() {
         const content = await fetchFileContent(currentFile.download_url);
         if (content) {
           setCurrentCode(content);
-          console.log(curentCode);
         }
       } catch (error) {
         console.error(error);
@@ -112,7 +113,14 @@ export default function AiAnalyzePage() {
     };
 
     fetchVulnerabilities();
-  }, [currentFile, selectedFiles, fetchFileContent]);
+  }, [
+    currentFile,
+    selectedFiles,
+    fetchFileContent,
+    currentStatus,
+    uid,
+    repoName,
+  ]);
 
   // 검사하기 버튼 클릭 핸들러
   const handleScan = async () => {
@@ -159,7 +167,7 @@ export default function AiAnalyzePage() {
         <div className={"flex flex-1 pb-[125px]"}>
           <section className={"w-full"}>
             {/* 코드 분석 영역 */}
-            {/* <div className={"relative mb-[60px] flex gap-7"}>
+            <div className={"relative mb-[60px] flex gap-7"}>
               <Alert
                 title={currentStatus || "없음"}
                 line="2"
@@ -171,7 +179,7 @@ export default function AiAnalyzePage() {
                 className="absolute right-[12px] top-[13px]"
               />
               <FileAnalyze code={curentCode} />
-            </div> */}
+            </div>
 
             {/* 수정된 코드 영역 */}
             <div className={"flex flex-col gap-7"}>
