@@ -7,25 +7,24 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import FileCard from "@/components/FileCard";
-
+// import FileCard from "@/components/FileCard";
 import "../../styles/swiper-navigation.css";
 
 export default function DetectedFiles() {
-  const dummyData = [
-    { label: "label", name: "소속 파일" },
-    { label: "label", name: "소속 파일" },
-    { label: "label", name: "소속 파일" },
-    { label: "label", name: "소속 파일" },
-    { label: "label", name: "소속 파일" },
-    { label: "label", name: "소속 파일" },
-    { label: "label", name: "소속 파일" },
-    { label: "label", name: "소속 파일" },
-    { label: "label", name: "소속 파일" },
-    { label: "label", name: "소속 파일" },
-    { label: "label", name: "소속 파일" },
-    { label: "label", name: "소속 파일" },
-  ];
+  // const dummyData = [
+  //   { label: "label", name: "소속 파일" },
+  //   { label: "label", name: "소속 파일" },
+  //   { label: "label", name: "소속 파일" },
+  //   { label: "label", name: "소속 파일" },
+  //   { label: "label", name: "소속 파일" },
+  //   { label: "label", name: "소속 파일" },
+  //   { label: "label", name: "소속 파일" },
+  //   { label: "label", name: "소속 파일" },
+  //   { label: "label", name: "소속 파일" },
+  //   { label: "label", name: "소속 파일" },
+  //   { label: "label", name: "소속 파일" },
+  //   { label: "label", name: "소속 파일" },
+  // ];
 
   return (
     <>
@@ -39,20 +38,20 @@ export default function DetectedFiles() {
         >
           <SwiperSlide>
             <div className={"grid w-full grid-cols-4 gap-6"}>
-              {dummyData.map((value, index) => (
+              {/* {dummyData.map((value, index) => (
                 <FileCard
                   title={value.name}
-                  caption={value.name}
                   link={""}
-                  variant={"detected"}
-                  key={index}
+                  variant="detected"
+                  createdAt={created_at}
+                  repoId={id}
                 />
-              ))}
+              ))} */}
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className={"grid w-full grid-cols-4 gap-6"}>
-              {dummyData.map((value, index) => (
+              {/* {dummyData.map((value, index) => (
                 <FileCard
                   title={value.name}
                   caption={value.name}
@@ -60,7 +59,7 @@ export default function DetectedFiles() {
                   variant={"detected"}
                   key={index}
                 />
-              ))}
+              ))} */}
             </div>
           </SwiperSlide>
         </Swiper>
