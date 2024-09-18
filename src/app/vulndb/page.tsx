@@ -3,14 +3,18 @@
 import { useEffect, useState } from "react";
 
 import { DocumentData, QueryDocumentSnapshot } from "@firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import CardHovered from "@/components/CardHovered";
 import OnlyCard from "@/components/OnlyCard";
 import Pagination from "@/components/Pagination";
 import Ranking from "@/components/Ranking";
 import SuggestionChip from "@/components/SuggestionChip";
+import NoData from "@/components/VulnDB/NoData";
 import SearchBar from "@/components/VulnDB/SearchBar";
+import { db } from "@/firebase";
 import { getHotArticles, getNewArticles } from "@/server/article.action";
 
 const dummyItems = [
@@ -29,7 +33,7 @@ const dummyItems = [
 export default function VulnDBPage({
   searchParams,
 }: {
-  searchParams: { types: "hot" | "new"; page: number };
+  searchParams: { types: "hot" | "new"; page: number; keyword?: string };
 }) {
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const [data, setData] = useState<DocumentData[]>([]);
@@ -37,6 +41,8 @@ export default function VulnDBPage({
   const [currentPage, setCurrentPage] = useState(1);
   const [lastVisible, setLastVisible] =
     useState<QueryDocumentSnapshot<DocumentData> | null>(null);
+  const [searchResults, setSearchResults] = useState<DocumentData[]>([]);
+  const router = useRouter();
 
   const handlePageButton = (page: number) => {
     setCurrentPage(() => page);
@@ -70,6 +76,32 @@ export default function VulnDBPage({
     }
   }, [searchParams, currentPage]);
 
+  const handleSearch = (keyword: string) => {
+    if (keyword) {
+      router.push(`/vulndb?types=${articleTypes}&keyword=${keyword}`);
+    }
+  };
+
+  useEffect(() => {
+    const keyword = searchParams.keyword;
+    if (keyword) {
+      const q = query(
+        collection(db, "articles"),
+        where("title", ">=", keyword),
+        where("title", "<=", keyword + "\uf8ff"),
+      );
+      getDocs(q).then((resSnap) => {
+        const results = resSnap.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }));
+        setSearchResults(results);
+      });
+    } else {
+      setSearchResults([]);
+    }
+  }, [searchParams.keyword]);
+
   return (
     <div className="mt-[13px]">
       <main className="container mx-auto max-w-[1314px]">
@@ -90,40 +122,60 @@ export default function VulnDBPage({
                 ))}
           </div>
 
-          <SearchBar />
+          <SearchBar onSearch={handleSearch} />
 
           <div className="flex w-full justify-between">
             <div className="flex w-full max-w-[865px] flex-col gap-[16px]">
               <span className="text-2xl font-semibold">취약점DB</span>
-              <div className="flex gap-[12px]">
-                <Link href={"/vulndb?types=hot"}>
-                  <SuggestionChip
-                    variant="hot"
-                    text="HOT"
-                    isDisabled={articleTypes !== "hot"}
-                  />
-                </Link>
-                <Link href={"/vulndb?types=new"}>
-                  <SuggestionChip
-                    variant="new"
-                    text="NEW"
-                    isDisabled={articleTypes !== "new"}
-                  />
-                </Link>
-              </div>
-              <div className="flex flex-col gap-[16px]">
-                {data.map((item) => (
-                  <Link href={`/vulndb/${item.id}`} key={item.id}>
-                    <OnlyCard
-                      title={item.data.title}
-                      type={articleTypes}
-                      description={item.data.content_text.slice(0, 100)}
-                      publishedAt={item.data.published_at}
-                      source={item.data.source.toUpperCase()}
-                    />
-                  </Link>
-                ))}
-              </div>
+              {searchParams.keyword ? (
+                searchResults.length === 0 ? (
+                  <NoData />
+                ) : (
+                  searchResults.map((item) => (
+                    <Link href={`/vulndb/${item.id}`} key={item.id}>
+                      <OnlyCard
+                        title={item.data.title}
+                        type="search"
+                        description={item.data.content_text.slice(0, 100)}
+                        publishedAt={item.data.published_at}
+                        source={item.data.source.toUpperCase()}
+                      />
+                    </Link>
+                  ))
+                )
+              ) : (
+                <>
+                  <div className="flex gap-[12px]">
+                    <Link href={"/vulndb?types=hot"}>
+                      <SuggestionChip
+                        variant="hot"
+                        text="HOT"
+                        isDisabled={articleTypes !== "hot"}
+                      />
+                    </Link>
+                    <Link href={"/vulndb?types=new"}>
+                      <SuggestionChip
+                        variant="new"
+                        text="NEW"
+                        isDisabled={articleTypes !== "new"}
+                      />
+                    </Link>
+                  </div>
+                  <div className="flex flex-col gap-[16px]">
+                    {data.map((item) => (
+                      <Link href={`/vulndb/${item.id}`} key={item.id}>
+                        <OnlyCard
+                          title={item.data.title}
+                          type={articleTypes}
+                          description={item.data.content_text.slice(0, 100)}
+                          publishedAt={item.data.published_at}
+                          source={item.data.source.toUpperCase()}
+                        />
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
 
             <div className="hidden lg:block lg:w-auto">

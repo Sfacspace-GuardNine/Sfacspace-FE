@@ -49,15 +49,16 @@ function OnlyCard({
   return (
     <div className={boxClass}>
       <div className="flex pb-3">
-        {type === "hot" ? (
-          <SuggestionChip
-            text="HOT"
-            variant="hot"
-            className="h-[35px] w-[59px]"
-          />
-        ) : (
-          <SuggestionChip text="NEW" variant="new" />
-        )}
+        {type !== "search" &&
+          (type === "hot" ? (
+            <SuggestionChip
+              text="HOT"
+              variant="hot"
+              className="h-[35px] w-[59px]"
+            />
+          ) : (
+            <SuggestionChip text="NEW" variant="new" />
+          ))}
         <p className="truncate pl-2 pt-[11px] text-[20px] font-semibold leading-6">
           {title}
         </p>
